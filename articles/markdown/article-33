@@ -1,0 +1,91 @@
+# The Problem of Images
+
+## Required and Possible Image Uses
+
+The system currently documents a single image to be attached to :
+
+- Users 
+   - table schema does not provide the link though ImagesTable has the association
+- Members
+    - members belongsTo Images
+    - images has One members
+- Artworks
+    - artworks belongsTo Images
+    - images has One artworks
+- Formats
+    - formats belongsTo Images
+    - images has One formats
+
+In reality, I think the one essential image link will be to Pieces. And this would need to be in multiples, not single links like those defined so far. This would document the actual work, its details such as where it is signed etc.
+
+So, the problem is multi-fold
+
+- What image links should we make
+- What image management features will we provide
+- What kind of schema can we make to accomplish our goals
+
+The information above outlines the current association landscape.
+
+As to implementation:
+
+- Artwork linked images are assumed to be primary
+    - If they exist and no Format linked image exists, the artwork is used
+- If no image is available, an abstract filler image is used
+- No features are provided to include either User or Member images and no display code exists even if they could be added.
+
+## Possible schema
+
+It seems clear we're going to want image links to multiple tables. And that at least one of the tables will need to link one-to-many (record-to-images).
+
+### Multiple Image Tables
+
+With many tables linking images we could create more than one images table and link each to a table.
+
+Redundant, but with careful Table design, we might be able to use a single parent table class to do most of the work and use concrete classes to target the proper SQL table and set other config values.
+
+We could even do the same kind of thing with the Controller. Or use a Component or Trait to cover the 90% commonality.
+
+### Single Table, Multiple Classes
+
+If we're doing all that work to make classes that handle the different association use cases, we could just go with a single table and point all the code classes to it.
+
+But here we run afoul of many, or duplicate uses of the foreign keys.
+
+Most usually, the one-to-many—in our cases Pieces hasMany Images/Images belongsTo Pieces—would put a `piece_id` key in the Images table.
+
+But if other classes need a similar linking—Artworks for example—do we want to have multiple foreign keys in the pieces? Things could get messy if there are more uses like this.
+
+No good has ever come of making objects that serve more than one purpose.
+
+#### A rainbow in the oil slick?
+
+But, such a scheme would let the same image supply multiple uses.
+
+But imagine the image management nightmare when an interface for Artworks offers to delete an image... which is supplying a  Piece or Format.
+
+No. One image, one consumer; regardless of the available keys.
+
+### A multi-use key?
+
+We can't just reuse the foreign key in Images because the contained key value would match a number of different records.
+
+But we could have a second column that told what table to link to with the key.
+
+This plan is not Cake-standard.
+
+### Join tables all around?
+
+These join tables are very light weight. And though this is a bit sideways to Cake standards, with careful design, we could probably coerce the HABTM to appear like other link types in the interface.
+
+And the use of StackEntity objects localizes the code to fetch the images. We could package things in the stack in any way we want.
+
+## Preliminary Conclusions
+
+I'm leaning toward two of the solutions. I think the final choice is going to wait until more use-case details are know.
+
+1. A single table with multiple conventions-conforming associations even if that means multiple foreign keys in Images.
+2. Join tables for everything and make the interface and stack objects hide the deviation from convention.
+
+Whichever path we take, to remain sane we're going to have to insure one image, one use. If another use is needed for the image, the image and record should be cloned and linked. NO REUSE!
+
+Topic: Studio manager
