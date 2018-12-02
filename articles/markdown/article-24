@@ -1,0 +1,110 @@
+# Editing Users and Artists
+
+There are three linked tables involved in determining:
+ 
+- Which **members** are classified as **artists**
+- Which **user** can manage which **artists**
+
+## The foundation
+
+Only register users can edit. These registered users may or may not be artists. But either way, they will all have two required and linked records; **user** and **member**.
+
+### Registered User: the most basic required unit
+Before we look at the details of defining who is an artist in the system, we need to look at the required structure of a registered user since these are the only people that can manage artist data and, indeed, they are the only people that can use the system.
+
+![Required user/member record structure](http://g.origamistructures.com/w_img/RequiredUserMember.png)
+
+The `member::user_id` to `user::id` link is a universally required link. It will be present in every record of every kind that was created by the user. It establishes ownership for all system data.
+
+The `user::member_id` to `member::id` link identifies the one **member** record that allows the user to keep additional personal contact information beyond that required for system registration.
+
+#### Role of the User record
+
+The **user** record carries sensitive information specific to a registered users subscription to the service. It contains just enough contact information to allow the system operators to identify and contact the user. Under no circumstances should this data be accessible to anyone except the user herself and the system administrator. 
+
+#### Role of the Member record that hasOne User
+
+Though system subscribers may create any number of **member** records, the **member** record linkage illustrated is unique. This record carries all the user address and contact data they wish to record.
+
+In this simple case, the `member::is_artist` property would be set to false.
+
+<aside>Policy needed: Do we want to allow system managers access to this personal user data?</aside>
+
+Because these two records must always exist together and with exactly this link pattern, in the subsequent diagrams they will be shown like this:
+
+![Required user/member record structure](http://g.origamistructures.com/w_img/UserMember.png)
+
+## Identifying Member records that represent Artists
+
+While reviewing these next examples remember, in addition to the one required  **member** record, users may also create any number of additional members records that represent people and institutions; essentially a little black book of contacts.
+
+![Self Managing Aritst](http://g.origamistructures.com/w_img/UserWithMembers.png)
+
+### Self Editing User/Artists
+
+The most common scenario will probably be a registered user who is an artist that wants to manage their own artwork.
+
+This diagram illustrates the record pattern that identifies an **artist**. It also illustrates the specific case where a **user** defines their self as an artist. 
+
+![Self Managing Aritst](http://g.origamistructures.com/w_img/SelfManagingAritst.png)
+
+The `artist::user_id` to `user::id` link is another example of the universally required link for all a user's records. This is the one link that allows the user to find the artists they can manage.
+
+`artist::member_id` to `member::id` is the link that defines a **member** as an **artist**
+
+Though it could be used as a link, `artist::member_owner_id` to `member::user_id` isn't ever used in a query. It actually represents one datum that is transferred from **member** to **artist**. This value will allow us to detect from the **artist** record whether the user is holding a link to one of their own, or another registered user's records.
+
+```php
+// In the Artist entity
+
+public funciton self() {
+    return $this->user_id === $this->member_owner_id;
+}
+```
+Also, at the time when the **artist** to **member** connection is made, The `member::is_artist` boolean property must be set to TRUE. 
+
+This property and the `artist::self()` method are needed because we can't guarantee that in every situation we will have both entities to do the status checks. But it means our code must not fail to set these values so the entities can be self aware.
+
+Because it doesn't participate in queries, this link won't be shown in the diagrams below.
+
+#### Role of the Artist Record
+
+The **artist** record both identifies the **members** that are artists and allows the user to collect her artists as a set, separate from all other **member** records.
+
+### Users that edit non-registered artists
+
+Now consider the case where a gallery owner wants to track the artwork of one of his client artists. This artist has no interest in data tracking, so the gallery owner registers as a user, creates a **member** record representing his artist, and manages all her data.
+
+The gallery owner is not an artist himself.
+
+![Self Managing Aritst](http://g.origamistructures.com/w_img/UserManageNonSelfNonRegisteredArtist.png)
+
+There are no new elements in this case. The only difference from the [self editing user/artist](#self-editing-user-artists) case is which **member** record is attached to the **artist** record. In this case it is one that is NOT the single, required user-linked member.
+
+### Users that edit other registered User/Artists
+
+Now consider that the gallery owner's client artist DOES want to manage her own artwork, but also wishes to allow the gallery owner to help keep the data current.
+
+She would register with the system in a process that created the [self editing user/artist pattern](self-editing-user-artists). 
+
+The gallery owner would also register with the system and identify her **member** record as his **artist**.
+
+![Self Managing Aritst](http://g.origamistructures.com/w_img/UserManagingAnotherUsersArtist.png)
+
+The key difference here is that the **member** record that depends from the **artist** record is owned by a user other than the user that owns the **artist** record.
+
+For a more complete illustration of this scenario consider this diagram.
+
+![Self Managing Aritst](http://g.origamistructures.com/w_img/SharedArtistManagement.png)
+
+<aside>Policy needed: Once we've established <strong>management permission</strong> do we allow the manager to edit ALL data? At the very least, we have to keep them out of the user record. But is that the only off-limit space?</aside>
+
+## From issue 120
+
+We may need a switch that can turn on edit-logging for a user. This came up in a consideration of an artist manager who is working on records of an artist who is also a registered system user (and so, an editor of their own records).
+
+A limit-check system must control how many Artist records a given user can create or link. See the discussion in issuer 120's **Problem 1: Associating Manager to Managed Artists** section
+
+In addition to `SystemState::aritstId()` which responds returns a registered artist/user's id, and a artist manager's chosen set of managed artist's IDs, well also need a method that always returns the full set of managed artist's IDs. The reasons are described in issue 120's **Insuring access to managed artists** section.
+
+Topics: Studio Manager, Artist, User
