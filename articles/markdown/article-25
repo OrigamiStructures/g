@@ -1,0 +1,265 @@
+# Interacting with Layer Objects
+
+Layers are designed to work with one dimensional arrays containing one entity in each value. The entities must all be of the same class. 
+ 
+Layers are used extensively in [StackEntities](/article/interacting-with-stackentities). Collections of StackEntities are contained in [StackSet Objects](/article/interacting-with-stackset-objects). Both the classes extend the Layer interface up the chain to present a consistent pattern of data access.
+
+You can also see the [apigen docs](/apigen/class-App.Lib.Layer.html) which include the source code.
+
+##Constructing a new layer
+
+`public __construct( array $entities = [], string $type = NULL )`
+
+At a minimum, you must provide an array of entities and each entity must have an accessible `id` property.
+
+```php
+// This is the proper kind of content for a layer
+$entities = [
+	(int) 0 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 8,
+		'type' => 'loan',
+	},
+	(int) 1 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 23,
+		'type' => 'loan',
+	},	
+        (int) 2 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 40,
+		'type' => 'transfer',
+	},
+]
+```
+
+The class will attempt to set its `name` property to the lower case version (`lcfirst()`) of the entity class. 
+
+If the array is empty, the class will look for the string `$name` argument. If present, its `lcfirst()` version will be used as the layer name.
+
+If neither is available, an exception will be thrown.
+
+The array will be stored in a protected property as an array with indexes matching the `id` property of the stored entities. The sample data above will be stored as:
+
+```php
+// This is the proper kind of content for a layer
+$entities = [
+	(int) 8 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 8,
+		'type' => 'loan',
+	},
+	(int) 23 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 23,
+		'type' => 'loan',
+	},	
+        (int) 40 => object(App\Model\Entity\Disposition) {
+		'id' => (int) 40,
+		'type' => 'transfer',
+	},
+]
+```
+
+## Class property introspection methods
+ 
+### name( )
+
+
+`public name( )`
+
+Get the name of to layer, derived during `__construct()`.
+
+### entityClass( )
+
+`public entityClass( )`
+
+Return the class name of the stored entity type (striped of namespace).
+
+### integer count( )
+
+`public integer count( )`
+
+The count of stored entities
+
+## Verifying object content
+
+### has( )
+
+`public boolean has( string $id )`
+
+Does the set contain an entity with `entity->id = $id`
+
+### isClean( )
+
+`public boolean isClean( )`
+
+Are are all the entities ` NOT dirty() `
+
+There are no plans at this point for the StackEntities that contain Layer objects to participate in editing processes. But it could happen. And in any case, Layer objects are generally useful and can be passed around in variables. So the future of this method is yet to be written.
+
+If it comes into play, we'll probably need to write a method that can return the dirty entities. (Code needed)
+
+### _verifyProperty( )
+
+`protected boolean _verifyProperty( string $property )`
+
+Does the $property exist in the stored entity type?
+
+This protected method is used extensively to verify that the entities contain an accessible property named `$property`. Public access to the entities is discouraged, so there is no plan at this time to make this method public. If new access is needed, it would be better to write new access methods.
+
+
+## Accessing the stored data
+
+### IDs( )
+
+`public array IDs( )`
+
+Get an array of the IDs of the stored entities.
+
+### distinct( )
+
+`public distinct( $property )`
+
+Return an array of all the unique values found on the `$property` of the stored entities
+
+Using the sample `__construct()` data from above:
+
+```php
+    $dispo = new Layer($dispositions);
+
+    $result = $dispo->distinct('type');
+
+    // [ 'loan', 'transfer' ]
+```
+
+### load( )
+
+`public array load( string $type, $options = [] )`
+
+This method provides convenient filtering calls to return subsets of entities.
+
+There are three single argument calls:
+
+```php
+    $dispo = new Layer($dispositions);
+
+    $result = $dispo->load(23);
+    // returns the entity with id = 23
+    
+    $result = $dispo->load('all');
+    // returns an array of all the stored entities indexed by id
+    
+    $result = $dispo->load('first');
+    // returns the first stored entity
+```
+
+There is one simple filtering call. The first argument is a valid accessible property of the entities, the second is a value to match:
+
+```php
+    $dispo = new Layer($dispositions);
+
+    $result = $dispo->load('type', 'transfer');
+    // returns the entities where the property Entity->type = 'transfer'
+    // the return array will be indexed by entity id
+```
+
+The method could be expanded to do other inequality comparisons but this would complicate the signature, use, and the signatures and use of the two upstream classes that build on Layer; StackEntity and StackSet.
+
+There's one more valid call type to return the first (or all) of a filtered set:
+```php
+    $dispo = new Layer($dispositions);
+
+    $result = $dispo->load('first', ['type', 'transfer']);
+
+    $result = $dispo->load('all', ['type', 'transfer']); 
+    // same result as $dispo->load('type', 'transfer')
+```
+
+### linkedTo( )
+
+`public null|array linkedTo( string $layer, string $id )`
+
+Get the records with a matching foreign key value
+
+This functionality of this method duplicates that of certain uses of `load()` and `filter()` but may make the calling code clearer in some cases.
+
+It operates on an entity that carries a foreign key that conforms to Cake standards:
+
+```php
+$member = object(App\Model\Entity\Address) {
+		'id' => (int) 55,
+		'Name' => 'Rasputin',
+	};
+
+$entities = [
+	(int) 0 => object(App\Model\Entity\Address) {
+		'id' => (int) 8,
+		'member_id' => 55,
+	},
+	(int) 1 => object(App\Model\Entity\Address) {
+		'id' => (int) 23,
+		'member_id' => 37,
+	},	
+        (int) 2 => object(App\Model\Entity\Address) {
+		'id' => (int) 40,
+		'member_id' => 55,
+	},
+];
+
+$addresses = new Layer($entities);
+
+$result = $addresses->linkedTo('member', $member->id);
+
+// returns the array
+[
+	(int) 8 => object(App\Model\Entity\Address) {
+		'id' => (int) 8,
+		'member_id' => 55,
+	},
+
+        (int) 40 => object(App\Model\Entity\Address) {
+		'id' => (int) 40,
+		'member_id' => 55,
+	},
+];
+
+```
+
+### filter( )
+
+`public array filter( string $property, mixed $value )`
+
+Filter is the workhorse method behind the `load()` and `linkedTo()` methods. It accepts the name of a property and a value to match on that property. 
+
+It only does equality testing.
+
+```php
+$result = $addresses->filter('id', 107);
+$result = $addresses->filter('city', 'Hayward');
+```
+
+### sort( )
+
+`public array sort( string $property, string $dir = \SORT_DESC, string $type = \SORT_NUMERIC )`
+
+Provide single column sorting. After verifying the presence of the property, it calls the Cake Collection method `sortBy()`. That methods documentation says:
+
+In order to specify in which direction the collection should be sorted, you need to provide either `SORT_ASC` or `SORT_DESC` as the second parameter for sorting in ascending or descending direction respectively. By default, collections are sorted in descending direction:
+
+```php
+$collection = new Collection($people);
+$sorted = $collection->sortBy('age', SORT_ASC);
+```
+
+Sometimes you will need to specify which type of data you are trying to compare so that you get consistent results. For this purpose, you should supply a third argument in the sortBy() function with one of the following constants:
+
+`SORT_NUMERIC`: For comparing numbers   
+`SORT_STRING`: For comparing string values  
+`SORT_NATURAL`: For sorting string containing numbers and you’d like those numbers to be order in a natural way. For example: showing “10” after “2”.   
+`SORT_LOCALE_STRING`: For comparing strings based on the current locale. 
+
+By default, `SORT_NUMERIC` is used:
+
+```php
+$collection = new Collection($articles);
+$sorted = $collection->sortBy('title', SORT_ASC, SORT_NATURAL);
+```
+
+Topics: Studio Manager, Data structures
+
