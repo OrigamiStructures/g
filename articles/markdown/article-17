@@ -1,0 +1,242 @@
+# Fishing for View strategies in CakePHP
+
+##Your view.ctp is a fish
+
+Your view.ctp is a fish. Your Controllers are the fish food factories and your Models are the raw materials for making fish food. Really, we wrote this shit.
+ 
+Your fish takes the good food made from your site data and turns it into... well, output. Let's hope you've created a good fish that produces sweet and useful output!
+ 
+![Cartoon of a fish eating php code and excreting html code](/img/images/image/a37fcc45-d511-4894-9ba0-1bc488dae037/normal.png "Normal procedural process;;Your page takes good input and makes good output. Life is sweet.")
+ 
+Let's take a look at some typical view code, at what's inside your fish.
+ 
+Screen Shot 2015-05-20 at 6.54.45 PM.png
+ 
+This view code was grabbed from a random repo on github. Granted, this is just example code for a plugin and the author may not intend that it be the final implementation. But can you honestly tell me your CakePHP 3x Templates (or CakePHP 2x View) folder isn't full of code just like this? Mine certainly has been.
+ 
+We have a mix of Html and PHP, lots of explicit variable names and plenty of expected array structures (in Cake 3x these would be Entity properties). In short, this code is strongly coupled to both the controller method that supplies the variables and the model that supplies the data.
+ 
+To change anything in this view we're going to have to keep all three layers of our app cooperating properly. And to reuse this view or any part of it, we're going to have to be sure we follow and exactly parallel upstream process so the variables and their content match the expectations of the view code.
+ 
+###Why, oh why!
+ 
+There are some good reasons code gets written like this. The main one is, it's pretty easy to understand what will be produced and if something minor isn't quite right, it's easy to modify the page to fix it. Reorganizing the DOM for this page, adding attributes to nodes, or inserting some new component on the page; any of these tasks would be relatively easy.
+ 
+Another advantage, it's fast to write a page like this. There's a good chance that the Controller action and supporting Model methods are being written at the same time this view is being created. So the variable names and data structures feel obvious. Whether they'll be obvious in a year is an open question.
+ 
+##Coping with complexity
+ 
+This view includes a fair amount of logic. Here's a simplified view of the page:
+
+```php
+<!-- optional filter message -->
+    <p>Filter Message</p>
+    <!-- repeat the article block n times -->
+    <article>
+        <header>
+            <h2>Post Title</h2>
+            <time>Publication date</time>
+            <!-- optional comments link -->
+            <a>View comments</a>
+        </header>
+        <!-- either this p -->
+        <p>Post summary</p>
+        <!-- or this div, not both -->
+        <div>
+            <p>Body of the post</p>
+        </div>
+    </article>
+```
+ 
+In addition to the main loop, there are three conditional sections (ignoring the conditionals that set tag attributes). Not such a big deal...
+ 
+The problems don't show up until your application starts evolving.
+ 
+Imagine you want a sidebar with blog article teaser blocks that show the headline and first 100 characters of an article. This is mostly like the page you already have. The DOM will be simpler but the overall logic and the general outlines of the data required will be the same.
+ 
+###User Case #1: Teaser Blocks
+ 
+```html
+    <!-- optional filter message -->
+    <p>Filter Message</p>
+    <!-- repeat the article block n times -->
+    <article>
+        <header>
+            <h2>Post Title</h2>
+        </header>
+        <p>Post summary</p>
+    </article>
+```
+ 
+The original view tried to plan for something like this by putting the summary/body in and if/else section. But the designer came back from the client and they don't want the publication datein this case.
+ 
+Or perhaps you have a list of article headlines and you want to have an article teaser fly-out when you hover on a headline. Now we want similar output logic and data, but we also want to re-use a part of the old layout—the <article> which is now an <aside>. The potential for reuse is looking like a fools dream in the face of the growing complexity.
+ 
+###Use Case #2: Title List With Flyout Teaser Blocks
+ 
+```html
+    <!-- optional filter message -->
+    <p>Filter Message</p>
+    <ul>
+        <!-- repeat the li n times -->
+        <li>
+            <a href="#">Post Title
+                <aside hidden>
+                    <header>
+                        <h2>Post Title</h2>
+                    </header>
+                    <p>Post summary</p>
+                </aside>
+            </a>
+        </li>
+    </ul>
+```
+ 
+In the second case, you'd probably just start writing new code. You'd surely be feeling uneasy about the missed opportunity to reuse code. But, the output seems different enough...
+ 
+In the first case, the required view is close enough your might find yourself copying the layout and editing it for the new case.
+ 
+![A cartoon of a fish cut open, representing the process of changing procedural PHP code.](/img/images/image/0503f223-aa00-4dff-8d2a-866903969a95/operate.png "Changing your procedural code;;Modifying a typical view.ctp for reuse in a different context")
+ 
+ 
+To change the copied code you're going to have to role up your sleaves and dig into workings of your old code. Hopefully it hasn't been too long since you wrote it, or you left some comments to keep you from forgetting some critical bit.
+ 
+Sew that baby up and take her for a spin!
+ 
+![A cartoon of a fish, sewn back up after being operated on. It is eating PHP code and excreting errors.](/img/images/image/f8179c5b-fb6f-49cb-8636-ec32d2248e03/backtogether.png "Running your modified procedural code;;Sending your 'fine' code back out into the world after modification. Keep your fingers crossed 'Doc'.")
+ 
+Need I say more?
+ 
+###It's not that bad
+ 
+Bah! you scofff. The problem's not that bad.
+ 
+These examples don't reveal all the potential problems. Consider changes in the data tables. Any change that cause you to dig into those arrays would be a nightmare.
+ 
+And if there was a request to add microdata to your articles, you might start regretting the coppy-and-edit approach to new view creation.
+ 
+###Half measures availed us something
+ 
+Cake has tools to help improve this situation. Elements, helpers, view blocks and view extensions are all available to help keep your views DRY. And to be fair, these tools are not half measures. And let's not forget layouts and view cells.
+ 
+There's a lot to like here. In particular, I think view blocks combined with elements could sort out most of the problems discussed here. But that's a solution for another day.
+ 
+##Elevating your Helper class
+ 
+The Cake team seems to look at Helper classes as the Swiss-Army-Knives of the View layer. Possibly I've just gotten that impression based on the helpers they've provided (there's 10 of them). The Html and Form helpers especially focus on fine-grain DOM structures. Also, helper instance creation is managed for you (very convenient) so you always have the one and only instance of the helper (the famous Singleton Pattern).
+ 
+This produces the familiar argument-heavy signatures in helper calls
+
+```php
+$this->Html->link($blogPost->title, ['action' => 'view', 'slug' = $blogPost->slug]);
+```
+ 
+We're going to structure our helpers a little differently. We'll make them contain and manage the data which will allow us to shuffle page complexity out of the .ctp and into the helper. We'll ask these new super-helpers to provide large scale structures for the page and the method calls will have much simpler signatures.
+ 
+Internally the helpers will be able to decompose the process as necessary to maximize code reuse.
+ 
+With the core helpers, close-but-not-the-same output is created by calling the method with different arguments. To get close-but-not-the-same output from our new helpers, we'll extend the helper. We'll get the new large scale DOM structures from the new helper sub-class. The sub-class will be able to reuse most of the code, overriding only those parts that need adjustment.
+ 
+![A cartoon of two fish, one before and a differently shaped one after with dna illustrated in between them. Meant to illustrate the concept of extending a PHP Class.](/img/images/image/e944b1a5-46c1-4cc2-bd53-1ae3da051563/extend.png "Extending your Class;;Now we can throw away our bloody butchers apron and put on a nice clean lab coat.")
+
+ 
+###The new view
+ 
+We need a new view for our new helpers. And we have a few options to sort through. We're going to put the data in the helper to simplify our views and we're going to use the helpers to return larger scale sturcutres. But how much of the data do we put in and how large are the sturctures?
+ 
+We could send in ALL the articles at once and get the whole set out with one call. Or we could send them in one at a time and keep the loop logic in our view.
+ 
+In this case, keeping the loop in the view feels about right. Our helper will return <article> blocks (and a few other things probably). That seems like it should give is good flexiblity when extending the class. And we might be able to get some variant views by making a new .ctp without extending the helper. If we have the helper return the whole list of articles, we have a lot less flexiblity.
+ 
+In general, the smaller the scale of your helper products, the more flexiblity your have. As product scale goes up, flexiblity goes down.
+
+```php
+    $this->PostFactory->filterMessage();
+    foreach ($blogPosts as $blogPost) {
+        $this->PostFactory->data($blogPost);
+        echo $this->PostFactory->article();
+    }
+```
+ 
+Well! That's much simpler!
+ 
+I think this should now be an Element rather than a view. This will allow us to include it as a page component rather that the core of the page.
+ 
+But wati. All that complexity has to go somewhere. Let's take a look at our helper.
+
+```php
+    class ArticleHelper extends Helper {
+        protected $_data;
+        public function data($data){
+            $this->_data = $data;
+        }
+        public function filterMessage() {
+            if ($something) {
+                return $this->_data->message;
+            } 
+            return '';
+        }
+        public function article() {
+            return '<article>' .
+                $this->header() .
+                $this->articleBody() .
+                '</article>';
+        }
+        public function header() {
+            //return theHeaderAssembly
+        }
+        public function articleBody() {
+            if ($data->summary) {
+                return $this->summary();
+            } else {
+                return $this->body()
+            }
+        }
+        public function summary() {
+            // return theSummary
+        }
+        public function body() {
+            // return theBody
+        }
+    }
+```
+
+###Now we're fishing with dynamite!
+ 
+We've refactored our view into an element and a helper. Everything looks good and works just like before.
+ 
+It's time to make our first variation, the teaser sidebar.
+
+```php
+    class TeaserArticleHelper extends ArticleHelper {
+        public function article() {
+            return '<article>' .
+                $this->header() .
+                $this->summary() .
+                '</article>';
+        }
+        public function header() {
+            // return theSimplerHeaderAssembly
+        }
+        
+    }
+```
+ 
+That's it! And we can use the same element.
+ 
+You may have noticed a little snag. The element expects our helper to be $this->PostFactory but we've got $this->Article and $this->TeaserArticle. CakePHP comes to the rescue as usual. When you specify the Helpers to load in your Controller you can also specify what name they should appear under.
+
+```php
+    public $helpers = ['TeaserArticle']; // typical usage
+    public $helpers = [
+        'TeaserArticle' => [
+            'className' => 'PostFactory'
+        ]
+    ];
+```
+ 
+Our new Element is an example of the Abstract Factory pattern. A class is passed as a parameter to vary the behavior of a system. As long as every class you send in implements the full interface, you're good to go. In this case, the full interface consists of the filterMessage(), data($data), and article() methods.
+ 
+##Decorating your Helpers
+ 
+![A cartoon of two fish. One eating PHP code and excreting HTML code. The second eating the first fish and excreting more complex HTML code](/img/images/image/987a077f-26c9-4342-b546-fc83de051492/decorate.png "Decorating your PHP Class")
