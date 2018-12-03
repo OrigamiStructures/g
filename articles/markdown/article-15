@@ -1,0 +1,76 @@
+# Installing plug-ins with Git Submodule
+
+Installing Plug-ins with Git Submodule
+
+First, we’ll setup a new repository based upon existing code
+
+Drag and drop your project folder on Tower.app
+
+Select repository in Tower
+
+It will ask you to navigate to the folder you just dropped to create a new repository
+
+Go to GitHub, and create a new bare repository
+
+Create a new repository in GitHub
+
+Go to your home page in GitHub and click New repository
+
+Give your repository a name, but DO NOT initialize the repository
+
+Clone repository URL
+
+Copy the HTTPS link to the repository 
+
+or
+
+From the command line, DON’T FUCKING DO THIS
+
+After setup
+
+When we are done with the initial setup, we still need to do a bit of work to have the repository and project setup
+
+In Tower, Stage All and make the initial commit
+
+Initial Commit
+
+With the repository open, select the + to Add Remote Repository
+
+Name the repository, and paste in your link into the remote repository line
+
+In Tower, select your current HEAD, right click and choose Publish
+
+Now, let’s get those submodules
+
+Clone repository URL
+
+In GitHub, get the HTTPS link to the plug-in you want to use
+
+In the terminal, cd to your project directory cd /Library/WebServer/Documents/sampleblog2/
+
+Still in the terminal, enter
+git submodule add https://github.com/OrigamiStructures/crudViews.git plugins/crudViews
+(In this case, https://github.com/OrigamiStructures/crudViews.git is the HTTPS link to the repository and plugins/crudViews is the name of the plugin folder)
+
+You'll get output like this:
+
+Cloning into 'plugins/crudViews'...
+remote: Counting objects: 71, done.
+remote: Compressing objects: 100% (52/52), done.
+remote: Total 71 (delta 15), reused 67 (delta 11), pack-reused 0
+Unpacking objects: 100% (71/71), done.
+Checking connectivity... done.
+
+. You’re all set with that plug-in!
+
+Go back to Tower to check out your work…
+
+Next to the Submodules entry in the left rail, click Show
+
+Screen Shot 2015-07-15 at 6.32.31 PM.png
+
+You will see that you have a new entry in your Working Copy, with both a folder link and a .gitmodules file
+
+Create a commit for the plug-in add on, and push it
+
+GitHub does not get a copy of this code, only a reference to it.
