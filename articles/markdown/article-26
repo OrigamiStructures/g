@@ -1,0 +1,109 @@
+# Interacting with StackEntities
+
+StackEntity is a parent class for entity objects that are made of data from several tables. Typical entities map to single data records and their properties map to columns in the corresponding table. Each concrete Table will have custom finders to return their corresponding stack type. 
+
+StackEntities map larger structures in the system. Their properties contain [Layer objects](/article/interacting-with-layer-objects). They offer an alternative to using the `Contain` features of the query system. Instead of nested structures, StackEntities manage the data in flat collections and offer tools to pull out filtered subsets of layer members.
+
+Since StackEntities contain `Layer` data, most of their methods delegate to the contained layers.
+
+Sub classes may have other structure specific methods.
+
+The Apigen documents [are here](/apigen/class-App.Model.Entity.StackEntity.html).
+
+## Constructing a new layer.
+
+Sub classes of StackEntities are true Cake Entities. The will be returned automatically by their corresponding Table class. 
+
+It's probably not wise, but you could manually query all the component tables and perform a standard `newEntity( [ ] )` or `patchEntity( [ ] )` call. The properties in a StackEntity are of type `layer` and when provided an array of entities they will convert the data to the proper structure.
+
+###Class property introspection methods
+
+#### primaryLayer( )
+
+public string primaryLayer( )
+
+Get the name of the primary layer in the stack
+
+#### primaryId( )
+
+public string primaryId( )
+
+Get the id of the primary entity in the stack
+
+#### count( )
+
+public integer count( string $layer )
+
+Get the count of entities in a layer
+
+###  Verifying object content 
+
+#### exists( )
+
+public boolean exists( string $layer, $id )
+
+Is the id a member of the set
+
+###  Accessing the stored data 
+
+#### IDs( )
+
+public array IDs( string $layer )
+
+Get the ids of all the entities in a layer
+
+#### distinct( )
+
+public array distinct( string $layer, string $property )
+
+Get all the distinct values form the properties in a layer's entities
+
+#### primaryEntity( )
+
+public Cake\ORM\Entity 	primaryEntity( )
+
+Get the primary entity in the stack
+
+#### load( )
+
+public array load( string $layer, mixed $options = [] )
+
+Get entities from one of the layers
+
+This call supports all the get methods as Layer, but it requires a new first argument naming the layer to operate on. The second argument represents the signature for the Layer::get(). If your chosen Layer search has one arg, you may pass it exposed as the second arg or in an array.
+
+If your Layer call has more than one argument, pass it as an array with two elements that match the arguments of your Layer::get()
+
+```php
+get('editions', [312]);  //edition->id = 312
+get('editions', 312);  //edition->id = 312
+get('pieces', ['all']);  //return all stored entities
+get('pieces', 'all');  //return all stored entities
+get('pieces', 'first'); //return the first stored entity
+
+get('artworks', ['title', 'Yosemite']); //atwork->title = 'Yosemite'
+
+get('pieces', ['first', ['edition_id', 455]]); //first where piece->edition_id = 455
+```
+
+Todo
+overlap with Entity method. Resolve our naming
+
+#### linkedTo( )
+
+public array linkedTo( App\Model\Entity\string $layer, array $options )
+
+In a layer, get the entities linked to a specified record
+
+#### _getLayerProperty( )
+
+protected boolean|App\Lib\Layer _getLayerProperty( string $layer )
+
+If the layer property is init'd with a Layer, return it
+
+#StackEntity Caching
+
+To improve system performance, StackEntity objects are cached. Time metrics are logged for ongoing system performance testing. For details of these processes see [Stack Entity Caching](/article/stack-entity-caching) and [Performance and Activity Logging](/article/performance-and-activity-logging).
+
+
+Topics: Studio manager, Data structures, Stacks
