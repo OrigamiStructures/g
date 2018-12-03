@@ -1,0 +1,19 @@
+# Stacks Portal
+
+## Foundational concepts, strategy, theory and speculation
+- [How fine-grain should stack classes be?](/article/how-fine-grain-should-stack-classes-be "How fine-grain should stack classes be?")  
+    This article lays out the goals for stack objects. It also lays out explicit guidelines for when new sub-unit of a stack should be designed.
+- [The UserStack Entity Object](/article/the-userstack-entity-object "The UserStack Entity Object")
+- [Stack Entity Caching](/article/stack-entity-caching "Stack Entity Caching")
+## APIs and use guides
+- [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")  
+   This is the object type of the properties of stack entities. The entity interface is specifically designed to expect and make use of these objects
+- [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")  
+    StackEntity is the base class for the many concrete stack entity types (UserStack, ArtStack, ArtistStack, etc)  
+    This class extends Entity. It adds new methods to interact with its properties of type **Layer**
+- [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")  
+    StackSet is the collection objects for sets of StackEntity objects. Its interface extends the **Layer** interface tools up one more level.
+
+Topic: Studio manager, Portal 
+
+

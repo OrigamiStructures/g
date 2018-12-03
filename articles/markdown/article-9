@@ -1,0 +1,165 @@
+# Cake Plug-in No Goes
+
+##I have a plan. A fine plan. A simple plan.
+
+Suppose that you're like me and you have a little tool. A helper
+actually. And a small suite of elements that take advantage of the
+helper.
+
+We'll ignore what it does. What to do with it though... This is a
+candidate for a plugin! And a fine plugin it would be. Compact and
+simple to package and install.
+
+sample directory structure and installation code here.
+ 
+##Well, maybe a little more complicated than that.
+
+Now imagine a little further. The elements are very flexible and can
+outpt data from any Controller/Model given the right input values, the
+name of the model and a whitelist of column names for example. And your
+pages would use the helper multiple times to display data from more than
+one model.
+
+Things are a little more complicated now. Your basic plugin idea is
+sound. But you need to coordinate passing an unknown number of
+standardized data packets (one for each model/element on your page). To
+keep your code simple on the controller side, you're also going to want
+a simple way to prepare those packets. Also we need to move them down to
+the View where they can support the helper.
+
+You don't want to end up with a chaotic universe of variable names in
+the View, so maybe an associative array containing all the data packets?
+But all those model-centric chunks need to be assembled, then accessed
+and passed into the helper... And this will potentially complicate your
+helper method signatures because they will require the incoming data as
+an argument in every case.
+
+To simplify the assemble/access processes, we could encapsulate the data
+in an object with methods that manage all those internal processes for
+us. The object could have an array property indexed by model alias, each
+node containing the proper data package. A simple suite of tools could
+add, modify and extract the data blocks. A second property could hold
+the currently active model's data. That would make all the data for all
+the models accessible at a single name-point.
+
+Ok. An object that has a *collection* property, *current* property, and
+a management interface.
+
+##Just a little refactoring...
+
+But the Helper can't work without this highly structured data. And I
+don't really like having to have to include the argument passing the
+data into every single helper method. So we compose the data object into
+the helper as a property. Now a slight addition to the helper interface
+to activate any of the stored data packets and when we call a helper
+method we'll know the method can use the currently active packet for its
+data.
+
+Extra nice since we now have no additional variables to manage on our
+pages. Our elements can be called with the name of the model they are
+supposed to render. Each element can then use that name to configure the
+helper before calling its methods. Ker-PLUNK! Toss one little value into
+our element and the effect ripples gently out through our page.
+
+##A ripple? Or a tsunami?
+
+But this is a plugin right? So we've got to get all this wired together.
+
+The first thing to add is the data object and that gets built up in the
+controllers. This object should be a property of the helper. But Cake's
+helpers don't get instantiated until the render process starts, so we
+have to follow a two-phase procedure; build the object in the controller
+then composed it into the helper. Helpers can support all kinds of
+configuration so it won't be a problem to pass the object in. The
+perfect place for this is in the beforeRender() of AppController.
+
+sample code showing a helper config
+
+Since we only want the developers using our plugin to worry about the
+interface we provided and not details of configuring our helper we add
+an AppController to our plugin and chain it into our applications
+controllers like this.
+
+more sample code
+
+And this is where the wave sweeps over us, scattering of our code and
+dumping us half a kilometer inland amidst the debris of our plan.
+Because Cake prevents the path for the extention from being resolved.
+
+##Autoload vs Autoload
+
+<http://book.cakephp.org/3.0/en/plugins.html#autoloading-plugin-classes>
+
+What in the world is happening here? We know our plugin is configured
+correctly and loading when required because it was working properly
+before these modifications. It's the attempt to extend the plugins
+AppController. And the error message clearly indicates a failure in the
+attempt to locate the plugin's class files.
+
+show some error code here
+
+In bootstrap we're loading the plugin and we can examine the information
+that gets manufactured.
+
+debug data of the result from load()
+
+Well, we knew that was going to be correct. The system did work properly
+before. It's outside this context of use that is the problem. The case
+where normal PHP code parsing is involved rather than internal Cake
+processes that work from a dot notated string. So we dig deeper.
+
+I'm not completly clear on what role the composer json files play in the
+parsing of the class files and the mapping of namespaces to directories.
+Clearly they do play some role in the life-cylcle of the site.
+
+example json psr4 values
+
+But everything is looking good here too.
+
+##The last place you look
+
+The end of the
+[autoloading](http://book.cakephp.org/3.0/en/plugins.html#autoloading-plugin-classes)
+section of the plugin documentation says:
+
+> If you are unable to use Composer for any reason, you can also use a
+> fallback autoloading for your plugin:
+
+```html
+<div class="highlight-phpinline">
+
+<div class="highlight">
+
+      Plugin::load('ContactManager', ['autoload' => true]);
+
+</div>
+
+</div>
+```
+
+Violá! Now the namespaces resolve properly so your plugin can include
+parent classes, abstract classes, interfaces, trait... the sky's the
+limit.
+
+### Notes: What's needed to complete this article
+
+- Absolutely verify that this is true and show how it happens. My thinking here is, the failure is on a standard php line that should not involve Cake at all: class MyClass extends ParentClass { }. The extension is not
+being found. That implies the namespace (which is specified in Cake standards for plugin design) must not conform to the PSR3(4?) standards
+for mapping namespaces to directories. I'm not sure how php does that,
+or if we can provide supplimental mapping info that will solve the
+problem. Cake does have a couple of composer/json files that contain
+namespace/directory  mapping information. They seem to be specifically
+related to cases where plugins are stored in 'vendor' rather than the
+normal 'plugin'. I don't know that they can be leveraged to fix this
+problem. For one thing, I'm not sure if they apply to composer updates
+of the code base or to live operation of the code. For another thing,
+even if they apply to live operation, they may only be involved in
+helping the load() method and in supporting 'PluginName.Plugin'
+notation. This notation is not useful in the 'extension' case nor in the
+case of 'use'ing a Trait. In both those cases, trying to dot notate the
+plugin will red-line in the IDE. This is what makes me think there is
+some mis-match between the namespace norms Cake defines for plugins and
+the PSR standards php uses for autoload mapping.
+
+Is it possible to define a different 'uses' path in the including file
+to correct this?
