@@ -1,0 +1,25 @@
+# The UserStack Entity Object
+
+![The UserStack entity and its content](http://g.origamistructures.com/w_img/UserStackClassDiagram.png) 
+
+## Insuring a universally accessible singleton of the UserStack
+
+Since this is an entity, we can control it in the way of a typical singleton.
+
+We could have a singleton class that returns, not itself, but the one copy of UserStack.
+
+That class could do any authorization checks needed.
+
+But how would we keep any other system code from asking for a non-singleton user object?
+
+We could protect the UserStacks custom finder with an authorization signal that only the singleton access class knew how to provide.
+
+This all gets tied into Auth.
+
+Is it necessary?
+
+There is currently no way to manually provide a User id to the stack generator. But the User table is still generally accessible. So what good would protecting this be.
+
+Maybe the problem is not one of security, but of access. We don't want to get into the SystemState problem!
+
+Topics: Studio manager, Stack, Data structure, 
