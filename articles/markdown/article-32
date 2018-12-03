@@ -1,0 +1,81 @@
+# How fine-grain should stack classes be?
+
+## Stacks, what and why 
+
+![The proposed MemberStatck Entity Class Diagram](http://g.origamistructures.com/w_img/MemberStackEntityClassDiagram.png)
+
+This diagram shows the proposed MemberStack Entity. There are several goals in making these StackEntity objects:
+
+- Allow us to model structures that are 'whole units' but which exceed the boundaries of a single entity
+- Establish a guarantee of data completeness when modeling these larger structures
+- Free us from needing to insure the looping sequences required by nested 'contain' structures.
+- Normalize the structure of multi-entity objects
+    - From artwork context, or edition context, the same entity types are required. But the nesting pattern will be inverted. Stack solve this with flat data.
+- Reduce the number of complex queries
+    - Large objects will be useful in many contexts but with slightly variation to the data needed for each. Rather than getting the exact data needed for each use, we get a complete set that can serve in all cases. One query, not many complex and slightly different.
+- Provide convenient access to related data that isn't strictly part of the object being modeled
+- Create an environment for string concatenation methods that draw data from multiple low-level entities
+    - This is meant to simplify helper, element, and template code
+
+## Divide to conquer
+
+Some of these objects can be quite large. The ArtStack for example:
+
+![The proposed ArtStatck Entity Class Diagram](http://g.origamistructures.com/w_img/ArtStackClassDiagram.png)
+
+For this reason, I plan on fitting the StackEntity objects with **emitter** methods that can compose and emit smaller stack entities tailored for special uses. 
+
+Clearly, there will be an advantage to working with an EditionStack at times, rather than constantly working to isolate the parts of an edition from inside the ArtStack.
+
+This situation reveals our first clear indicator of a sub-stack class; when the parent class has a layer who's members define independent subsets of data within the parent. 
+
+The ArtStack contains multiple Editions and Editions contain multiple formats. Every sub-unit has a unique set of pieces. A clear case for both EditionStack and FormatStack objects.
+
+### A (possible) use case for an emitted sub-stack
+
+Returning to the expample of the MemberStack, let's consider a possible use case. This one is not as clear-cut as that of the ArtStack/EditionStack. This ambiguity will expose factors to weigh when considering creation of a more granular class. 
+
+- The user is doing some marketing and searches for **member** records that represent venues and collectors they have transferred work to.
+- After the initial detailed query that involved both **dispositions** and **member** filtering processes, they have a list of **member** ID values for the relevant records.
+- The MembersStack Table class has a finder that turns these IDs into a StackSet of MemberStack entities.
+- From our one available associated-data query for Member, we now have all possible data for any member use case.
+
+With this data we can now render a page featuring contact information for the found members.
+
+However, this page won't require knowledge of the group membership of the found records. The MemberStack will also have methods designed to make use of this **group** data and other methods written to make general use of the **member** record.
+
+Most of these methods won't be of use when focusing on the members as Address Book pages. And so, it might be useful to emit new, smaller data packets with a more focused interface.
+
+![The proposed AddressBookrStatck Entity Class Diagram](http://g.origamistructures.com/w_img/AddressBookStackEntityClassDiagram.png)
+
+This exposes two more criteria for making a sub-stack; 
+
+1. When the parent stack has additional data making it overly heavy for the given task
+2. When the parent class already has a large interface or clearly defined responsibilities that would be made harder to understand if the new tasks were added.
+
+Both are subjective. But taken together they may tip the scales.
+
+There's another possible stack structure that might be useful for our address book use case.
+
+![The proposed alternative structure for AddressBookrStatck Entity Class Diagram](http://g.origamistructures.com/w_img/AltAddressBookStackEntityClassDiagram.png)
+
+This could simplify rendering by giving us simplified access to primary vs alternate contact data.
+
+Of course, methods might serve the same purpose. We'd have to implement the use case to find out which was clearer, faster, and more maintainable.
+
+Even without that step, it's clear that sometimes, reorganization of the stack content could be an advantage. So this gives us another factor to consider.
+
+But why not make this modification to the MemberStack itself? If it's helpful, wouldn't that be an advantage all around?
+
+This argument looses sight of the purpose of the main Member stack; to provide a guaranteed data set for any use case. This structural change is only useful when focusing on the details of address/contact data. It actually makes it less convenient to access all the addresses and contacts for the member because they now exist in two forms and must be merged.
+
+## Factors to assess when considering a new sub-stack class
+
+This gives us four situations that indicate we should make our StackEntity emit a new sub-stack class.
+
+- When the parent class has a layer who's members define independent subsets of data within the parent
+- When the parent stack has additional data making it overly heavy for the given task
+- When the parent class already has a large interface or clearly defined responsibilities that would be made harder to understand if the new tasks were added.
+- When there is reason to subdivide the content of one or more layers to simplify access or clarify its purpose.
+
+Topics: Studio manager
