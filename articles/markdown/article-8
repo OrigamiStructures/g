@@ -1,0 +1,188 @@
+# Apache Server settings to streamline CakePHP installations in Mac OS X
+
+Managing the server configurations, .htaccess files and details of the directory structure when installing a CakePHP project on a Mac can be as easy as running `composer` to create the new installation. Sometimes though it is a hair-pulling exercise in command-line guess work. 
+ 
+I'm not too experienced with Apache's `httpd.conf` settings nor have I spent time learning how to read and understand `.htaccess` files. So when I've run into problems with CakePHP installations (every time I've wanted them to be inside my `~username/Sites` directory instead of `Library/WebServer/Documents`) I've been reduced to cursing, desperately hoping I don't crash my server completely, and blindly typing in `httpd.conf` changes from StackOverflow posts in hopes of stumbling on a fix.
+
+##A static site project points the way
+
+We were recently hired to do some work on a static site of about 120 page. The whole thing was procedural PHP to control page access and flat, hard-coded Html for the page bodies. Every directory had an `.htaccess` file rewriting the requests and generally muddying things up. So, when we pulled the site down to a localhost environment (in a sub-directory to contain things) you can be sure things came to a screeching halt.
+
+Localhost is most convenient for me because I'm often working on code while off-line, so I need a fully functioning local server environment.
+Editing the many `.htaccess` files to make things work locally just wasn't an alternative. So the time had come to figure out how to handle the server setup. No more incantations inside a salt circle while burning watts and offering prayers to the Apache gods.
+
+The result was a solution to our long standing limitations with our CakePHP installations.
+
+##A variety of localhost problems
+
+The Mac has two(ish) served locations. The first, served from `localhost` is at `/Library/WebServer/Documents`. The second is accessible though `localhost/~{username}` where `{username}` is one of your Mac User accounts. There are as many of these as you have accounts.
+
+###Root level problems
+
+The first location (root) was our one sure place to put CakePHP apps. There were only two problems to work around. 
+
+First, permissions in this location are not the same as for a logged in user. In various circumstances permissions for cache and log files would be lost and would have to be reset. A minor bother. 
+
+Second, I always have a couple of Cake installations and each one is in its own folder. This adds a level to local URLs that's not present in served versions of the apps (localhost/MyApp/controller/action vs myapp.com/controller/action). 
+
+This make generated links resolve differently in the two versions. The problem can be solved with a minor hack, slipping  `$this->request->webroot` onto the front of generated links when necessary. Effective, but not ideal.
+
+###User level problems
+
+User level problems were intractable. There are additional `httpd.conf` files loaded to set up ~username routing in the Mac's Apache server and we had never found a way to get this location to work with the standard CakePHP `.htaccess` files.
+
+##Back to the static site
+
+So how did the problem with a static site become the solution for a whole class of dynamic sites?
+
+After poking around in the [Apache documentation](https://httpd.apache.org/docs/current/) for a bit I started to gravitate toward the VirtualHost directive. Specifically the [name-based virtual host](https://httpd.apache.org/docs/current/vhosts/name-based.html) variant.
+
+My idea for the static site was to map the domain name of the customer site to my own localhost ip address. A solution that worked a treat!
+
+And once I saw it working, it was clear it could solve my moldy old cake problems too.
+
+###Enough blather! How do you do it?
+
+To accomplish this change to your server you're going to be modifying your Apache's configuration and your Mac's DNS map file. Sound scary? No guts, no glory!
+
+The file locations I'm going to specify have been confirmed in both Mavericks and Yosemite.
+
+You're going to be digging around in `/private/etc`, `/private/etc/apache2` and `/private/etc/apache2/extra`.  So break out your Terminal and whatever command line text editor you like. Or use a gui text editor that can see your invisible files and folders. I use TextMate for this.
+
+Pry open `/private/etc/apache2/httpd.conf`, the main apache configuration file. This is where we've hacked around before. But on closer examination this time I came across this section:
+
+```apache
+ # Supplemental configuration
+ #
+ # The configuration files in the /private/etc/apache2/extra/ directory can be 
+ # included to add extra features or to modify the default configuration of 
+ # the server, or you may simply copy their contents here and change as 
+ # necessary.
+
+ # Virtual hosts
+Include /private/etc/apache2/extra/httpd-vhosts.conf
+
+ # Server-pool management (MPM specific)
+Include /private/etc/apache2/extra/httpd-mpm.conf
+
+ # more stuff ...
+```
+
+There are a few interesting includes in the list that might be worth examining.
+
+To keep things compartmentalized I went for `/private/etc/apache2/extra/httpd-vhosts.conf` as the place to set up the new VirtualHost declarations. 
+
+I've been into this file before to set up a certificate to do https sites in localhost so I'm not sure what it looked like before editing. There may be nothing but REM'd example code and explanations.
+
+####Writing a basic VirtualHost entry
+
+Let's assume my static customer's domain for the static site was `www.customer.com`. Also assume that among the files and directories in the root of this site is `public_html` which is the public served folder. And assume I installed it in my root served directory at `/Library/WebServer/Documents/customer`. In the conf file `/private/etc/apache2/extra/httpd-vhosts.conf` I added this:
+
+```apache
+<VirtualHost *:80>
+    # This first-listed virtual host is also the default for *:80
+    ServerName localhost
+    ServerAlias localhost
+    DocumentRoot "/Library/WebServer/Documents"
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dev.customer.com
+    ServerAlias dev.customer.com 
+    DocumentRoot "/Library/WebServer/Documents/customer/public_html"
+</VirtualHost>
+```
+
+I found that as soon as I added one VirtualHost I needed to be explicit about ALL my servers. So don't neglect adding an entry for `localhost` as shown above or everything will start routing to your new `dev.customer.com` site! Not good.
+
+Now to coordinate with this mapping of a server name to a directory location, we need to add an entry to the Mac's DNS (`/private/etc/hosts`). When you open this file you'll see something like this:
+
+```bash
+ ##
+ # Host Database
+ #
+ # localhost is used to configure the loopback interface
+ # when the system is booting.  Do not change this entry.
+ ##
+127.0.0.1	localhost
+
+255.255.255.255	broadcasthost
+::1             localhost 
+fe80::1%lo0	localhost
+```
+
+####Writing a matching DNS entry 
+
+We need to add the new domain name to this list:
+
+```bash
+ # ... previous stuff
+ # when the system is booting.  Do not change this entry.
+ ##
+127.0.0.1	localhost
+127.0.0.1	dev.customer.com
+
+255.255.255.255	broadcasthost
+ # ... following stuff
+```
+
+####What domain name should I use?
+
+I chose to name my new domain `dev.customer.com` so I could still call the served version at `customer.com`. I could have named my local version `customer.com` and completely blocked access to the original customer site.
+
+This is a way you could block a site on your local computer if you wanted to for some reason. "Honey, why does Facebook keep going to this picture of a baboon's backside?"
+
+##What about mapping CakePHP sites?
+
+For this example, assume we have two cake installations. The first is CakePHP3 at `/Library/WebServer/Documents/OrigamiStructures` and the second is CakePHP2 at `/Users/dondrake/Sites/time` (a man's gotta be accountable for how he spends his time).
+
+Back to `/private/etc/apache2/extra/httpd-vhosts.conf`. 
+Add an entry for `localhost` (for the reasons previously explained) and entries for your two cake installations.
+
+###.conf settings for CakePHP installations
+
+This time we'll add new Apache error log locations so the errors for each website will be easy to get to and will only contain information about that site.
+
+```apache
+<VirtualHost *:80>
+    # This first-listed virtual host is also the default for *:80
+    ServerName localhost
+    ServerAlias localhost
+    DocumentRoot "/Library/WebServer/Documents"
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dev.os.com
+    ServerAlias dev.os.com 
+    DocumentRoot "/Library/WebServer/Documents/OrigamiStructures"
+    ErrorLog "/Library/WebServer/Documents/OStructures/logs/apache_error_log"
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dev.time.com
+    ServerAlias dev.time.com 
+    DocumentRoot "/Users/dondrake/Sites/time"
+    ErrorLog "/Users/dondrake/Sites/time/app/tmp/logs/apache_error_log"
+</VirtualHost>
+```
+
+Notice how we can use the server name to map nice short names. There may be limitations, I haven't explored this at all. I also haven't explored what you can do with ServerAlias.
+
+Also note how DocumentRoot gives you tremendous power to map domains to crazy-arbitrary locations. I'm not sure if you can go outside the standard served folder locations though. More testing to do there. 
+
+###Matching DNS settings for CakePHP installations
+
+Of course you need the matching DNS entries in `/private/etc/hosts`.
+
+```bash
+ # ... stuff before
+127.0.0.1	dev.os.com
+127.0.0.1	dev.time.com
+ # ... stuff after
+```
+
+##What a brave new world that has such servers in it
+
+With these pieces, our localhost CakePHP 2x and 3x applications map their URLs the same as their served versions. They can also be built in either the root or user served locations. `localhost` and `localhost/~username` work as before for all the little projects that I write. That 'virtually' covers my entire punch-list of issues! (hangs head in shame)
+
+I hope you find these techniques as useful as I have.
