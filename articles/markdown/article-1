@@ -1,0 +1,121 @@
+# SuperFly! 
+
+The Flyweight Design Pattern is intended for cases where your class is so fine grained you're going to need a whole barrel of them for your app. In Design Patterns: Elements of Reusable Object-Oriented Software, the four caballeros present this pattern through a document editing example where the objects of interest represent characters. That certainly satisfies that stated intent!
+ 
+My use case is a bit more modest. I'm working on a module that makes all the CakePHP baked crud pages dynamic and configurable. It feels like it might become a general purpose view engine... we'll see.
+
+But for starters, I wanted a way to send lists of links/tools to the page for the three categories of content that you see on the standard CRUD pages (take the index page as the working example). There are the links to the primary model pages (New), links to the associated models pages (New and List), and links related to individual records in the primary model (View, Edit, Delete).
+ 
+Screen Shot 2015-06-15 at 3.29.29 PM copy.png
+ 
+No problem. Send an array with info about the target view and what to call it. No brainer.
+ 
+```php
+$prime = ['New' => 'add'];
+$assoc = ['List' => 'index', 'New' => 'add'];
+$record = ['View' => 'view', 'Edit' => 'edit', 'Delete' => 'delete'];
+```
+ 
+But who wants to type the redundant info when the label and view are the same. So I want an array where I can specify the label when needed and ignore it when not.
+ 
+```php
+$prime = ['New' => 'add'];
+$assoc = ['List' => 'index', 'New' => 'add'];
+$record = ['view', 'edit', 'delete'];
+```
+
+But now on the output side I need logic to figure out what to do in the various cases. So here is a little class to do the job.
+
+```php
+<?php
+namespace App\View\Helper\CRUD;
+
+/**
+ * ToolParser gives simplified access to memebers of tool arrays
+ * 
+ * The arrays members follow either of these two patterns
+ * <pre>
+ *    [
+ *        'label' => 'target-action',
+ *        'label-action',
+ *    ],
+ * </pre>
+ *
+ * @author dondrake
+ */
+class ToolParser {
+    
+    /**
+     * Get the proper label for this tool entry
+     * 
+     * @param string $tool The value of the array node (not the key)
+     * @param string $suffix Additional words for the label (typically the model alias
+     * @return string First word capitalized
+     */
+    public function label($tool, $suffix = '') {
+        if (is_array($tool)) {
+            $label = array_keys($tool)[0];
+        } else {
+            $label = $tool;
+        }
+        return ucwords($label . (empty($suffix) ? '' : " $suffix"));
+    }
+    
+    /**
+     * Get the action that will be this tools action
+     * 
+     * @param string $tool The value of the array node (not the key)
+     * @return string The action that will be the tool action
+     */
+    public function action($tool) {
+        if (is_array($tool)) {
+            return $tool[array_keys($tool)[0]];
+        } else {
+            return $tool;
+        }
+    }
+}
+```
+
+I could now have this as a helper, available on the View. But then I wouldn't be writing about the flyweight pattern.
+ 
+Instead, I package up the array of link info along with the tool class that knows how to do the output.
+ 
+```php
+    public $ToolParser;
+    
+    public $action_template;
+
+    public function __construct($data = FALSE) {
+        $this->ToolParser = new ToolParser();
+        $this->action_template = (object) ['content' => [], 'parse' => $this->ToolParser];
+    }
+```
+
+This makes a prototype object (of type stdClass) that has a reference to the instance of `ToolParser()`. There's only the one instance of ToolParser though many objects will hold a reference to that instance. That's the Flyweight Pattern. The important thing to note about `ToolParser()`, the thing that makes this possible, is that it doesn't hold any of the data it operates on (in this case the array of action names for output). If it did need that information internally, you'd have to make multiple instances.
+ 
+Now you can make objects to send to your view:
+ 
+```php
+$recordTools = clone $this->action_template;
+$recordTools->content = ['List' => 'index', 'New' => 'add'];
+
+$primeTools = clone $this->action_template;
+$primeTools->content = ['New' => 'add'];
+
+$assocTools = clone $this->action_template;
+$assocTools->content = ['view', 'edit', 'delete'];
+
+// and when you get to the view
+
+foreach ($recordTools->content as $tool) {
+    echo $recordTools->parse->label($tool);
+    echo $recordTools->parse->action($tool);
+}
+```
+
+Perhaps it's a stylistic quirk of mine that I like to bundle a bit of logic with my data to smooth out view side processes. I find myself doing this quite often lately as an alternative to writing low-usage helper methods. The flyweight pattern is a great way to package logic into these lightweight stdClass objects.
+ 
+##A last note on the prototypes
+
+The code also shows an example of the Prototype Design Pattern. Making an empty stub of the object `$this->action_template` in the `__constructor()` which could later be cloned and populated with data fills the bill for this pattern.

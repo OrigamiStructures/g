@@ -1,0 +1,104 @@
+# Updating & Adding Submodules
+
+##Working with others
+ 
+Really are a few different cases that you’ll face using Submodules with actual projects. If you clone a repo with Submodules, if another participant in the project adds a Submodule, or if you need to update the Submodules on the project you’re working on.
+
+It’s important to reemphasize at this point what a Submodule is. You have a parent project already in a Git repository. You could just copy the plug-in code in and push it up to the main project repo. I’ve done this a lot.
+
+If the plug in you’re working with, though, is also an active project, that approach has a lot of issues. The first one that jumps to mind is the difficulty in keeping up with changes in the plug in code. This really turns into a problem if you have multiple parent projects all using the same plug in. Let’s be honest, you’re never going to do this. You’ll just live with the bugs.
+
+Ok, so we know we need Submodules. And the artivle has shown us how to get our own repositories setup with Submodules. Now let’s discuss how to handle our new situations.
+
+##Cloning a Repo with Submodules
+
+When you clone a repository, you get a lot of goodness right in the tin. It’s automatically connected to the remote repository, you can choose what branch to clone, AND it contains all of its Submodules.
+
+##Sort of.
+
+What it actually has are pointers to the contained Submodules. If you look into the actual files from the cloned repo, you’ll see a .gitmodules file. In it is a listing of all the Submodules contained in the repo, and their specific version. These are links to a specific commit, not to a branch, which gets important in Updating Submodules, below, but we’ll get to that.
+
+You also get a folder for each Submodule. But, when you look in those directories you’ll find that they’re empty. And, of course, your plug ins don’t work. What gives?
+
+To get the Submodules working, you need to tell your master project that you want to use Submodules, and that you really want the files. May seem odd, but there it is. Thankfully, it’s easy to get this setup.
+
+Navigate to your project in the Terminal and issue these commands:
+
+```bash
+ git submodule init
+```
+
+ This will tell your repository that you want to actually use Submodules, but will not get you the code.
+
+```bash
+git submodule update
+```
+
+This actually pulls the code, and you’ll see the installation process echoed in the terminal.
+
+If you’re using Tower, my favorite git client, the Submodule will now also show up in the left rail, and operate normally. Please see Tower and Submodules for a brief overview of all the Tower goodness with this tool.
+
+So, your programming partner added a Submodule.
+
+You get the text message (or Slack message, or HipChat bug, or, God forbid, phone call) from your programming partner.
+
+“Hey, Bill, I found this great Markdown plug in that I’m doing a little work on. I put it in the super fantastic website project, and I pushed to the repo.”
+
+“Cool,” you reply, thinking why the old version of anything never works for him. Well.
+
+So, off you go to Tower, execute a Pull, and see that new .gitsubmodule come down along with a folder called SuperMarkdownForPHPNumberTwo.
+
+But, you notice, the folder is empty. And you’re not getting a new Submodule in Tower, either. This is just like the original repo clone. You’ve got the references, but not the actual files. Back to the Terminal.
+
+```bash
+git submodule init
+```
+
+I know we already did this. But the init has to be run again to tell your master project you want to use ALL of the Submodules. Even the new ones.
+
+```bash
+git submodule update
+```
+
+You’re following now. This command will download all the new code. It will also download any updates that were set on the Submodules you already had. Which gets us to…
+
+##Updating Submodules
+
+Remember earlier when I mentioned that Submodules point to a specific commit and not to a branch of their individual repository? Here’s where that starts to matter.
+
+You go through a lot of commits in any given day, if you work like we do. At the very least you’re committing once a day. This is often true of those in progress plug ins, too. You’ll find yourself making changes to your own a lot, and your programming partner is likely doing the same. Having the latest version of a plug in might actually be critical to the functioning of your project.
+
+If you’re making the changes in the plug in, your repositories will automatically follow your work. You make a change in AutoMagicalImageUploader in your local repo and commit it to the remote repo, the pointer in your parent repo is automatically updated. If you want your partner to use his new version for the parent project, you’ll need to push a change to the parent repo as well. If the only change is in your plug in, you’ll just push the .gitmodules file.
+
+It’s on the other side of this process that it gets a little confusing. If your programming partner pushes a change to a plug in, and then pushes the entire repo up, they’ll get that same process described above. When you pull, however, you will only get the updated .gitmodule, and none of the updated Submodule files. Back to the terminal to get things square.
+
+```bash
+ git submodule update
+```
+
+This command downloads the new code, and your entire project is now up to date.
+
+The advantage of this is that one update command will update all of the effected Submodules. If you’re using Tower (clearly we recommend this), you can double click on any Submodule and manage it like any other repository. Pulling will update the code, and get you square again. The disadvantage of doing this is that you must manage each Submodule. If you have a lot of Submodules on a project, you might consider using the terminal command. Tower will match its status to any actions taken in the terminal.
+
+##Don's strategy
+
+With an existing repo that has no submodule:
+
+- get the repo address from github
+- in Tower, clone a new repo, the submodule you want and set it's loc in your existing repo
+- this makes a new repo that has the name of your previous repo, dup name
+- fix this name
+- in a minute or two the submodule will show up in your parent rep in the submodules on the left
+- initialize it.
+- you will probably need to set its source url in the shared config and or local config buttons on the right top
+    - I think shared config will anchor an account name in the repo and that might cause problems for a partner? don't know these details
+
+###Adding submodules from Tower
+
+With an existing repo, add a submodule.
+
+- get the repo URL from github
+- in Tower, in your project, Choose 'Add Submodule'
+- Navigate to the plug-ins folder of your project, and add a properly named plug-in folder (the name of the folder and the plug-in must match).
+- Paste the repo URL in
+- Choose your credentials
