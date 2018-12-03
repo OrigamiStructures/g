@@ -1,0 +1,243 @@
+# Callables and Callbacks: A PHP and CakePHP3.x Case Study
+
+[Callables and callbacks](http://php.net/manual/en/language.types.callable.php) have always felt a little mysterious to me. It's those pesky rules for what arguments are passed by magic and how to pass additional arguments that always trips me up. And there are more rules for writing the callback as an anonymous function (or closure), calling a function, or calling methods or static methods to act as the callable.
+ 
+Add to all this, the fact that callbacks are by nature somewhat remote and abstract—the code equivalent of tying your shoes with waldos—and you have the full picture of my difficulty with them.
+
+The new Collection class in CakePHP3.x has brought them front and center in my daily coding experience though so I've had occasion to get more familiar with them.
+
+##The CakePHP3.x Colleciton Class
+
+The excellent characters at Cake have provide the [Collection](http://book.cakephp.org/3.0/en/core-libraries/collections.html) class to wrap many native PHP array functions that use callbacks and various iterators. There's a ton of useful methods in there. It's well worth a read.
+
+##Cake's map vs PHP's map
+
+I'm going to focus on array_map() as a fairly typical example of a function that takes a callable as an argument. My goal is to get an annotated list of techniques for using this type of function and the CakePHP implementations of them.
+
+If you're not familiar with PHP's array_map() function, it's purpose is to perform some action on each of the members of an array, returning the resulting array. Of course, you can write loops that do the same thing, but getting familiar with features like this can improve your code in many ways and, I think, makes coding more fun!
+
+First, some typical PHP code using a `foreach` loop that does what our `map` code will do (just to get you oriented):
+
+```php
+// multiply each element by 2
+
+$items = ['a' => 1, 'b' => 2, 'c' => 3];
+$result = [ ];
+
+foreach($items as $key => $value) {
+    $result[$key] = $value * 2;
+}
+
+// $result contains ['a' => 2, 'b' => 4, 'c' => 6];
+```
+
+Cake shows this example for `Collection::map(callable $c)`:
+
+```php
+$items = ['a' => 1, 'b' => 2, 'c' => 3];
+$collection = new Collection($items);
+
+$new = $collection->map(function ($value, $key) {
+    return $value * 2;
+});
+
+// $result contains ['a' => 2, 'b' => 4, 'c' => 6];
+$result = $new->toArray();
+```
+
+And finally, you could write it using PHP's `array_map()` function:
+
+```php
+$items = ['a' => 1, 'b' => 2, 'c' => 3];
+$result = [ ];
+
+$result = array_map( function($value){  return $value * 2;  }, $items );
+
+// $result contains ['a' => 2, 'b' => 4, 'c' => 6];
+```
+
+I think this simple case shows the value of what CakePHP is providing. It's a bit easier to read, especially compared to the PHP `array_map( )` function. Now that you've seen how a normal php loop compares to the `map` callbacks, I'm going to ignore this style of coding.
+
+###Anonymous Functions and Default Arguments
+
+Both map examples provide the callable as an [anonymous function](http://php.net/manual/en/functions.anonymous.php). All the Collection class examples in the CakePHP documentation are shown in this style. The PHP documentation of callbacks are all shown in a `name string` style that allows the function to be defined outside the `map` process and to be referenced by name.
+
+Is it clear why I have made slow progress on this topic?
+
+We'll get into more details about this later. For now, just know that the anonymous function is a `callable` (or `callback`) and that there are other ways to define and pass it.
+
+Here are the two `map` requests again:
+
+```php
+// Cake's map( ) method takes one argument; a callable
+$collection->map(
+    function ($value, $key) {  //--|
+        return $value * 2;     //  |-- 1st arg - the callable
+    }                          //--|
+);
+
+// PHP's array_map( ) takes at least 2 arguments; a callable and the array to operate on
+array_map( 
+    function($value){      //--|
+        return $value * 2; //  |-- 1st arg - the callable
+    },                     //--|
+    $items                 //----- 2nd arg - the array to iterate
+);
+```
+
+You'll notice the different number of arguments each callable receives and also notice that the second argument to the callable in the CakePHP version isn't used at all. It could be omitted in the example code.
+
+####Additional arguments for CakePHP's Collection::map( )
+
+There is actually a third argument available to the callback in Cake's Collection::map( ). It is an `ArrayIterator` for the array being operated on. So, if you needed it, you could make you're anonymous function like this:
+
+```php
+function( $value, $key, $iterator ) {
+    // do mapping processes here
+}
+```
+
+That's all the arguments Cake makes available. Though there is a way to get more arguments passed into an anonymous function which I'll discuss later.
+
+####Additional arguments for PHP's array_map( )
+
+PHP's method can take many more arguments and hence, pass more arguments to the callable, but there is an interesting limitation. Each of the arguments must be an array and the callable will receive a single element from each of the arrays as its arguments. 
+
+For example, to match Cake and pass `$value, $key` we would write this:
+
+```php
+$items = ['a' => 1, 'b' => 2, 'c' => 3];
+
+$result = array_map(
+    function($value, $key){  
+        return $value * 2;  
+    }, 
+    $items,
+    array_keys($items )
+);
+```
+
+So the third argument to `array_map( )`—`array_keys($items )`—will provide the value to `$key` for each iteration. Because `array_map( )`'s additional arguments must be arrays, there is no efficient way to exactly mirror the behavior of Cakes method (where the third argument was an Iterator).
+
+####Beyond the allowed callback arguments
+
+But what happens when your main code is holding some other values you need inside the `map` callback. There are clear limitations on what you can pass in both the Cake and PHP scenarios.
+
+The solution is pretty straight forward when you're using anonymous functions. As an example, lets take that last PHP example and replace the integer (2) with a variable:
+
+```php
+$multiplier = 2;
+
+$result = array_map(
+    function($value, $key) use ($multiplier) {  
+        return $value * $multipler;  
+    }, 
+    $items,
+    array_keys($items )
+);
+
+// and the same thing for the Cake version
+$collection->map(
+    function ($value, $key) use ($multiplier) {
+        return $value * $multiplier;
+    }
+);
+```
+
+If you have more than one value to pass into the callable, add them as a comma separated list inside the parenthesis.
+
+```php
+// back to the Cake version
+$collection->map(
+    function ($value, $key, $iterator) use ($multiplier, $format, $other_thing) {
+        // code here
+    }
+);
+```
+
+###Other Callback Styles
+
+Anonymous functions are fine for simple cases. But if you really want to keep your code [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself) or if you're callback code is complicated, your going to want to decompose things a bit. You'll define your process as a separate function or method and indicate that it should be used as your callback.
+
+I'm not going to discuss the use of functions as callbacks because virtually all my code is OOP as is CakePHP. If you understand how to handle using methods as callbacks, you should be able to figure out how to use functions.
+
+Here is the simple example rewritten to use a method as the callback rather than an anonymous function:
+
+**NOTE:**
+
+**PHP documentation says the callback can be *protected* or *private* if it's called from the same class or a sub-class. For me, it had to be *public***
+
+```php
+// CakePHP3.x Collection::map( ) version
+class Cakey {
+
+    // This is the callback
+    public function mapDoubler($value, $key, $iterator) {
+        return $value * 2;
+    }
+
+    // Send your array here to have the member values doubled
+    public function doubleMembers( (array) $array) {
+        $collection = new Collection($items);
+        $new = $collection->map( [ $this, 'mapDoubler' ] );
+        return $new->toArray();
+    }
+}
+
+// PHP array_map( ) version
+class PHPish {
+
+    // This is the callback
+    public function mapDoubler($value, $key) {
+        return $value * 2;
+    }
+
+    // Send your array here to have the member values doubled
+    public function doubleMembers( (array) $array) {
+        $new = array_map( [ $this, 'mapDoubler' ], $array, array_keys($array) );
+        return $new
+    }
+}
+```
+
+In both cases the first argument to the `map` function is now an array with two elements; an object and the name of the method as a string. All the code from the anonymous function is written as a method, other than that it's just as it was (all the same expected arguments).
+
+####Additional arguments for callback methods
+
+We no longer have the anonymous functions `use ( )` statement to send additional values to the callback though. And we're still constrained by our two versions of the `map` function. Cake will only accept one argument (a callback) and PHP will accept a callback and any number of arrays.
+
+However now that we're in a class, we have the class properties to work with. The calling method can be sure the needed values are set on class properties and the callback can use them as needed. An interesting detail here, *anonymous functions cannot see class properties*. They have scope the is isolated some how from a class or method that may contain them.
+
+You'll want to use some judgement here. We don't want a bunch of properties laying around that were just serving the temporary service of carrying values in to a callback. So you may want to have your calling method clean up after it's done.
+
+Here's an example:
+
+```php
+
+class DateHammer {
+
+    public function dateMapper( $value ) {
+        return date( $this->dateFormat, $value );
+    }
+
+    public function sqlDates($array_of_timestamps) {
+        $this->dateFormat = 'Y-m-d h:i:s';
+        $collection = new Collection($array_of_timestamps);
+        $formatted = $collection->map([$this, 'dateMapper']);
+        unset($this->dateFormat);
+        return $formatted;
+    }
+
+    public function ISO8601Date($array_of_timestamps) {
+        $this->dateFormat = 'c';
+        $collection = new Collection($array_of_timestamps);
+        $formatted = $collection->map([$this, 'dateMapper']);
+        unset($this->dateFormat);
+        return $formatted;
+    }
+}
+```
+
+A bit of a clumsy example, but it does illustrate the point I wanted to make regarding properties.
+
+The object passed can be from another class and there is syntax for calling a method in a static class too. All these variations can be found in the PHP manual. Hopefully, this will put you on a solid footing for using callbacks in your own code.
