@@ -1,0 +1,119 @@
+# Studio Manager Apigen Portal
+
+<div id="groups"> 
+				<h3>Namespaces</h3>
+			<ul>
+					<li>
+						<a href="/apigen/namespace-App.html">
+							App<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Cache.html">
+							Cache						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Console.html">
+							Console						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Controller.html">
+							Controller<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Controller.Component.html">
+							Component						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="/apigen/namespace-App.Database.html">
+							Database<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Database.Type.html">
+							Type						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="/apigen/namespace-App.Exception.html">
+							Exception						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Form.html">
+							Form						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Lib.html">
+							Lib<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Lib.Traits.html">
+							Traits						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="/apigen/namespace-App.Model.html">
+							Model<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Model.Behavior.html">
+							Behavior						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Model.Entity.html">
+							Entity<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.Model.Entity.EditionSubs.html">
+							EditionSubs						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Model.Entity.Traits.html">
+							Traits						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="/apigen/namespace-App.Model.Lib.html">
+							Lib						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.Model.Table.html">
+							Table						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="/apigen/namespace-App.Shell.html">
+							Shell						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.SiteMetrics.html">
+							SiteMetrics						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.View.html">
+							View<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.View.Cell.html">
+							Cell						</a>
+							</li>
+					<li>
+						<a href="/apigen/namespace-App.View.Helper.html">
+							Helper<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="/apigen/namespace-App.View.Helper.Traits.html">
+							Traits						</a>
+							</li>
+								</ul></li></ul></li></ul></li>
+			</ul>
+		</div>
+
+Topics: Studio manager, Portal
