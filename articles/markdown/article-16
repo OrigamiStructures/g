@@ -1,0 +1,221 @@
+# Coping with Conventions (over Configuration)
+
+## C over C. CakePHP Bedrock
+ 
+The third paragraph in the Cake Cookbook lays down one of the key organizing principles of the framework, Conventions over Configuration.
+
+This simple principal makes possible so much of the automagic that experienced users love (and take for granted) and new users marvel over.
+
+Once you're used to these conventions, you’ll be automatically typing bookmarks_id for the foreign key links to Bookmarks table without a thought.
+ 
+###Missed opportunities 
+
+But wait… Typing? Really?
+
+How easy it is to fall into the habit of  blithely hardcoding inflected class names, variable and property names left right and center. This practice guarantees our code snippets will only work in a single Controller/Model context. It says so right here on line 2.. and line 5... and line 12-15...
+
+There is another way. Right there in the documentation is a Utility class you might want to peek at, the Inflector.
+
+Here’s the methods avaiable in this static class:
+
+```php
+[  
+    (int) 0 => 'reset',  
+    (int) 1 => 'rules',  
+    (int) 2 => 'pluralize',  
+    (int) 3 => 'singularize',  
+    (int) 4 => 'camelize',  
+    (int) 5 => 'underscore',  
+    (int) 6 => 'dasherize',  
+    (int) 7 => 'humanize',  
+    (int) 8 => 'delimit',  
+    (int) 9 => 'tableize',  
+    (int) 10 => 'classify',  
+    (int) 11 => 'variable',  
+    (int) 12 => 'slug'  
+]
+```
+
+Intriguing. And truthfully, quite useful.
+
+With a tool like this you could potentially make your code more general and reusable by removing all those explicitly written Table, Entity and variable names.
+ 
+###A freind. Indeed.
+
+But there’s one problem with this tool, it craps up the code horribly.
+
+```php
+$alias = Inflector::tableize($this->request->controller);  
+$entity = Inflector::singularize(Inflector::camelize($this->request->controller));
+```
+
+Knowing a controller name can let us calculate the Model alias, the Entity name, the variable that contains the found data… This is the power of conventions. And though Inflector wants to be our friend, it’s a silly friend that babbles on and on, trying our patience.
+
+Apparently someone on the Cake Core Team feels the same as I do because hidden in Cake\Core and undocumeted in the Cookbook, is the ConventionsTrait. Here’s the documentation in the api.
+
+I stumbled on it while digging around in the Bake routines. I wonder where else it’s used.
+ 
+###Inflection by any other name
+
+The ConventionsTrait tries to hammer the Inflector class into a more usable form with gems like:
+
+```php
+protected function _entityName($name)  
+{
+    return Inflector::singularize(Inflector::camelize($name));  
+}
+```
+
+That’s pretty useful. Though it is a trait, and everything is protected… But still, there’s plenty of in-class work that could be done.
+ 
+###What’s that I see?
+
+I most often find myself needing inflected versions of names in the View layer though. A helper could be made to use the trait and make these new tools available in views, layouts, elements…
+
+Still, I’d need to type the argument in to the helper calls:
+
+```php
+$this->Inflect->entityName($alias);
+```
+
+So call me a whiner.
+ 
+###The shortest distance between me and my code
+
+With the new class (listing below) I can inflect my variables like this:
+
+```php
+echo $alias;                // Menus  
+echo $alias->entityName;    // Menu  
+echo $alias->modelKey;      // menu_id  
+echo $alias->variableName;  // menus
+```
+
+That’s what I like to see! Nice readable code. Straightforward and easy to type.
+
+To use the new class, anytime you have a word that is likely to need inflection:
+
+```php
+$alias = new NameConventions($this->CrazyTable->alias);
+```
+
+Good to go!
+
+I’ve implemented some of the php magic methods to make life a little easier.
+
+`__get()` is making all the class methods available as properties
+`__toString()` is set up to let you echo the object directly and get the expected original value out.
+`__debugInfo()` is set up so if you `debug($alias)` or `var_dump($alias)`, you’ll get a nice listing of all the property names and what value they will return.
+
+It is easy to add any other named inflections to the class. Even if they return the same thing as some other property, I’m for it if it makes the code easier to read.
+
+```php
+<?php  
+namespace App\Lib;
+
+use Cake\Core\ConventionsTrait;  
+use Cake\Utility\Inflector;
+
+/**  
+ * NameConventions  
+ *
+ * @author Don Drake  
+ */  
+class NameConventions {
+
+    use ConventionsTrait;
+
+    protected $_name;
+
+    public function __construct($name) {  
+        $this->_name = $name;  
+    }
+
+    /**  
+     * Magic access to the methods as properties  
+     * 
+     * @param string $version The inflection version requested as a property    name  
+     * @return string|NULL The inflected string or NULL  
+     */  
+    public function __get($version) {  
+        $method = "_$version";  
+        if (method_exists($this, $method)) {  
+            return $this->$method($this->_name);  
+        } else {  
+            return NULL;  
+        }
+    }
+
+    /**  
+     * Magic output if the object is echoed  
+     * 
+     * @return string  
+     */  
+    public function __toString() {  
+        return $this->_name;  
+    }
+
+    /**  
+     * var_dump output  
+     * 
+     * The list of 'property' names and their values  
+     * 
+     * @return array  
+     */  
+    public function __debugInfo() {  
+            $ar = [  
+                'echo $thisObject' => $this->_name,  
+                'protected properties' => [  
+                    "_name" => $this->_name  
+                ],  
+                'public properties' => []  
+            ];  
+            $methods = get_class_methods($this);  
+            foreach ($methods as $method) {  
+                if (stristr($method, '__')) {  
+                    continue;  
+                }
+                $label = str_replace('_', '', $method);  
+                $ar['public properties'][$label] = $this->$method($this->_name  );  
+            }
+            return $ar;  
+    }
+
+    /**  
+     * A convenience 'property'  
+     * 
+     * If someone has the object on $alias and they ask for $alias->name this   will fulfill the request  
+     * 
+     * @param string $name  
+     * @return string  
+     */  
+    protected function _name($name) {  
+        return $name;  
+    }
+
+    /**  
+     * This one doesn't make sense in this class  
+     * 
+     * But I've fixed it so it will return a valid result  
+     * 
+     * @param string $key  
+     * @return NULL  
+     */  
+    protected function _modelNameFromKey($name) {  
+        $key = str_replace('_id', '', $this->_modelKey($name));  
+        return Inflector::camelize(Inflector::pluralize($key));  
+    }
+
+    /**  
+     * for a modelName request  
+     *
+     * This is an example of adding a new 'propery' for the sake of convenience  
+     * 
+     * @param string $key  
+     * @return string  
+     */  
+    protected function _modelName($name) {  
+        return $this->_modelNameFromKey($this->_modelKey($name));  
+    }
+}
+```
