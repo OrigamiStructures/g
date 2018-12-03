@@ -1,0 +1,7 @@
+# Adding Foundation to our dev repos
+
+Lacking an understanding of proper Foundation installation using Bower, we're reduced to copy/paste installation. This is how we hack it together.
+ 
+These are files pulled from foldingTime (and now StudioManagerScratch)
+
+![github screen capture showing the files to add and their locations to install Foundation in CakePHP 3.x](/img/images/image/a5a14e05-76b2-473d-9ad1-c0313f75d1fa/foundation_install.png "elements to add")
