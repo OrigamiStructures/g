@@ -1,0 +1,77 @@
+# Qylur DeliveryBox
+
+##Goals
+The refactoring of Deliverybox has two primary goals:
+
+1. Maintain the current, familiar customer order interface
+2. Create a new order creation and maintenance interface that is simpler, faster and less error-prone than the current system
+
+##Solutions
+ 
+There is a spectrum of solutions. The solutions can be generalized into 3 approaches:
+
+1. Improve the static site pages
+
+2. Minimally refactor of the pages to a dynamic database driven system.
+
+3. Optimized refactor to a dynamic site.
+
+###Improvement of the static site
+
+This process is already underway. While making requested changes, such as the Report refactor, we are simplifying the pages where doing so does not inappropriately impact the project budget.
+
+Among improvements to the static site, we could add a document upload system. Although the static site can't support full integration of this sub module we do have an integration plan.
+
+###Minimal dynamic refactor
+
+This solution would put the site on a dynamic footing for future enhancements. It would focus on minimizing the initial project budget while satisfying the critical goals.
+
+Key result you would see
+
+- Order creation and editing would be a process of making database entries. No programming or other document editing would be required
+
+- Order creation would require a staff member with expert knowledge of the structure of Qylur orders
+
+- Any skilled staff member would be able to update orders.
+
+
+###Optimized dynamic refactor
+
+ Solutions in this spectrum would reduce the special knowledge required by editors. The time to create and maintain orders would be reduced. There are many enhancements, large and small, that could be included. Some examples:
+
+- Page content could respond to the visitors preferred language. Order creation and editing would be done in one language
+
+- Orders could allow in situ editing eliminating the need for a second admin interface (as you see in WordPress). This would make site maintenance simpler and faster.
+
+- Orders and all the information and lists for the order could be generated with a template. This would reduce the time and skill required to create orders while eliminating the risk of certain types of errors.
+
+- Page elements could be responsive to the current state of the order data. For example, the category block colors are set by hand in the current system. They would require a database record change in the minimal refactor. But they could respond automatically to the lists they head, becoming gray, blue or green as appropriate.
+
+- Log the changes and/or site access to provide usage information that is not also visible to Google. 
+
+##Budgets
+
+There is tremendous variability in the possible scale of your redesign. We can provide a detailed proposal for the project as you decide to scale it. Here is a rough sense of how the choices would translate into dollars.
+
+###Improvement of the static site
+
+Incremental improvements are ongoing within the scope of other required work. This program could be expanded. Improvement projects could be designed to be in the 5-10 hour range. 
+
+A simple form of file upload system which could later be assimilated in a larger refactor should be attainable in about 15 hours.
+
+###Minimal dynamic refactor
+Minimal refactoring is estimated at 200 hours. This assumes site authorization can be managed through the WordPress site and that the permissions for content access are not more detailed in the Deliverybox than in the main site.
+
+Planning ahead for future enhancements can also extend the time estimate while reducing the time budget of the future projects.
+
+###Optimized dynamic refactor
+
+Optimized refactoring is á la carte plus the cost of minimal refactoring. It would not be difficult to double the project time through the inclusion of enhanced features. 
+
+##Conclusion
+
+We hope this overview of solutions for the Deliverybox will help in the development of your plan. We focus on writing code that is modular and extensible, so there is no technical reason to favor an all-at-once approach.
+
+There are many opportunities for dramatic improvements to the site and we look forward to helping you achieve your goals.
+
+
