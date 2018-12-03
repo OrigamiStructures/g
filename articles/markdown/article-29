@@ -1,0 +1,20 @@
+# Stack Entity Caching
+
+ArtStack might be able to emit EditionStack entities, FormatStack entities, and PieceStack entities. 
+
+These 3 stacks would be subsets of the ArtStack content and each would be tailored to certain tasks.
+
+Code needed:  
+Even though the contents will all be references, we might want a universal call point that can dispose of no longer needed stack objects.
+
+Can an efficient cache management system be designed to delete the necessary stack caches in this object environment? 
+
+A single piece change would invalidate the ArtStack, one EditionStack, possibly one FormatStack, and one Piece stack. But there might remain a large number of valid data caches.
+
+Edition changes though might cascade into a large number of PieceStack caches...
+
+This is all tentative. 
+
+One big difference is that these sub-stacks would be emitted by an object already in memory. There may not be an advantage to caching them because their construction is certain to be faster than the sql queries that build top-level stacks.
+
+Topics: Studio manager, 
