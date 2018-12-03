@@ -1,0 +1,306 @@
+# CrudViews Plugin
+
+If you don't want a wordy explanation of the system, jump right to [Bootstrap Changes](#bootstrap-changes) and [AppController Changes](#appcontroller-changes).
+ 
+CrudViews is a CakePHP 3 Plugin that renders the 4 standard views, `add`, `edit`, `view`, `index`, dynamically rather than by using the normal *baked* views. This means, that during the early prototyping stages of your site build, data schema changes won't automatically require re-baking. Instead, the views automatically detect and render the table data according to the default rules Cake's baked views follow.
+
+The plugin also allows quick modification of the views through a handful of configurations methods. This allows the filtering of displayed columns, the addition of alternate tools (like search), and much more.
+
+Lastly the plugin can be used throughout your site in conjunction with layouts, views, elements and helpers as another tool in your arsenal as you work to create flexible, reusable rendering systems.
+
+##Installation
+
+You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
+
+The recommended way to install composer packages is:
+
+```bash
+composer require your-name-here/CrudViews
+ # what? I've never done this
+```
+
+###Hooking the plugin into your app
+
+Once the files are installed you'll need to make some changes to your app to get 
+everything connected. You'll have some options here so a little information 
+about the use of the plugin will help you decide how to proceed.
+
+There is no automatic use of the dynamic Crud views after the plugin is installed. 
+You can tune all your controllers to use all the dynamic views or you can 
+cherry-pick the controller/action cases where you want the dynamic view features.
+
+You may also choose to drive much of your view logic through the CrudViews plugin 
+with the trade-off of making your view code more abstract. This will require more 
+discipline to use but it can greatly reduce your view code and logic while 
+improving consistency in your pages and your user interface.
+
+So you have three possible levels of use:
+
+1. Limited cherry-picked use
+    * Choose [optional {your}Controller setup](#optional-your-controller-setup)
+2. General use to replaced baked Crud views
+    * Choose [optional AppController setup](#optional-appcontroller-setup)
+3. Advanced use to help standardize your views throughout your app
+    * Choose [optional AppController setup](#optional-appcontroller-setup)
+
+First let's cover the code required no matter what your use plans are.
+
+* bootstrap changes
+* AppController changes (required)
+
+####Bootstrap changes
+
+Since there are several places where plugin files need to be extended or loaded 
+you'll need to use the autoload option:
+
+```php
+	// app/config/bootstrap.php
+	Plugin::load('CrudViews', ['autoload' => true, 'bootstrap' => true]);
+```
+
+####AppController changes
+
+The plugin's `AppController` implements the `beforeFilter()`, `beforeRender()`, and `render()` methods, so if your controllers do anything with these methods, be sure to call the parent:
+
+```php
+<?php
+/**
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link      http://cakephp.org CakePHP(tm) Project
+ * @since     0.2.9
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+namespace App\Controller;
+
+use Cake\Controller\Controller;
+use Cake\Event\Event;
+use CrudViews\Controller\AppController as BaseController;
+
+class AppController extends BaseController {
+
+	public function initialize() {
+		parent::initialize();
+		$this->loadComponent('Flash');
+		$this->connectCrudViews('all');
+	}
+
+	/**
+	 * Pass this call through to the CrudView plugin
+	 * 
+	 * @param Event $event
+	 */
+	public function beforeRender(Event $event) {
+		parent::beforeRender($event);
+		// do whatever else you want 
+	}
+
+	/**
+	 * Pass this call through to the CrudView plugin
+	 * 
+	 * @param string $view
+	 * @param string $layout
+	 * @return string
+	 */
+	public function render($view = null, $layout = null) {
+		parent::render($view, $layout);
+		// do whatever else you want 
+		// don't forget render() must return the response object
+		return $this->response;
+	}
+
+// all your other AppController code
+}
+
+```
+
+If you want to use CrudViews to make the four standard views in all your 
+controllers dynamic you just have to add one more thing to *AppContoller*
+```
+	// in the initialize() method 
+	$this->connectCrudViews('all');
+```
+
+This will do it! Your application should perform pretty much like it did when using the standard baked layouts with the exception the the new dynamic views filter out the `created` and `modified` fields by default.
+
+###Understanding the system integration
+
+Here's a quick overview of how the how **CrudViews** is integrated into your system.
+
+####Your AppController or Controller
+
+`intitalize()` or <span title="before you call parent::beforeFilter()">`beforeFilter()`</span> is the place you choose which Controller/Actions to place under **CrudViews** control. Details are in the section on [`connectCrudViews()`](connectCrudViews())
+
+####beforeFilter Processes
+
+When a controller/action is called, **AppController** checks to see if this is a call that is under **CrudViews** control (as defined by you in your use of `$this->connectCrudViews()`).
+
+If it is not controlled, processing continues as usual.
+
+If it is controlled, the system will create a **CrudData** object that describes the controllers Table and its associations. This object is stored in a simple **Collection** of similar objects. This is not a CakePHP 3 Collection, it's a much simpler collection with a very limited interface.
+
+The system will also create a **ModelAction** object, an **AssociationAction** object and a **RecordAction** object based on your primary Table and place these in three **Collections**. These three objects define the tools that will be available on your page. By default, these mirror those available in baked views. Since you are familiar with CakePHP standards, these will be familiar to you. For example, assuming a User index view you would see:
+
+* Model Actions (action links for the primary table)
+    * New User
+* Association Actions (action links for associated tables)
+    * List Groups
+    * New Group
+* Record Actions (action links for each primary record)
+    * View
+    * Edit
+    * Delete
+
+With this done, control is passed on to the action you called. There, you can modify the **CrudData** object for you needs or add others to the collection to configure additional tables for output through the system. You can also modify the three **Action objects** to change the available tools for each type and add others to the **Collections** to accompany the additional **CrudData** objects you create.
+
+####beforeRender Processes
+
+The `beforeRender()` event will create a **CrudHelper** configured with your **CrudData** collection and the three **Action** collections.
+
+####render Processes
+
+You can specify a view and layout to render as usual. If the controller/action is under **CrudVeiw** control, it will follow {{A SOON TO BE DEFINED PROCESS}} to select the view and layout.
+
+####CrudHelper: different than you're used to
+
+The **CrudHelper** is a little different than the Helpers that ship in the CakePHP framework. Those pre-built Helpers don't use internal data properties to create output. Instead, their methods accept arguments to determine output. **CrudHelper** contains **Collections** of **CrudData** and **Action** objects. As rendering proceeds, members of these collections are brought to the forefront (in helper properties) and these internal data objects are used in combination with **Entity** objects to create the output.
+
+As a result, **CrudHelper** methods take few arguments. Instead you'll need to manage the internal state of the helper.
+
+###STUFF TO REWRITE 
+
+* AppController changes (optional)
+* {your}Controller changes (the option to AppController changes)
+* Choosing the dynamic CRUD views in a controller (required {your}Controller changes)
+
+This is not strictly necessary. The idea here is that you're going to want the new dynamic CRUD views available across all controllers. This change will load the pivotal CrudHelper for all controllers.
+
+Before the declaration of the AppController class, with your other ```use``` statements:
+
+```
+use CrudViews\Controller\AppController as BaseController;
+```
+
+Then change the class declaration and $helper property value
+
+```php
+	class AppController extends BaseController {
+	
+		public $helpers = ['CrudViews.Crud']; // add this to your list of other helpers
+		
+		/**
+		 * Pass this call through to the CrudView plugin
+		 * 
+		 * CrudView depends on this call to do important helper configuration
+		 * 
+		 * @param Event $event
+		 */
+		public function beforeRender(Event $event) {
+			parent::beforeRender($event);
+		}
+		
+		// all your other AppController code
+		
+	}
+```
+
+###Using CrudData
+
+Once a specific CrudData object is selected, you can get the AssociationCollection 
+for it or you can get a specific named association. To get the full collection:
+
+```php
+	$associations = $this->helper->CrudData->associationCollection();
+```
+To get a specific Association object:
+
+
+```php
+$this->helper->CrudData->associationCollection('projects');
+```
+
+This object can run proxy calls to the associated Table object like this:
+
+```php
+$this->helper->CrudData->associationCollection('projects')->displayField();
+```
+
+##Access to Associated Data in the Parent Entity
+
+Calls to `CrudHelper::output($field)` will eventually output `$this->entity->$field` 
+where `entity` is the Entity for the current CrudData object. This object may have 
+associated data included and there may be situations where you want to include 
+some of the associated data fields in the output of the parent. For example a 
+parent's foreign key would typically be replaced with the `displayField` which 
+would be found in the contained Entity. 
+
+The since there is no way for `$field` to carry enough information for 
+`CrudHelper::output()` or the Decorators that wrap the decorator to drill down 
+to these deeper levels of the parent entity, in the cases where you want a call
+to accomplish this you'll need to do something like this:
+
+```php
+	// psuedo code
+			
+	if ( $this->needDeeperData() ) {
+		$association_entity = $this->getAssociationEntityName(); // lowercase singular of the association alias
+
+		$original_entity = clone $this->Crud->entity; // Crud is your instance of CrudHelper
+		$this->Crud->entity = $original_entity->$association_entity;
+		
+		// now your ready for your call. Adjust the value of $field if necessary
+		$this->Crud->output($field);
+		
+		// now switch back to the original entity
+		$this->Crud->entity = clone $original_entity;
+	} else {
+		$this->Crud->output($field);
+	}
+```
+
+###NOTE TO SELF 
+
+A helper method that handles this entity swapping would be ideal
+
+##connectCrudViews()
+
+In your AppController or Controller, this is how you indicate which Controller/Actions to place under control of the plugin.
+
+```php
+// AppController or any Controller, any time before the plugin's beforeFilter() runs.
+// Default standard views are 'index', 'edit', 'new', add'. Modify them with standardActions(). 
+
+$this->connectCrudViews('all'); //all standard views
+$this->connectCrudViews('Users', 'Comments'); //all standard views in Users and Comments controllers
+$this->connectCrudViews('Users.index', 'Users.myAction') //just the specified controller/actions
+
+// calls are additive, so you can do some in AppController and add more in your Controllers
+// array structure ['Users.index' => 'Users.Index']
+```
+
+##Optional {your}Controller setup
+
+##Optional AppController setup
+
+##Advanced Use
+
+###standardActions()
+
+**CrudViews** considers the 4 action/views `index`, `view`, `add`, `edit` to be the standard views. If you configure a controller to be under **CrudViews** control, these are the actions that will be captured and the views that will be rendered.
+
+You can modify this set by using the `standardActions()` method. The method takes up to two arguments, the first an array of views and the second a flag to determine whether the provided choices will modify or overwrite the default list. It will overwrite by default.
+
+```php
+// in AppController or a Controller prior to the CrudViews::beforeFilter()
+$this->standardActions(['index', 'view']); // make these the only standards
+$this->standardActions(['newParent', 'upTree', 'downTree'], FALSE); // add these to the standards
+```
+
+This is simple enough. It's important to understand though that, when invoked, the standard actions must be backed up by some configuration code. The 4 default actions have this code written into the plugin. You'll need to write code to support any new standard actions you add. Indeed, you'll need to provide configuration code for any actions you want under **CrudViews** control.
+
