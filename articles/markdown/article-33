@@ -3,7 +3,7 @@
 ## Required and Possible Image Uses
 
 The system currently documents a single image to be attached to :
-
+  
 - Users 
    - table schema does not provide the link though ImagesTable has the association
 - Members
