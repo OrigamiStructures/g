@@ -1,0 +1,3 @@
+# Logging into CakePHP and WordPress
+
+curl seemed to not be carrying the cookie data into the cake call. Though there were possible solutions, I felt curl might be a little old-school and I wasn't 100% sure my server had it installed. Also, I didn't want to dictate that strategy to the wp developers though I would keep it open as an option if they could get me the session cookies.
