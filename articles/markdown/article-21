@@ -1,0 +1,18 @@
+# Studio Manager Beta Must...
+
+Use this article to track features and capabilities the absolutely have to be viable for March release.
+##The MUST Things
+ 
+* Manage and track Limited Editions (including quantity=1)
+    * I'm on the fence regarding Use Editions
+* Manage and track Open Editions
+* Create and manage Groups and their Members
+* Must be responsive
+    * Does it have to be fully mobile-ready?
+    * Is there a reason to be responsive other than to be mobile-usable given that goolgle will not index these pages and so there is no responsive requirement?
+
+
+## The OPTIONAL Things
+
+* Implement Series
+* Implement Subscription
