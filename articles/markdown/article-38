@@ -1,0 +1,7 @@
+# RenumberRequest Flags and Messages
+
+RenumberRequest (RR) objects are primarily record-and-report objects. They contain almost no logic to determine the validity of a request. Only the containing class RenumberRequests (RRs) has the context required for this task.
+
+As RRs receives and stores RR objects, it sets flags using the provided methods in each RR to indicate its state according to the rule set in RRs.
+
+RR has a the `message( )` method which outputs an array of messages that describe the internal state of the request; the nature of any error, ambiguities, and/or the expected action that will result on execution of the request.
