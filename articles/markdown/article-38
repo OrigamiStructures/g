@@ -1,7 +1,30 @@
 # RenumberRequest Flags and Messages
 
+## Role of the class
+
 RenumberRequest (RR) objects are primarily record-and-report objects. They contain almost no logic to determine the validity of a request. Only the containing class RenumberRequests (RRs) has the context required for this task.
 
 As RRs receives and stores RR objects, it sets flags using the provided methods in each RR to indicate its state according to the rule set in RRs.
 
 RR has a the `message( )` method which outputs an array of messages that describe the internal state of the request; the nature of any error, ambiguities, and/or the expected action that will result on execution of the request.
+
+## The properties and their methods
+
+### Request data
+
+- protected _old  
+   What the number of the piece started as
+   - oldNum( )
+- protected _new  
+   What the number will be if the request is acted on
+   - newNum( )
+
+### Flags
+
+- _bad_new_number, default FALSE  
+   No new number provided or the new number is not in the set of allowed numbers
+   - bad_number( )
+- _implied_change, default FALSE
+- duplicate_new_number, default FALSE
+- _vague_provider, default FALSE
+- _renumber_message, default TRUE
