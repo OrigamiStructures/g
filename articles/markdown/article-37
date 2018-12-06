@@ -1,9 +1,18 @@
-# Speculation on the future of StackEntity
+# Guidelines for writing StackTable classes
 
 [Stacks Portal](/article/stacks-portal "Stacks Portal")
  
-force
 
+The new table class must extend App\Model\Table\StackTables
+
+Set the three protected properties:
+
+- $layerTables
+   - a list
+- $stackSchema
+   - 
+- $seedPoints
+   - 
 
 
 Topics, Studio manager, Stack, Layer, Design pattern
