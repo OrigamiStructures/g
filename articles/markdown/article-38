@@ -8,7 +8,11 @@ As RRs receives and stores RR objects, it sets flags using the provided methods 
 
 RR has a the `message( )` method which outputs an array of messages that describe the internal state of the request; the nature of any error, ambiguities, and/or the expected action that will result on execution of the request.
 
-The apigen docs are [here](/apigen/class-App.Lib.RenumberRequest.php)
+### Assumptions about requests
+
+Pieces will swap numbers but no new numbers will be created and no numbers will be lost.
+
+The apigen docs are [here](/apigen/class-App.Lib.RenumberRequest.html)
 
 ## The properties and their methods
 
@@ -32,5 +36,12 @@ The apigen docs are [here](/apigen/class-App.Lib.RenumberRequest.php)
 - duplicate_new_number, default FALSE  
    The new number is being applied in more that one case
    - duplicate(boolean|integer)
-- \_vague_provider, default FALSE
-- \_renumber_message, default TRUE
+- \_vague_provider, default FALSE  
+   This piece's number is being changed but the destination for its old number hasn't been determined
+   - vague_receiver(boolean)
+- \_renumber_message, default TRUE   
+   This flag controls when a message describing the valid, expected move is generated. Error conditions typically suppress this summarizing message. 
+   - Can't be set manually
+
+### The message generation rules
+
