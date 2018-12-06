@@ -47,12 +47,13 @@ The apigen docs are [here](/apigen/class-App.Lib.RenumberRequest.html)
 
 Message generation focuses on two tasks and follows a simple rule set:
 
-1. deciding which of error message to generate (if any)
+1. Using the flag properties, decide which of error message to generate (if any)
    - there can be multiple error messages on a single request
-2. deciding whether to include a 'move summary' message (Change piece #x to #y)
+   - Error states will toggle `_renumber_message` property as necessary
+2. Using `_renumber_message` property, decide whether to include a 'move summary' message (Change piece #x to #y)
    - only the \_vague\_receiver error condition will allow the move summary to be generated
 
 All the generated messages will be returned in an array.
 
 
-
+Topics: Studio manager
