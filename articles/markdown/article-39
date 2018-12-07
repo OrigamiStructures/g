@@ -1,6 +1,6 @@
 # RenumberRequests rules for renumbering
 
-In this document RenumberRequest objects are called RR, and the RenumberRequests container objects is called RRs. 
+In this document RenumberRequest objects are called **RR**, and the RenumberRequests container object is called **RRs**. 
 
 Other terminology used in the code:
 
@@ -8,6 +8,8 @@ Other terminology used in the code:
 - The number being assigned as a replacement to oldNum is called **newNum**
 - The piece that is receiving a newNum is called a **receivier**
 - The piece that lost its number in the exchange is call the **provider**
+
+This means that `provider->oldNum = receiver->newNum`
 
 ## Properties used
 
@@ -17,7 +19,7 @@ Other terminology used in the code:
    The heap stores the sorted collection of RR objects. The sorting strategy was (and is) a point of debate. The sum of the old and new number ascending is being used.   
    This probably won't be useful when a symbol system is used for numbering pieces.
 - \_indexed\_list   
-   This is a second set of references to the RR objects; an array indexed by old-number
+   This is a second set of references to the RR objects; an array indexed by old-number `[oldNum => RR{ }]
 - \_valid\_symbols
    An array of all valid piece numbers `[sym => sym]`
 
@@ -32,14 +34,16 @@ There are several tally, usage, and checklist properties that keep track of the 
 - \_providers\_checklist
 
 
-## Rules for valid renumbering
+## Rules for renumbering
 
-One detail regarding the actual implementation, Piece entities are not used during the request validation process. When pieces are mentioned, we will be referring to RR objects. These objects carry all the data user needs to make the request and that we need to validate it.
+One detail regarding the actual implementation, Piece entities are not used during the request or validation process. When pieces are mentioned, we will be referring to RR objects. These objects carry all the data user needs to make the request and that we need to validate it.
 
 **Rules**
 
 - Each involved piece must act as a **provider** exactly once 
 - Each involved piece must act as a **receiver** exactly once.
 - All **newNum**s must be in the set of valid symbols
+
+The obvious implication is that **each involved piece must act both as a provider and a receiver**.
 
    
