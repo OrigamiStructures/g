@@ -4,10 +4,10 @@ In this document RenumberRequest objects are called **RR**, and the RenumberRequ
 
 Other terminology used in the code:
 
-- The original number of a piece is called **oldNum**
-- The number being assigned as a replacement to oldNum is called **newNum**
-- The piece that is receiving a newNum is called a **receivier**
-- The piece that lost its number in the exchange is call the **provider**
+- The original number of a piece is called ***oldNum***
+- The number being assigned as a replacement to oldNum is called ***newNum***
+- The piece that is receiving a newNum is called a ***receivier***
+- The piece that lost its number in the exchange is call the ***provider***
 
 This means that `provider->oldNum = receiver->newNum`
 
@@ -40,9 +40,9 @@ One detail regarding the actual implementation, Piece entities are not used duri
 
 **Rules**
 
-- Each involved piece must act as a **provider** exactly once 
-- Each involved piece must act as a **receiver** exactly once.
-- All **newNum**s must be in the set of valid symbols
+- Each involved piece must act as a ***provider*** exactly once 
+- Each involved piece must act as a ***receiver*** exactly once.
+- All ***newNum***s must be in the set of valid symbols
 
 The obvious implication is that **each involved piece must act both as a provider and a receiver**.
 
