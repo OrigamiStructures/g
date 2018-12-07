@@ -24,7 +24,7 @@ Other terminology used in the code:
 ### Calculating properties
 
 There are several tally, usage, and checklist properties that keep track of the evolving renumbering situation. Their role will be described in a later section.
-
+ 
 - \_bad\_symbols
 - \_explicit\_receivers
 - \_receiver\_checklist
