@@ -1,2 +1,45 @@
 # RenumberRequests rules for renumbering
 
+In this document RenumberRequest objects are called RR, and the RenumberRequests container objects is called RRs. 
+
+Other terminology used in the code:
+
+- The original number of a piece is called **oldNum**
+- The number being assigned as a replacement to oldNum is called **newNum**
+- The piece that is receiving a newNum is called a **receivier**
+- The piece that lost its number in the exchange is call the **provider**
+
+## Properties used
+
+### Storage and reference properties
+
+- \_heap   
+   The heap stores the sorted collection of RR objects. The sorting strategy was (and is) a point of debate. The sum of the old and new number ascending is being used.   
+   This probably won't be useful when a symbol system is used for numbering pieces.
+- \_indexed\_list   
+   This is a second set of references to the RR objects; an array indexed by old-number
+- \_valid\_symbols
+   An array of all valid piece numbers `[sym => sym]`
+
+### Calculating properties
+
+There are several tally, usage, and checklist properties that keep track of the evolving renumbering situation. Their role will be described in a later section.
+
+- \_bad\_symbols
+- \_explicit\_receivers
+- \_receiver\_checklist
+- \_providers\_mentioned
+- \_providers\_checklist
+
+
+## Rules for valid renumbering
+
+One detail regarding the actual implementation, Piece entities are not used during the request validation process. When pieces are mentioned, we will be referring to RR objects. These objects carry all the data user needs to make the request and that we need to validate it.
+
+**Rules**
+
+- Each involved piece must act as a **provider** exactly once 
+- Each involved piece must act as a **receiver** exactly once.
+- All **newNum**s must be in the set of valid symbols
+
+   
