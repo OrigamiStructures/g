@@ -64,7 +64,7 @@ At the end of this process we have a few critical pieces of information.
 - All violations of [Rule 3](#rule-3) (bad symbols) are known
    - The bad symbols are store in the property [\_bad\_symbol](#bad-symbol-structure)).  
    In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE`.
-- We know the pieces that [explicitly received a new number](#explicit-receiver-structure).
+- We know the pieces that explicitly received a new number (property illustrated in [\_explicit\_receiver structure](#explicit-receiver-structure)).
 - We know the pieces that are loosing numbers because of explicit reassignment to a new pieces (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
 - We know about duplicate use of symbols ([rule 1 violations](#rule-1))
   - Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
