@@ -46,4 +46,4 @@ One detail regarding the actual implementation, Piece entities are not used duri
 
 The obvious implication is that **each involved piece must act both as a provider and a receiver**.
 
-   
+![Required user/member record structure](http://g.origamistructures.com/w_img/insertRenumberRequestFlow.png)   
