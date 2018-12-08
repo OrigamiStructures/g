@@ -41,11 +41,17 @@ One detail regarding the actual implementation, Piece entities are not used duri
 
 **Rules**
 
-1. Each involved piece must act as a ***provider*** exactly once 
+1. <span id="rule-1">Each involved piece must act as a ***provider*** exactly once </span>
 2. <span id="rule-2">Each involved piece must act as a ***receiver*** exactly once.</span>
-3. All ***newNum***s must be in the set of valid symbols
+3. <span id="rule-3">All ***newNum***s must be in the set of valid symbols</span>
 
-The obvious implication is that **each involved piece must act both as a provider and a receiver**.
+The hidden implication is that **each involved piece must act both as a provider and a receiver**.
+
+Rule 2 is enforced by the nature of the form. Each piece has one input that might be filled with a new number for that piece. There is no way to assign more than one new number.
+
+On the other hand, a number can entered in many inputs so rule 3 can be accidentally violated.
+
+The property that tracks [explicit provider](#explicit-provider-structure) use has a special structure to allow duplicate use detection.
 
 ### Implementing code
 
@@ -57,11 +63,12 @@ At the end of this process we have a few critical pieces of information.
 
 - We have a record of all invalid number that were assigned to pieces (property illustrated in [\_bad\_symbol structure](#bad-symbol-structure)).  
    In addition to this record, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE`.
+   - These duplicates are violations of [Rule 3](#rule-3)
 - We know every piece that the user explicitly assigned a new number (property illustrated in [\_explicit\_reciever structure](#explicit-receiver-structure)).
 - We know every piece that is loosing its number because it has been explicitly assigned to a new piece (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
 - We know how many times each number was applied to a new piece. Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
    The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
-   These duplicates are violations of [Rule 2](#rule-2)
+   - These duplicates are violations of [Rule 1](#rule-1)
    
 #### \_bad\_symbol structure
 
