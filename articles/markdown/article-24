@@ -10,9 +10,9 @@ There are three linked tables involved in determining:
 Only register users can edit. These registered users may or may not be artists. But either way, they will all have two required and linked records; **user** and **member**.
 
 ### Registered User: the most basic required unit
-Before we look at the details of defining who is an artist in the system, we need to look at the required structure of a registered user since these are the only people that can manage artist data and, indeed, they are the only people that can use the system.
+Before we look at the details of defining who is an artist in the system, we need to look at the required structure of a registered user since these are the only people that can manage artist data and, indeed, they are the only people that can use the system. 
 
-![Required user/member record structure](http://g.origamistructures.com/w_img/RequiredUserMember.png)
+![Required user/member record structure](http://g.origamistructures.com/w_img/RequiredUserMember.png) 
 
 The `member::user_id` to `user::id` link is a universally required link. It will be present in every record of every kind that was created by the user. It establishes ownership for all system data.
 
