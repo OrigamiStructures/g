@@ -41,9 +41,9 @@ One detail regarding the actual implementation, Piece entities are not used duri
 
 **Rules**
 
-- Each involved piece must act as a ***provider*** exactly once 
-- Each involved piece must act as a ***receiver*** exactly once.
-- All ***newNum***s must be in the set of valid symbols
+1. Each involved piece must act as a ***provider*** exactly once 
+2. <span id="rule-2">Each involved piece must act as a ***receiver*** exactly once.</span>
+3. All ***newNum***s must be in the set of valid symbols
 
 The obvious implication is that **each involved piece must act both as a provider and a receiver**.
 
@@ -55,12 +55,13 @@ The first phase of rules-checking takes place as the RR objects are inserted int
 
 At the end of this process we have a few critical pieces of information.
 
-- We have a record of all invalid number that were assigned to pieces (property illustrated in [\_bad\_symbol structure](#bad-symbol-structure).  
-   In addition to this RRs record, each RR object that received a bad symbol as its `$_bad_new_number` flag set to `TRUE`.
-- We know the original number of every piece that the user explicitly wants to change (property illustrated in [\_explicit\_reciever structure](#explicit-receiver-structure).
-- We know the original number of every piece that is loosing its number because it has been explicitly assigned to a new piece (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure).
-- We know how many times each new number was applied to pieces. Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
+- We have a record of all invalid number that were assigned to pieces (property illustrated in [\_bad\_symbol structure](#bad-symbol-structure)).  
+   In addition to this record, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE`.
+- We know every piece that the user explicitly assigned a new number (property illustrated in [\_explicit\_reciever structure](#explicit-receiver-structure)).
+- We know every piece that is loosing its number because it has been explicitly assigned to a new piece (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
+- We know how many times each number was applied to a new piece. Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
    The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
+   These duplicates are violations of [Rule 2](#rule-2)
    
 #### \_bad\_symbol structure
 
