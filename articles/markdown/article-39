@@ -45,7 +45,7 @@ One detail regarding the actual implementation, Piece entities are not used duri
 2. <span id="rule-2">Each involved piece must act as a ***receiver*** exactly once.</span>
 3. <span id="rule-3">All ***newNum***s must be in the set of valid symbols</span>
 
-The hidden implication is that **each involved piece must act both as a provider and a receiver**.
+<span id="hidden-rule">The hidden implication</span> is that **each involved piece must act both as a provider and a receiver**.
 
 Rule 2 is enforced by the nature of the form. Each piece has one input that might be filled with a new number for that piece. There is no way to assign more than one new number.
 
@@ -102,4 +102,22 @@ $_explicit_provider = [
     ],
 ]; 
 ```
+
+This leave the [hidden rule](#hidden-rule) to verify.
+
+Consider the simpler request "change #2 to #1". This will give us these two properties which reflect the explicit requests:
+
+```php
+$_explicit_receiver = [
+   2 => 2
+];
+$_explicit_provider = [
+   1 => [
+      2 => 2
+   ]
+];
+```
+
+We now have to account for the implicit requests to fulfill the hidden rule. The provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+
 
