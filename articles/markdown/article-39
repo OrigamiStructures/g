@@ -55,11 +55,23 @@ The first phase of rules-checking takes place as the RR objects are inserted int
 
 At the end of this process we have a few critical pieces of information.
 
-- We know the original number of every piece that the user explicitly wants to change (property illustrated in [code block 1](#code-block-1).  
+- We have a record of all invalid number that were assigned to pieces (property illustrated in [\_bad\_symbol structure](#bad-symbol-structure).  
+   In addition to this RRs record, each RR object that received a bad symbol as its `$_bad_new_number` flag set to `TRUE`.
+- We know the original number of every piece that the user explicitly wants to change (property illustrated in [\_explicit\_reciever structure](#explicit-receiver-structure).
+- We know the original number of every piece that is loosing its number because it has been explicitly assigned to a new piece (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure).
+- We know how many times each new number was applied to pieces. Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
+   The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
+   
+#### \_bad\_symbol structure
 
-- We know the original number of every piece that is loosing its number because it has been explicitly assigned to a new piece (property illustrated in [\_explicit\_reciever structure](#explicit-receiver-structure).
+```php
+$_bad_symbols [
+   badSym1 => badSym1,
+   badSym2 => badSym2,
+ ],
+```
 
-#### \_explicit_receiver structure
+#### \_explicit\_receiver structure
 
 ```php
 $_explicit_receiver = [
@@ -68,7 +80,7 @@ $_explicit_receiver = [
 ];
 ```
 
-#### code block 2
+#### \_explicit_provider structure
 
 ```php
 $_explicit_provider = [
