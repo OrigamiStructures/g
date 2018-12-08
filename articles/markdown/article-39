@@ -105,19 +105,21 @@ $_explicit_provider = [
 
 This leave the [hidden rule](#hidden-rule) to verify.
 
-Consider the simpler request "change #2 to #1". This will give us these two properties which reflect the explicit requests:
+Consider the simpler request "change #2 to #1". This will give us two properties which reflect the explicit requests. 
+
+To satisfy the implicit requests to fulfill the hidden rule the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+
+The code will compile two new properties to verify this rule.
 
 ```php
-$_explicit_receiver = [
-   2 => 2
-];
-$_explicit_provider = [
-   1 => [
-      2 => 2
-   ]
-];
+$_explicit_receiver = [ 2 => 2, ];
+$_explicit_provider = [ 1 => [ 2 => 2, ], ];
+
+$_receiver_checklist =[ to be determined ];
+$_provider_checklist = [ to be determined ];
 ```
 
-We now have to account for the implicit requests to fulfill the hidden rule. The provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+
+
 
 
