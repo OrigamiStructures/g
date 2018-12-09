@@ -103,21 +103,28 @@ $_explicit_provider = [
 ]; 
 ```
 
-This leave the [hidden rule](#hidden-rule) to verify.
+This leave the hidden rule—each involved piece must act both as a provider and a receiver—to verify.
 
-Consider the simpler request "change #2 to #1". This will give us two properties which reflect the explicit requests. 
+Consider the simple request "change #2 to #1". This will give us two properties which reflect the explicit requests. 
 
-To satisfy the implicit requests to fulfill the hidden rule the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+To satisfy our rules the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
 
-The code will compile two new properties to verify this rule.
+The code will compile two new properties to verify this rule. It takes advantage of the fact that during insertion an array of all involved pieces was assembled and indexed by oldNum.
 
 ```php
+// shown as 'requests[ ] in the diagrams
+$_indexed_list = [
+   2 => { RR },
+
 $_explicit_receiver = [ 2 => 2, ];
 $_explicit_provider = [ 1 => [ 2 => 2, ], ];
 
 $_receiver_checklist =[ to be determined ];
 $_provider_checklist = [ to be determined ];
 ```
+
+This code only runs at the end of the insertion process when the final message package is being retrieved.
+
 
 
 
