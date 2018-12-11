@@ -150,8 +150,8 @@ The process for this example is:
 
 ```php
 // the request values
-// $on = 2
-// $nn = 1
+// $oldNum = 2
+// $newNum = 1
 
 // after insert
 $_explicit_receiver = [2 => 2];
@@ -165,33 +165,47 @@ The check-off loop will leave the two checklist properties unchanged.
 
 But the presence of **a single element in each list** allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the use that it was system-generated.
 
-#### Vague receiver
+#### Vague receiver and missing requests
 
-The request:
+The request
 
 - change #1 to #2
-- change # 2 to #3
+- change # 3 to #4
 
-will create this sequence:
+will illustrate the two remaining failure modes
+
+This request pair will create this sequence:
 
 ```php
 // after insert
 $_explicit_receiver = [
-    1 => 1, 
-    2 => 2
+    1 => 1,
+    3 => 3
 ];
 $_explicit_provider = [
-    1 => [2 => 2], 
-    2 => [3 => 3]
+   2 => [1 => 1],
+   4 => [3 => 3],
+
 ];
 
-// after the checklist process using
-// $on 1 and 2
-// $nn 2 and 3
+// oldNums 1, 3
+// newNums 2, 4
 
-$_provider_checklist = [1 => 1];
-$_receiver_checklist = [ ];
+// after the checklist process using
+$_provider_checklist = [
+	1 => 1,
+	3 => 3
+
+];
+$_receiver_checklist = [
+	2 => [1 => 1],
+	4 => [3 => 3],
+];
 ```
 
-On detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #$oldNum." 
+The order of operations means that the situation where both checklist properties have exactly one member has been handled.
+
+So, on detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #$oldNum." 
+
+And, any remaining receivers will have RR objects created and inserted for them. They will have a NULL new number, a TRUE bad number flag, and the message "#$oldNum was reassigned but no new number was provided."
 
