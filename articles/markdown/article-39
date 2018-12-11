@@ -29,25 +29,25 @@ This means that you can always find a provider/receiver pair where `provider->ol
    The heap stores the sorted collection of RR objects. The sorting strategy was (and is) a point of debate. The sum of the old and new number, ascending is being used.   
    This probably won't be useful when a symbol system is used for numbering pieces.
 - \_indexed\_list   
-   This is a set of references to the RR objects; an array indexed by old-number `[oldNum => RR{ }]`
+   This is a set of references to the RR objects; an array indexed by old-number  
+   `[oldNum => RR{ }]`
 - \_valid\_symbols
    An array of all valid piece numbers `[sym => sym]`
 
 ### Calculating properties
 
-There are several tally, usage, and checklist properties that keep track of the evolving renumbering situation. Their role will be described in a later section.
+There are several tally, usage, and checklist properties that keep track of the evolving renumbering situation. Their roles will be described in later sections.
  
 - \_bad\_symbols
 - \_explicit\_receivers
 - \_receiver\_checklist
 - \_explicit\_providers  
-   In the diagram below this property is represented as `provider`
 - \_providers\_checklist
 
 
 ## Rules for renumbering
 
-One detail regarding the actual implementation, Piece entities are not used during the request or validation process. When pieces are mentioned, we will be referring to RR objects. These objects carry all the data user needs to make the request and that we need to validate it.
+One detail regarding the actual implementation, Piece entities are not used during the request or validation process. When pieces are mentioned, we will be referring to RR objects. These objects carry all the data the user needs to make the request and that we need to validate it.
 
 **Rules**
 
@@ -59,13 +59,15 @@ One detail regarding the actual implementation, Piece entities are not used duri
 
 Rule 2 is enforced by the nature of the form. Each piece has one input that might be filled with a new number for that piece. There is no way to assign more than one new number.
 
-On the other hand, a number can entered in many inputs so rule 3 can be accidentally violated.
+On the other hand, a number can be entered in many inputs so rule 3 can be accidentally violated.
 
 The property that tracks [explicit provider](#explicit-provider-structure) use has a special structure to allow duplicate use detection.
 
-### Implementing code
+### The implementing code
 
 The first phase of rules-checking takes place as the RR objects are inserted into RRs. They're passed in one at a time as illustrated below.
+
+`Providers` and `provider[ ]` refer directly or indirectly to the `_explicit_providers` property. `Receivers` refers to the `_explicit_receiver` property. 
 
 ![Required user/member record structure](http://g.origamistructures.com/w_img/insertRenumberRequestFlow.png)   
 
