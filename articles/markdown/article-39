@@ -163,10 +163,35 @@ $_receiver_checklist = [1 => [2 => 2]];
 ```
 The check-off loop will leave the two checklist properties unchanged.
 
-But the presence of a single element in each list allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the use that it was system-generated.
+But the presence of **a single element in each list** allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the use that it was system-generated.
 
 #### Vague receiver
 
+The request:
 
+- change #1 to #2
+- change # 2 to #3
 
+will create this sequence:
+
+```php
+// after insert
+$_explicit_receiver = [
+    1 => 1, 
+    2 => 2
+];
+$_explicit_provider = [
+    1 => [2 => 2], 
+    2 => [3 => 3]
+];
+
+// after the checklist process using
+// $on 1 and 2
+// $nn 2 and 3
+
+$_provider_checklist = [1 => 1];
+$_receiver_checklist = [ ];
+```
+
+On detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #$oldNum." 
 
