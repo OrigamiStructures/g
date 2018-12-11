@@ -62,7 +62,7 @@ The first phase of rules-checking takes place as the RR objects are inserted int
 At the end of this process we have a few critical pieces of information.
 
 - All violations of [Rule 3](#rule-3) (bad symbols) are known
-   - The bad symbols are store in the property [\_bad\_symbol](#bad-symbol-structure)).  
+   - The bad symbols are stored in the property [\_bad\_symbol](#bad-symbol-structure)).  
    In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE`.
 - We know the pieces that explicitly received a new number (property illustrated in [\_explicit\_receiver structure](#explicit-receiver-structure)).
 - We know the pieces that are loosing numbers because of explicit reassignment to a new pieces (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
@@ -71,7 +71,7 @@ At the end of this process we have a few critical pieces of information.
    The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
    
    
-#### \_bad\_symbol structure
+#### _bad_symbol structure
 
 ```php
 $_bad_symbols [
@@ -103,7 +103,7 @@ $_explicit_provider = [
 ]; 
 ```
 
-This leave the hidden rule—each involved piece must act both as a provider and a receiver—to verify.
+This leaves the hidden rule—each involved piece must act both as a provider and a receiver—to verify.
 
 Consider the simple request "change #2 to #1". This will give us two properties which reflect the explicit requests. 
 
