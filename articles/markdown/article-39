@@ -81,7 +81,7 @@ At the end of this process we have a few critical pieces of information.
    The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE` and generate the error message "Can't change multiple pieces ($dupCount) to #$newNum
    
    
-#### \_bad\_symbol structure
+<span id="bad-symbol-structure">*\_bad\_symbol structure*</span>
 
 ```php
 $_bad_symbols [
@@ -90,7 +90,7 @@ $_bad_symbols [
  ],
 ```
 
-#### \_explicit\_receiver structure
+<span id="explicit-receiver-structure">*\_explicit\_receiver structure*</span>
 
 ```php
 $_explicit_receiver = [
@@ -99,7 +99,7 @@ $_explicit_receiver = [
 ];
 ```
 
-#### \_explicit_provider structure
+<span id="explicit-provider-structure">*\_explicit_provider structure*</span>
 
 ```php
 $_explicit_provider = [
