@@ -1,4 +1,4 @@
-# RenumberRequests rules for renumbering
+# RenumberRequests and rules for renumbering
 
 In this document RenumberRequest objects are called **RR**, the RenumberRequests container object is called **RRs** and the RenumberMessaging object is call **RM**. 
 
@@ -9,15 +9,15 @@ Other terminology used in the code:
 - The piece that is receiving a newNum is called a ***receivier***
 - The piece that lost its number in the exchange is call the ***provider***
 
-This means that `provider->oldNum = receiver->newNum`
+This means that you can always find a provider/receiver pair where `provider->oldNum = receiver->newNum`
 
 ## The strategy
 
-- Each number change is encoded in a RR object
+- Each number change is encoded in an RR object
    - RR objects contain flags indicating various errors or ambiguities
    - RR objects output a set of messages explaining their errors of describing the valid change requested.
 - RRs holds all the RR objects and enforces the rules.
-- When all the RR objects have been processed, the RRs assembles a RequestMessaging (RM) object containing all the messages.
+- The RRs can assemble anRM object containing all the messages.
 - Among other features, RM has an `error( )` method that reports on the result of the change request. `FALSE` is the desired return value.
    - RM is passed to the View to report back to the system user.
 
@@ -26,10 +26,10 @@ This means that `provider->oldNum = receiver->newNum`
 ### Storage and reference properties
 
 - \_heap   
-   The heap stores the sorted collection of RR objects. The sorting strategy was (and is) a point of debate. The sum of the old and new number ascending is being used.   
+   The heap stores the sorted collection of RR objects. The sorting strategy was (and is) a point of debate. The sum of the old and new number, ascending is being used.   
    This probably won't be useful when a symbol system is used for numbering pieces.
 - \_indexed\_list   
-   This is a second set of references to the RR objects; an array indexed by old-number `[oldNum => RR{ }]
+   This is a set of references to the RR objects; an array indexed by old-number `[oldNum => RR{ }]`
 - \_valid\_symbols
    An array of all valid piece numbers `[sym => sym]`
 
