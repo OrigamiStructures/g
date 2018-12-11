@@ -11,6 +11,15 @@ Other terminology used in the code:
 
 This means that `provider->oldNum = receiver->newNum`
 
+## The strategy
+
+- Each number change is encoded in a RR object
+- RR objects contain flags indicating various errors or ambiguities
+- RR objects output a set of messages explaining their errors of describing the valid change requested.
+- RRs holds all the RR objects and enforces the rules.
+- When all the RR objects have been processed, the RRs assembles a RequestMessaging (RM) object containing all the messages.
+- Among other features, RM has an `error( )` method that reports on the result of the change request. `FALSE` is the desired return value.
+
 ## Properties used
 
 ### Storage and reference properties
@@ -71,7 +80,7 @@ At the end of this process we have a few critical pieces of information.
    The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
    
    
-#### _bad_symbol structure
+#### \_bad\_symbol structure
 
 ```php
 $_bad_symbols [
@@ -102,28 +111,27 @@ $_explicit_provider = [
     ],
 ]; 
 ```
+### Final rule enforcement
 
-This leaves the hidden rule—each involved piece must act both as a provider and a receiver—to verify.
+Verification of the remaining rules is deferred until the messages are called for, or the heap is accessed.
 
-Consider the simple request "change #2 to #1". This will give us two properties which reflect the explicit requests. 
+#### Implementation of the final rules
 
-To satisfy our rules the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+Consider the simple request "change #2 to #1". Inserting this request build the two properties which reflect the explicit **receiver** and **provider** requests. 
 
-The code will compile two new properties to verify this rule. It takes advantage of the fact that during insertion an array of all involved pieces was assembled and indexed by oldNum.
+Next, to satisfy our rules the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
+
+A provider checklist is created from the list of receivers and a receivers checklist is created from the list of providers:
 
 ```php
-// shown as 'requests[ ] in the diagrams
-$_indexed_list = [
-   2 => { RR },
-
-$_explicit_receiver = [ 2 => 2, ];
-$_explicit_provider = [ 1 => [ 2 => 2, ], ];
-
-$_receiver_checklist =[ to be determined ];
-$_provider_checklist = [ to be determined ];
+		$this->_provider_checklist = $this->_explicit_receivers;
+		$this->_reciever_checklist = $this->_explicit_providers;
 ```
+Now we can loop over these new properties creating any new RR objects that are implied but not supplied, and flagging any further errors.
 
-This code only runs at the end of the insertion process when the final message package is being retrieved.
+First a simple checklist process:
+
+
 
 
 
