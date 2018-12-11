@@ -14,11 +14,12 @@ This means that `provider->oldNum = receiver->newNum`
 ## The strategy
 
 - Each number change is encoded in a RR object
-- RR objects contain flags indicating various errors or ambiguities
-- RR objects output a set of messages explaining their errors of describing the valid change requested.
+   - RR objects contain flags indicating various errors or ambiguities
+   - RR objects output a set of messages explaining their errors of describing the valid change requested.
 - RRs holds all the RR objects and enforces the rules.
 - When all the RR objects have been processed, the RRs assembles a RequestMessaging (RM) object containing all the messages.
 - Among other features, RM has an `error( )` method that reports on the result of the change request. `FALSE` is the desired return value.
+   - RM is passed to the View to report back to the system user.
 
 ## Properties used
 
@@ -117,23 +118,21 @@ Verification of the remaining rules is deferred until the messages are called fo
 
 #### Implementation of the final rules
 
-Consider the simple request "change #2 to #1". Inserting this request build the two properties which reflect the explicit **receiver** and **provider** requests. 
+Consider the simple request "change #2 to #1". Inserting this request builds the two properties which reflect the explicit **receiver** and **provider** requests. 
 
 Next, to satisfy our rules the provider (#1) must also be a receiver and the receiver (#2) must also be a provider.
 
 A provider checklist is created from the list of receivers and a receivers checklist is created from the list of providers:
 
 ```php
-		$this->_provider_checklist = $this->_explicit_receivers;
-		$this->_reciever_checklist = $this->_explicit_providers;
+$this->_provider_checklist = $this->_explicit_receivers;
+$this->_reciever_checklist = $this->_explicit_providers;
 ```
 Now we can loop over these new properties creating any new RR objects that are implied but not supplied, and flagging any further errors.
 
 First a simple checklist process:
 
-
-
-
+![Required user/member record structure](http://g.origamistructures.com/w_img/RRChecklistProcess.png)   
 
 
 
