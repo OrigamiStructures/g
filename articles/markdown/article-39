@@ -74,16 +74,16 @@ The first phase of rules-checking takes place as the RR objects are inserted int
 At the end of this process we have a few critical pieces of information.
 
 - All violations of [Rule 3](#rule-3) (bad symbols) are known
-   - The bad symbols are stored in the property [\_bad\_symbol](#bad-symbol-structure)).  
-   In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE` and generate the error message "There is no #$newNum in this edition."
+   - The bad symbols are stored in the property [\_bad\_symbol](#bad-symbol-structure).  
+   In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE` and will generate the error message "There is no #*newNum* in this edition."
 - We know the pieces that explicitly received a new number (property illustrated in [\_explicit\_receiver structure](#explicit-receiver-structure)).
 - We know the pieces that are loosing numbers because of explicit reassignment to a new pieces (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
 - We know about duplicate use of symbols ([rule 1 violations](#rule-1))
   - Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
-   The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE` and generate the error message "Can't change multiple pieces ($dupCount) to #$newNum
+   The RR objects that receive reused copies of a new number also have their `$duplicate_new_number` flag set to `TRUE` and generate the error message "Can't change multiple pieces (*dupCount*) to #*newNum*
    
    
-<span id="bad-symbol-structure">*\_bad\_symbol structure*</span>
+<span id="bad-symbol-structure">**\_bad\_symbol structure**</span>
 
 ```php
 $_bad_symbols [
@@ -92,7 +92,7 @@ $_bad_symbols [
  ],
 ```
 
-<span id="explicit-receiver-structure">*\_explicit\_receiver structure*</span>
+<span id="explicit-receiver-structure">**\_explicit\_receiver structure**</span>
 
 ```php
 $_explicit_receiver = [
@@ -101,7 +101,7 @@ $_explicit_receiver = [
 ];
 ```
 
-<span id="explicit-provider-structure">*\_explicit_provider structure*</span>
+<span id="explicit-provider-structure">**\_explicit_provider structure**</span>
 
 ```php
 $_explicit_provider = [
@@ -165,7 +165,7 @@ $_receiver_checklist = [1 => [2 => 2]];
 ```
 The check-off loop will leave the two checklist properties unchanged.
 
-But the presence of **a single element in each list** allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the use that it was system-generated.
+But the presence of **a single element in each list** allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the user that the change was system-generated.
 
 #### Vague receiver and missing requests
 
@@ -193,7 +193,7 @@ $_explicit_provider = [
 // oldNums 1, 3
 // newNums 2, 4
 
-// after the checklist process using
+// after the checklist process we have these remaining entries
 $_provider_checklist = [
 	1 => 1,
 	3 => 3
@@ -207,9 +207,9 @@ $_receiver_checklist = [
 
 The order of operations means that the situation where both checklist properties have exactly one member has been handled.
 
-So, on detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #$oldNum." 
+So, on detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #*oldNum*." 
 
-And, any remaining receivers will have RR objects created and inserted for them. They will have a NULL new number, a TRUE *bad number* flag, and the message "#$oldNum was reassigned but no new number was provided."
+And, any remaining receivers will have RR objects created and inserted for them. They will have a NULL new number, a TRUE *bad number* flag, and the message "#*oldNum* was reassigned but no new number was provided."
 
 ## Summary of RR flags and status messages
 
@@ -221,7 +221,7 @@ And, any remaining receivers will have RR objects created and inserted for them.
 - Vague receiver
     - \_renumber\_message = TRUE
     - \_vague\_receiver = TRUE
-   - Can't determine which piece should receive #*oldNum.
+   - Can't determine which piece should receive #*oldNum*.
    - Change piece #*oldNum* to #*newNum*.
 - Implied change
    - \_renumber\_message = FALSE
