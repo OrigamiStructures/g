@@ -73,12 +73,12 @@ At the end of this process we have a few critical pieces of information.
 
 - All violations of [Rule 3](#rule-3) (bad symbols) are known
    - The bad symbols are stored in the property [\_bad\_symbol](#bad-symbol-structure)).  
-   In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE`.
+   In addition, each RR object that received a bad symbol has its `$_bad_new_number` flag set to `TRUE` and generate the error message "There is no #$newNum in this edition."
 - We know the pieces that explicitly received a new number (property illustrated in [\_explicit\_receiver structure](#explicit-receiver-structure)).
 - We know the pieces that are loosing numbers because of explicit reassignment to a new pieces (property illustrated in [\_explicit\_provider structure](#explicit-provider-structure)).
 - We know about duplicate use of symbols ([rule 1 violations](#rule-1))
   - Each receiving piece is recorded in the second level of the [\_explicit\_provider](#explicit-provider-structure) as `oldNum => oldNum`.  
-   The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE`.
+   The RR objects that receive copies of the new number also have their `$duplicate_new_number` flag set to `TRUE` and generate the error message "Can't change multiple pieces ($dupCount) to #$newNum
    
    
 #### \_bad\_symbol structure
@@ -207,5 +207,25 @@ The order of operations means that the situation where both checklist properties
 
 So, on detection of more than one remaining provider, those requests will be flagged with a *vague receiver* message; "Can't determine which piece should receive #$oldNum." 
 
-And, any remaining receivers will have RR objects created and inserted for them. They will have a NULL new number, a TRUE bad number flag, and the message "#$oldNum was reassigned but no new number was provided."
+And, any remaining receivers will have RR objects created and inserted for them. They will have a NULL new number, a TRUE *bad number* flag, and the message "#$oldNum was reassigned but no new number was provided."
 
+## Summary of RR flags and errors
+
+- Valid request 
+   - Change piece #*oldNum* to #*newNum*.
+- Vague receiver
+   - _vague_receiver = TRUE
+   - Can't determine which piece should receive #*oldNum.
+   - Change piece #*oldNum* to #*newNum*.
+- Implied change
+   - _implied_change = TRUE
+   - Other changes implied the change of #*oldNum* to #*newNum*.
+- Duplicate number
+   - _duplicate_number = TRUE
+   - Can't change multiple pieces (*dupCount*) to #*newNum*.
+- Bad symbol or number
+   - _bad_new_number = TRUE
+   - There is no #*newNum* in this edition.
+- Overlooked receiver
+   - _bad_new_number = TRUE
+   - #*oldNum* was reassigned but no new number was provided.
