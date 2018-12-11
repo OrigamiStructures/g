@@ -1,6 +1,6 @@
 # RenumberRequests rules for renumbering
 
-In this document RenumberRequest objects are called **RR**, and the RenumberRequests container object is called **RRs**. 
+In this document RenumberRequest objects are called **RR**, the RenumberRequests container object is called **RRs** and the RenumberMessaging object is call **RM**. 
 
 Other terminology used in the code:
 
@@ -237,3 +237,16 @@ And, any remaining receivers will have RR objects created and inserted for them.
    - \_renumber\_message = FALSE
    - \_bad_new\_number = TRUE
    - #*oldNum* was reassigned but no new number was provided.
+
+## Getting the results of a set of requests
+
+`RRs->messagePackage( )` will return an RM object with the current messages for the set of requests.
+
+`RM->errorCount( )` will return the number of error messages for the request set.
+
+`RM->errors( )` will return FALSE or an array of error message indexed by *oldNum*.
+
+`RM->summaries( )` will return the messages that describe valid proposed moves (change x to y) indexed by *oldNum*.
+
+`RM->request(oldNum)` will return a single RR object.
+
