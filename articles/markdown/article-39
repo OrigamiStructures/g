@@ -134,6 +134,39 @@ First a simple checklist process:
 
 ![Required user/member record structure](http://g.origamistructures.com/w_img/RRChecklistProcess.png)   
 
+If the user made a complete request there will be no elements left in either checklist and the heap or message set will be returned. There may or may not be errors, but the rule that each number must be a provider and receiver has been satisfied.
+
+There are three failure modes the code detects and adapts to:
+
+1. Implied request
+2. Vague receiver
+3. Missing request.
+
+#### Implied requests
+
+The earlier example–change #2 to #1–would create an implied request
+
+The process for this example is:
+
+```php
+// the request values
+// $on = 2
+// $nn = 1
+
+// after insert
+$_explicit_receiver = [2 => 2];
+$_explicit_provider = [1 => [2 => 2]];
+
+// the checklists
+$_provider_checklist = [2 => 2];
+$_receiver_checklist = [1 => [2 => 2]];
+```
+The check-off loop will leave the two checklist properties unchanged.
+
+But the presence of a single element in each list allows us to create a matching request and insert it in the heap. The resulting piece will include a message informing the use that it was system-generated.
+
+#### Vague receiver
+
 
 
 
