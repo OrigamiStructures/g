@@ -26,6 +26,23 @@ This is how the system stands.
 - Every artist must be a registered system user
 - Every manager must be a registered system user
 
+### Initial system limitations
+
 The initial system does not allow a manager to create and manage artists freely. Since artists must be registered users, either an individual would have to create an account then extend editing privileges to the manager, or the manager would have to register multiple users on the system and link them to her main account.
+
+## The new Artist system proposal
+
+I'm now exploring a Member based Artist system ([details here](/article/editing-users-and-artists)).
+
+The goal here is make artists and their associated data into portable modules, independent of registered users. 
+
+The one big grey-area is; how does the global record linking work in this system? In theory at least, it's still possible to link everything off the user. The problem is, this is a very broad-brush permission system for artists that also want to have managers.
+
+### The very bad, no good, privacy policy
+
+I wouldn't want to use a system that told me I could let my galleries and sales reps keep my disposition data up to date but that I would have to turn my entire marketing  and contact address book over to them in the bargain.
+
+In truth, this problem exists in the current plan too. It just hadn't come to light yet.
+
 
 Topics: Studio Manager, Artist, User, Brainstorming
