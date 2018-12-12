@@ -1,0 +1,31 @@
+# Record ownership after creation of Artist system
+
+## What was build
+
+The initial build of the system organized all records in every table on a `belongsTo('Users')` association.
+
+The thinking was:
+
+- background injection of `user_id` into every query would serve as a layer of security for user data
+- we would have a convenient way of isolating all a user's data should there be a TOS issue, subscription cancellation and data migration, or other situation.
+
+The id column was cloned with the idea of eventually changing the value of `artitst_id` to further protect the key `User.id`. But no clear thought was given to which value would act as the universal link.
+
+There was some degree of awareness that users would need to manage other user/artist data, so the `Users.id` column data was cloned to `Users.artist_id`.
+
+A globally available method, `SystemState->artistId( )` was stubbed in to inject the key value in all queries. The plan at this point was to place **act as** and **manage artists** value returns behind this method. As long as this method was called for all where-injection tasks, we'd be able to build a manager system later.
+
+This is how the system stands.
+
+### Initial system capabilities
+
+- Allows user/artist self editing
+- Allows manager users to maintain the data of multiple user/aritsts
+   - Manager users can also be artists but need not be
+- More than one system user can have access to an artist's data
+- Every artist must be a registered system user
+- Every manager must be a registered system user
+
+The initial system does not allow a manager to create and manage artists freely. Since artists must be registered users, either an individual would have to create an account then extend editing privileges to the manager, or the manager would have to register multiple users on the system and link them to her main account.
+
+Topics: Studio Manager, Artist, User, Brainstorming
