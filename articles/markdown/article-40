@@ -46,8 +46,12 @@ In truth, this problem exists in the current plan too. It just hadn't come to li
 
 ## General permission filters
 
-Principle #1: Granularity increase interface complexity.  Principle #2: UX Interface complexity reduces feature adoption.  
+Principle #1: Granularity increase interface complexity.  
+
+Principle #2: UX Interface complexity reduces feature adoption.  
+
 Principle #3: System logic can reduce UX complexity
+
 Principle #4: System logic complexity increases maintenance problems.
 
 So we're looking for some magic balance here.
@@ -64,5 +68,8 @@ So we're looking for some magic balance here.
 - Group/proxy members that are simply organizing groups would not be meaningful to share. The managers could make their own categories.
    - But groups could help partition share-sets of member records
 - a new interface page will be needed for artists to manage what they share with managers.
+
+![Proposed Artist Stack](http://g.origamistructures.com/w_img/ProposedArtistStack.png)   
+
 
 Topics: Studio Manager, Artist, User, Brainstorming
