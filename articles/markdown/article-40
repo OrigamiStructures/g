@@ -71,5 +71,17 @@ So we're looking for some magic balance here.
 
 ![Proposed Artist Stack](http://g.origamistructures.com/w_img/ProposedArtistStack.png)   
 
+If the public records are linked to the Artist record, we should be able to expand on the value injection system.
+
+- Based on a user's edit-mode settings, discover which artist/artists they have chosen to include for their session
+- Retrieve those Artist records using an updated version of `SystemState->artistId( )`
+   - This would be a smaller scale task just for getting these gateway Artist records.
+- The artist entities have a key injector method that analyzes the users relationship to the artist record. Based on that link value, the filtered (or full) set of stack data is assembled.
+- Artist entity may end up being the gateway filter for constructing other stacks (or all stacks?).
+
+So in this plan, there are two layers of background query-value injectors; the acting-as/managing selector to get the set of artist gateway records, then the detailed query and stack construction processes that are filtered by the link injector found in the Artist entities.
+
+Unless I'm missing something, the whole problem will now be focused on making it easy to manage the process of 'publishing' data on the artist records.
+
 
 Topics: Studio Manager, Artist, User, Brainstorming
