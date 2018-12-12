@@ -16,6 +16,12 @@ Sub classes of StackEntities are true Cake Entities. The will be returned automa
 
 It's probably not wise, but you could manually query all the component tables and perform a standard `newEntity( [ ] )` or `patchEntity( [ ] )` call. The properties in a StackEntity are of type `layer` and when provided an array of entities they will convert the data to the proper structure.
 
+## Filtering Stack content
+
+[New thoughts about managing multiple artists](/article/record-ownership-after-creation-of-artist-system) and allowing those artists to give access to limited data sets means there are changes on the way for stack construction.
+
+Rather than injecting `SystemState->artistId( )` into all the population processes there will probably be something that works from a link found in one or several Artist entities.
+
 ###Class property introspection methods
 
 #### primaryLayer( )
