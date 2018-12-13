@@ -70,5 +70,27 @@ And what other uses will the user need? Not having an art business I'm feeling u
    - Disposition inventory
 - Provenance documentation 
 
+## Interface presentation
+
+The list above helps clear some things up. It has at least broken the granular million-option thinking I get into.
+
+The main goal is to get an image up for the work. The layer-linkage is irrelevant to the user. In fact, the layer-linkage may be different depending on the nature of the edition that is being created.
+
+- If the user is creating a unique work, the image should be on the piece. All presentations of that work would be flat and the image used.
+   - tools would be available for additional piece-linked images
+   - the screen interface could be divided to distinguish the hero shots of the work from other documenting detail shots. In this case, heros go to edition and others to piece.   
+   This feels like a good division and could help with selecting images for different uses. Piece images would be for insurance and provenance; edition images would be for marketing.
+   - images HABTM pieces
+- If a multi-piece edition is being made the image should go to the edition
+   - Presentation of a multi-piece edition would always be from the edition context
+   - tools for additional edition-linked images needed
+   - deeper pages to document individual pieces needed
+   - images HABTM editions
+- If additional formats are created on an addition, tools are made available for format beauty shots are available but optional and ignored in normal screen presentation
+   - format images would probably only be needed in publishing use cases.
+   - images HABTM formats
+- If a second edition is made for an artwork, the artwork layer gains tools to add images (with prompts explaining the role of the images. This would probably only be meaningful as a place to do multi-edition hero shots. They would be useful for multi-product marketing.
+   - images HABTM artworks
+
 
 Topic: Studio manager
