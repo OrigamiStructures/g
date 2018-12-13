@@ -70,6 +70,14 @@ And what other uses will the user need? Not having an art business I'm feeling u
    - Disposition inventory
 - Provenance documentation 
 
+- Identify available numbered piece for sale
+- Identify an available number across a set of editions
+- Gather an arbitrary set of editions for some work
+   - Finding a series or portfolio are two 'organized' sets, but then transporting and taking action on the members should happen as on any arbitrary set.
+- Gather an arbitrary set of pieces for some work
+   - like the edition item above, this is all about transporting and taking action on the found set, however it is found.
+
+
 ## Interface presentation
 
 The list above helps clear some things up. It has at least broken the granular million-option thinking I get into.
