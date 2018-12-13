@@ -4,22 +4,42 @@
 
 For numbered editions, each piece always has its own record and will accumulate a unique disposition history.
 
-Un-numbered (open) editions start with a single piece record that represents all the pieces. It has a `quantity` value to identify the size of the edition.
+Un-numbered (open) editions start with a single piece record that represents all the pieces. The piece has a `quantity` value to identify the size of the edition.
+
+Consider the case of an un-numbered edition of 30. It would have one piece record with qty = 30.
 
 If 10 pieces are loaned for an event, 
 - the main piece has its quantity reduced by 10
 - a new piece with quantity 10 is created
-- the new piece is linked to the disposition.
+- the new piece is linked to a disposition recording the loan.
 
 When the work returns, 
-- a new disposition is created.   
+- the loan disposition is marked as closed.
+- if some storage disposition is desired it is created and linked to the piece   
   This gives the piece (qty=10) a disposition history and permanently isolates it from the main piece-pool
 
 If, at the event a piece was sold,
 - the loan-block of pieces has its quantity reduced to 9
 - a new piece (qty = 1) is created
 - the new piece is linked to a disposition
+- this new piece lacks all the disposition history of its previous companions
 
 When the loan returns, the piece (qty = 9) gets a new disposition.
 
- 
+### Against fragmentation 
+
+Any attempt to maintain piece/disposition history is going to be complex in this environment. And one of the core ideas behind open/un-numbered editions is that their individual pieces are fully interchangeable.
+
+The fragmentation that occurs to the piece record set is unnecessary and inconvenient.
+
+### Broken links
+
+But the pieces weren't merged back to the main group through record deletion and quantity change because this would leave orphan dispositions. Without a piece link, there would be no way to associate these events with any particular artwork.
+
+## A new path
+
+Some form of addition link or re-linking of dispositions for un-numbered editions is needed.
+
+And this will mean further nuance in the ArtStack entities.
+
+Topics: Studio manager, Stack, Disposition, Brainstrom
