@@ -42,4 +42,10 @@ Some form of addition link or re-linking of dispositions for un-numbered edition
 
 And this will mean further nuance in the ArtStack entities.
 
+The dispositions could gain a link to the edition or format.
+
+The disposition could be relinked to a proxy piece of no quantity that becomes the parent of all dispositions for the edition's pieces
+
+The piece that originally links the disposition could remain as its permanent link but its quantity could be zeroed. This option might maintain some sense of continuity for the edition's disposition history since paired events like a loan/return would have a common parent. But there is no reason at this point to assume we would need this continuity.
+
 Topics: Studio manager, Stack, Disposition, Brainstrom
