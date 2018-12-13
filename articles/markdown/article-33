@@ -43,4 +43,32 @@ Whichever path we take, to remain sane we're going to have to insure one image, 
 
 If we make edits (particularly deletions) operate on the links, couldn't multiple use work? The interface should be able to make things straight forward... he said confidently.
 
+## From a use-case perspective
+
+I'm not even sure how the artworks will be presented to the user at this point. The nested Artwork-to-Pieces pattern is unlikely to survive.
+
+Without this, what screen uses for the images will there be?
+
+And what other uses will the user need? Not having an art business I'm feeling unqualified to provide an answer. And that's a big problem for the project.
+
+- Publishing to social media
+   - Implies linkage through APIs
+- Attachment to email
+   - Email templates?
+   - Select-able text node export too?
+- Export to file system for transfer or publishing tasks
+   - Sales prospectus
+   - Cold proposal for a show
+   - Rep solicitation
+   - Press release
+- Output in paper documentation for insurance
+   - This means the system could act as a home inventory tool 
+- System page, PDF, or print report
+   - Shipping manifest
+   - Loan inventory report
+   - Collector or venue inventory
+   - Disposition inventory
+- Provenance documentation 
+
+
 Topic: Studio manager
