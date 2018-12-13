@@ -48,4 +48,12 @@ The disposition could be relinked to a proxy piece of no quantity that becomes t
 
 The piece that originally links the disposition could remain as its permanent link but its quantity could be zeroed. This option might maintain some sense of continuity for the edition's disposition history since paired events like a loan/return would have a common parent. But there is no reason at this point to assume we would need this continuity.
 
+### A slight advantage to Piece linking
+
+If we work out a piece-linking system, the ArtStack probably wouldn't change. There may be some new flavor of Edition, Format, or Disposition entity to handle the nuance of zero quantity pieces. 
+
+This probably simpler than adding new associations to the stack structure which would also require new layers and stack level code to deal with them.
+
+If new versions of layer entities come on line, the stack itself will still call for disposition services through one method and let the downstream entities handle the implementation differences.
+
 Topics: Studio manager, Stack, Disposition, Brainstrom
