@@ -1,42 +1,5 @@
 # The Problem of Images
 
-## The current Image associations
-
-The system currently documents a single image to be attached to :
-  
-- Users 
-   - table schema does not provide the link though ImagesTable has the association
-- Members
-    - members belongsTo Images
-    - images has One members
-- Artworks
-    - artworks belongsTo Images
-    - images has One artworks
-- Formats
-    - formats belongsTo Images
-    - images has One formats
-
-## Required and Possible Image Uses
-
-In reality, I think the one essential image link will be to Pieces. And this would need to be in multiples, not single links like those defined so far. This would document the actual work, its details such as where it is signed etc.
-
-## Possible schema
-
-It seems clear we're going to want image links to multiple tables. And that at least one of the tables will need to link one-to-many (record-to-images).
-
-### Join tables all around?
-
-These join tables are very light weight. And though this is a bit sideways to Cake standards, with careful design, we could probably coerce the HABTM to appear like other link types in the interface.
-
-And the use of StackEntity objects localizes the code to fetch the images. We could package things in the stack in any way we want.
-
-## Preliminary Conclusions
-
-I'm leaning toward two of the solutions. I think the final choice is going to wait until more use-case details are know.
-
-1. A single table with multiple conventions-conforming associations even if that means multiple foreign keys in Images.
-2. Join tables for everything and make the interface and stack objects hide the deviation from convention.
-
 Whichever path we take, to remain sane we're going to have to insure one image, one use. If another use is needed for the image, the image and record should be cloned and linked. NO REUSE!
 
 ### No reuse?
