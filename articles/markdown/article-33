@@ -92,5 +92,12 @@ The main goal is to get an image up for the work. The layer-linkage is irrelevan
 - If a second edition is made for an artwork, the artwork layer gains tools to add images (with prompts explaining the role of the images. This would probably only be meaningful as a place to do multi-edition hero shots. They would be useful for multi-product marketing.
    - images HABTM artworks
 
+As images accumulate for an artwork, a segregated gallery page will be needed for image management. It may be desirable to reuse images in different layers and this page would make it possible to do that.
+
+- Dispostion reports should pull images from the available pool (probably favoring piece linked images as the default stance).   
+   This may change for different report types
+   - The image should link to the join entity? I think so.
+   - images HABTM dispositionsPieces
+
 
 Topic: Studio manager
