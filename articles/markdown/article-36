@@ -10,14 +10,14 @@
 
 - [Studio Manager Apigen Portal](/article/studio-manager-apigen-portal "Studio Manager Apigen Portal")
   - Stack hierarchy API articles
-  - [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
-  - [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
-  - [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")
+      - [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
+      - [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
+    - [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")
 
 - Editing processes
   - Renumbering
-    - [RenumberRequests and rules for renumbering](/article/renumberrequests-and-rules-for-renumbering "RenumberRequests and rules for renumbering")
-    - [RenumberRequest Flags and Messages](/article/renumberrequest-flags-and-messages "RenumberRequest Flags and Messages")
+      - [RenumberRequests and rules for renumbering](/article/renumberrequests-and-rules-for-renumbering "RenumberRequests and rules for renumbering")
+      - [RenumberRequest Flags and Messages](/article/renumberrequest-flags-and-messages "RenumberRequest Flags and Messages")
 
 - [Performance and Activity Logging](/article/performance-and-activity-logging "Performance and Activity Logging")
 
