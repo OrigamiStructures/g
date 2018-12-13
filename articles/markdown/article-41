@@ -30,7 +30,7 @@ When the loan returns, the piece (qty = 9) gets a new disposition.
 
 Any attempt to maintain piece/disposition history is going to be complex in this environment. And one of the core ideas behind open/un-numbered editions is that their individual pieces are fully interchangeable.
 
-The fragmentation that occurs to the piece record set is unnecessary and inconvenient.
+The fragmentation that occurs to the piece record set is unnecessary and inconvenient. And since piece records exist to establish unique piece identity and history, they are of limited value for un-numbered editions.
 
 ### Broken links
 
