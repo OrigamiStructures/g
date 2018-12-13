@@ -6,12 +6,13 @@
   - [How fine-grain should stack classes be?](/article/how-fine-grain-should-stack-classes-be "How fine-grain should stack classes be?")
   - [The UserStack Entity Object](/article/the-userstack-entity-object "The UserStack Entity Object")
   - [Stack Entity Caching](/article/stack-entity-caching "Stack Entity Caching")
-  - [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
   - [Guidelines for writing StackTable classes](/article/guidelines-for-writing-stacktable-classes "Guidelines for writing StackTable classes")
-  - [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")
-  - [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
 
 - [Studio Manager Apigen Portal](/article/studio-manager-apigen-portal "Studio Manager Apigen Portal")
+  - Stack hierarchy API articles
+  - [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
+  - [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
+  - [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")
 
 - Editing processes
   - Renumbering
