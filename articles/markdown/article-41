@@ -56,4 +56,4 @@ This probably simpler than adding new associations to the stack structure which 
 
 If new versions of layer entities come on line, the stack itself will still call for disposition services through one method and let the downstream entities handle the implementation differences.
 
-Topics: Studio manager, Stack, Disposition, Brainstrom
+Topics: Studio manager, Stack, Disposition, Brainstorm
