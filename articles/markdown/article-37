@@ -8,9 +8,38 @@ The new table class must extend App\Model\Table\StackTables
 Set the three protected properties:
 
 - $layerTables
-   - a list
+   - a list of the tables that you need to appear as properties of this table; Associations
+
+```php
+$layerTables = [
+	'Users', 
+	'Members', 
+	'Contacts', 
+	'Addresses', 
+	'Artists', 
+	'GroupsMembers'
+	];
+// will be available as $this->Members etc
+```  
+
+
 - $stackSchema
-   - 
+   - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
+
+
+```php
+$stackSchema = 	[	
+	['name' => 'user', 'specs' => ['type' => 'layer']],
+	['name' => 'member', 'specs' => ['type' => 'layer']],
+	['name' => 'contacts', 'specs' => ['type' => 'layer']],
+	['name' => 'addresses', 'specs' => ['type' => 'layer']],
+	['name' => 'artists', 'specs' => ['type' => 'layer']],
+	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
+];
+
+```
+
+   
 - $seedPoints
    - 
 

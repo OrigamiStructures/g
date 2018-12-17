@@ -1,5 +1,11 @@
 # The Problem of Images
 
+## Association strategies
+
+My tentative plan is to make join tables for image-related table. 
+
+However, if the image-related tables used uuid key fields we could get away with a single join table and stack layer. Worth considering.
+
 Whichever path we take, to remain sane we're going to have to insure one image, one use. If another use is needed for the image, the image and record should be cloned and linked. NO REUSE!
 
 ### No reuse?
