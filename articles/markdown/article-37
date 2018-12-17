@@ -24,8 +24,7 @@ $layerTables = [
 
 -  $stackSchema
    - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
-
-
+   - normally the table schema becomes the entity schema. Since there is no table for these stacks you have to define your entity schema  
 ```php
 $stackSchema = 	[	
 	['name' => 'user', 'specs' => ['type' => 'layer']],
@@ -36,8 +35,17 @@ $stackSchema = 	[
 	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
 ];
 ```
-
 - $seedPoints
-   - 
+   - each seed point represents a kind of entity that can be supported with full data context by the stack. Each one you name will have to be supported by a method that discovers the stack needed for that record. 
+  - Naming the seeds in both singular and plural form means you don't have to remember which way to use when you call.
+
+```php
+$seedPoints = [
+	'disposition', 'dispositions', 'piece', 
+	'pieces', 'format', 'formats', 'edition', 
+	'editions', 'artwork', 'artworks', 'series',
+];
+```
+
 
 Topics, Studio manager, Stack, Layer, Design pattern
