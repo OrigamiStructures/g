@@ -1,14 +1,11 @@
 # Guidelines for writing StackTable classes
 
-[Stacks Portal](/article/stacks-portal "Stacks Portal")
- 
+- The new table class must extend App\Model\Table\StackTables
 
-The new table class must extend App\Model\Table\StackTables
+- Set the three protected properties:
 
-Set the three protected properties:
-
-- $layerTables
-   - a list of the tables that you need to appear as properties of this table; Associations
+  - $layerTables
+     - a list of the tables that you need to appear as properties of this table; Associations
 
 ```php
 // will be available as $this->Members etc
@@ -22,9 +19,9 @@ $layerTables = [
 	];
 ```
 
--  $stackSchema
-   - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
-   - normally the table schema becomes the entity schema. Since there is no table for these stacks you have to define your entity schema  
+  -  $stackSchema
+     - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
+     - normally the table schema becomes the entity schema. Since there is no table for these stacks you have to define your entity schema  
 ```php
 $stackSchema = 	[	
 	['name' => 'user', 'specs' => ['type' => 'layer']],
@@ -35,9 +32,9 @@ $stackSchema = 	[
 	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
 ];
 ```
-- $seedPoints
-   - each seed point represents a kind of entity that can be supported with full data context by the stack. Each one you name will have to be supported by a method that discovers the stack needed for that record. 
-  - Naming the seeds in both singular and plural form means you don't have to remember which way to use when you call.
+  - $seedPoints
+     - each seed point represents a kind of entity that can be supported with full data context by the stack. Each one you name will have to be supported by a method that discovers the stack needed for that record. 
+    - Naming the seeds in both singular and plural form means you don't have to remember which way to use when you call.
 
 ```php
 $seedPoints = [
@@ -46,6 +43,11 @@ $seedPoints = [
 	'editions', 'artwork', 'artworks', 'series',
 ];
 ```
+- Write the seed methods
+   - The parent class `StacksTable` has a custom finder that is the gateway to the seed methods   
+   `$ArtStacks->find('stackFrom',  ['layer' => 'format', 'ids' => $ids]);`   
+   The layer argument corresponds to one of the defined seed points.
+   The method name must be in the form `loadFrom`*EntityName*`( )`
 
 
 Topics, Studio manager, Stack, Layer, Design pattern
