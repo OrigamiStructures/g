@@ -11,6 +11,7 @@ Set the three protected properties:
    - a list of the tables that you need to appear as properties of this table; Associations
 
 ```php
+// will be available as $this->Members etc
 $layerTables = [
 	'Users', 
 	'Members', 
@@ -19,9 +20,7 @@ $layerTables = [
 	'Artists', 
 	'GroupsMembers'
 	];
-// will be available as $this->Members etc
 ```  
-
 
 - $stackSchema
    - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
@@ -36,12 +35,9 @@ $stackSchema = 	[
 	['name' => 'artists', 'specs' => ['type' => 'layer']],
 	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
 ];
-
 ```
 
-   
 - $seedPoints
    - 
-
 
 Topics, Studio manager, Stack, Layer, Design pattern
