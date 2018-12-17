@@ -1,11 +1,31 @@
 # Guidelines for writing StackTable classes
 
+## Overview
+
+Many of the object represented by table data require records from more than one table for full expression. A  'contained' query  brings all the required associated data together in a tree structure. For very deep data sets and sets with multiple internal branches the resulting nested structures are difficult to manage in views that use many elements.
+
+The nested data fragments into new variables as it travels down through the output loops. Upstream context data becomes lost as the loops and elements nest. Stacks are designed to establish a guarantee of full context at every stage of the output process.
+
+This solution creates new Table classes with matching Entity classes and works with flat sets of data rather than trees. A stack entity's properties store flat arrays from the various involved data tables. Methods on the entity and its properties are provided to cherry pick related data from the properties; a random access association system that replaces the tree-walking system of contained data.
+
+The approach to using StackTables and StackEntities is:
+
+- For any user task, do a highly focused query to find the records of interest using standard tables and query methods
+- In this query process, ignore related data except what is required to isolate the records of interest.
+
+With this found set in hand:
+
+- Use the appropriate StackTables to acquire the data that provides full context to the isolated records of interest.
+- Send the records of interest and the supporting stack data to the view for rendering
+
+## Writing a Stack Table class
+
 - The new table class must extend App\Model\Table\StackTables
 
 - Set the three protected properties:
-
-  - $layerTables
-     - a list of the tables that you need to appear as properties of this table; Associations
+  - $layerTables  
+   StackTables don't use the normal association system directly. And this is the system that makes associated tables appear on properties. To maintain this convenient access to related table objects, we name the tables we'll need.
+     - a list of the tables that you need to appear as properties of this table
 
 ```php
 // will be available as $this->Members etc
@@ -19,9 +39,11 @@ $layerTables = [
 	];
 ```
 
-  -  $stackSchema
-     - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
-     - normally the table schema becomes the entity schema. Since there is no table for these stacks you have to define your entity schema  
+  -  $stackSchema   
+  Normally the table schema becomes the entity schema. Since there is no single table for these stacks you have to define your entity schema. The properties will usually hold the flat arrays of associated data but it's possible to have any of the standard column data stored. In fact, all the usual entity features (like virtual fields) are available
+    - Setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object
+    - There is more information about [stack entities](/article/interacting-with-stackentities) and (Layer objects)[/article/interacting-with-layer-objects]
+
 ```php
 $stackSchema = 	[	
 	['name' => 'user', 'specs' => ['type' => 'layer']],
