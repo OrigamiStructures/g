@@ -20,9 +20,9 @@ $layerTables = [
 	'Artists', 
 	'GroupsMembers'
 	];
-```  
+```
 
-- $stackSchema
+-  $stackSchema
    - setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object  
 
 
