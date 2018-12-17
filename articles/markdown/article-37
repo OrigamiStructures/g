@@ -47,7 +47,7 @@ $seedPoints = [
    - The parent class `StacksTable` has a custom finder that is the gateway to the seed methods   
    `$ArtStacks->find('stackFrom',  ['layer' => 'format', 'ids' => $ids]);`   
    The layer argument corresponds to one of the defined seed points.
-   The method name must be in the form `loadFrom`*EntityName*`( )`
+   The method name must be in the form `loadFrom{EntityName}( )`
 
 
 Topics, Studio manager, Stack, Layer, Design pattern
