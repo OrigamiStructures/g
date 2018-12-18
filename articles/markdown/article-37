@@ -18,13 +18,26 @@ With this found set in hand:
 - Use the appropriate StackTables to acquire the data that provides full context to the isolated records of interest.
 - Send the records of interest and the supporting stack data to the view for rendering
 
+### Additional details
+
+As with a tree structure, a stack has a tip, or primary record and many interior records from various sources. The general goal is, given any random set of one type of interior records, trace back to all their primary records, then build the full stack for each primary record found.
+
+**Navigating from a set of arbitrary seeds to the primary records for stacks**
+[navigating from seeds to stack-primary](http://g.origamistructures.com/w_img/StackSeedToPrimary.png)
+
+**An overview of a stack and its parts**
+[Overview of a stack](http://g.origamistructures.com/w_img/StackOverviewDiagram.png)
+
+
+The various record types that make up the stack are called layers
+
 ## Writing a Stack Table class
 
 - The new table class must extend App\Model\Table\StackTables
 
 - Set the three protected properties:
   - $layerTables  
-   StackTables don't use the normal association system directly. And this is the system that makes associated tables appear on properties. To maintain this convenient access to related table objects, we name the tables we'll need.
+   StackTables don't use the normal association system directly and this is the system that makes associated tables appear on properties. To maintain this convenient access to related table objects, we name the tables we'll need.
      - a list of the tables that you need to appear as properties of this table
 
 ```php
@@ -40,8 +53,9 @@ $layerTables = [
 ```
 
   -  $stackSchema   
-  Normally the table schema becomes the entity schema. Since there is no single table for these stacks you have to define your entity schema. The properties will usually hold the flat arrays of associated data but it's possible to have any of the standard column data stored. In fact, all the usual entity features (like virtual fields) are available
-    - Setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object
+  Normally the table schema becomes the entity schema and entity properties correspond to table columns. StackEntity properties correspond to found sets of table data so you need to define the schema to identify the layers of related data.   
+   All normal Entity features are available (eg. virtual fields)
+    - Setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object. You should use this setting for all related data sets.
     - There is more information about [stack entities](/article/interacting-with-stackentities) and (Layer objects)[/article/interacting-with-layer-objects]
 
 ```php
@@ -54,22 +68,21 @@ $stackSchema = 	[
 	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
 ];
 ```
-  - $seedPoints
-     - each seed point represents a kind of entity that can be supported with full data context by the stack. Each one you name will have to be supported by a method that discovers the stack needed for that record. 
+  - $seedPoints   
+  Seed points identify the kind of record your initial query found. This is the data that will need the larger stack context to be fully described.
     - Naming the seeds in both singular and plural form means you don't have to remember which way to use when you call.
 
 ```php
 $seedPoints = [
-	'disposition', 'dispositions', 'piece', 
-	'pieces', 'format', 'formats', 'edition', 
-	'editions', 'artwork', 'artworks', 'series',
+	'user', 'users', 'artist', 'artists'
 ];
 ```
 - Write the seed methods
    - The parent class `StacksTable` has a custom finder that is the gateway to the seed methods   
-   `$ArtStacks->find('stackFrom',  ['layer' => 'format', 'ids' => $ids]);`   
+   `$ArtStacks->find('stackFrom',  ['layer' => 'artist', 'ids' => $ids]);`   
    The layer argument corresponds to one of the defined seed points.
    The method name must be in the form `loadFrom{EntityName}( )`
+   - These methods do the minimum required queries to locate the 
 
 
 Topics, Studio manager, Stack, Layer, Design pattern
