@@ -28,9 +28,25 @@ The general goal is, given any random set of one type of interior records, trace
 
 ![navigating from seeds to stack-primary](http://g.origamistructures.com/w_img/StackSeedToPrimary.png)
 
+### The StackEntity object
+
+For more details about StackEntities, their Layer properties, and collection s of entities:
+
+- [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
+- [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
+- [Interacting with StackSet Objects.](/article/interacting-with-stackset-objects "Interacting with StackSet Objects.")
 ## Writing a Stack Table class
 
+The basic StackTable implementation requirements
+
 - The new table class must extend App\Model\Table\StackTables
+- A method to construct stacks from sets of primary record key values
+- A set of methods to discover primary records from the seeds you expect to start from
+- A property naming the Table classes for the various layers
+- A property naming the supported seed points
+- A property defining the schema for the StackEntity object that this table class will produce
+
+### Details of the properties
 
 - Set the three protected properties:
   - $layerTables  
