@@ -95,7 +95,20 @@ $seedPoints = [
    `$ArtStacks->find('stackFrom',  ['layer' => 'artist', 'ids' => $ids]);`   
    The layer argument corresponds to one of the defined seed points.
    The method name must be in the form `loadFrom{EntityName}( )`
-   - These methods do the minimum required queries to locate the 
+   - These methods do the minimum required queries to locate the IDs of the primary records
+   - Make these methods protected and always call them through the `findStackFrom( )` custom finder
 
+```php
+// for the seed points shown in the example above, create
+protected function loadFromUser($ids) { }
+protected function loadFromArtist($ids) { }
+```
+
+- Write the stack creation method
+   - this method will accept an array of primary record IDs
+   - make this method public
+   - name - stacksFrom{PrimaryTableAlias}   
+      if the primary record is Artworks, `stacksFromArtworks($ids)   
+      if the primary record is Members, `stacksFromMembers($ids)
 
 Topics, Studio manager, Stack, Layer, Design pattern
