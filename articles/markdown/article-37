@@ -20,16 +20,13 @@ With this found set in hand:
 
 ### Additional details
 
-As with a tree structure, a stack has a tip, or primary record and many interior records from various sources. The general goal is, given any random set of one type of interior records, trace back to all their primary records, then build the full stack for each primary record found.
+As with a tree structure, a stack has a tip, or primary record and many interior records from various sources.
 
-**Navigating from a set of arbitrary seeds to the primary records for stacks**
-![navigating from seeds to stack-primary](http://g.origamistructures.com/w_img/StackSeedToPrimary.png)
-
-**An overview of a stack and its parts**
 ![Overview of a stack](http://g.origamistructures.com/w_img/StackOverviewDiagram.png)
 
+The general goal is, given any random set of one type of interior records, trace back to all their primary records, then build the full stack for each primary record found.
 
-The various record types that make up the stack are called layers
+![navigating from seeds to stack-primary](http://g.origamistructures.com/w_img/StackSeedToPrimary.png)
 
 ## Writing a Stack Table class
 
