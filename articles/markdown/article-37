@@ -15,12 +15,14 @@ The approach to using StackTables and StackEntities is:
 
 With this found set in hand:
 
-- Use the appropriate StackTables to acquire the data that provides full context to the isolated records of interest.
+- Use the appropriate StackTables to acquire the data that provides full context to these isolated records of interest.
 - Send the records of interest and the supporting stack data to the view for rendering
 
 ### Additional details
 
 As with a tree structure, a stack has a tip, or primary record and many interior records from various sources.
+
+#### An example Stack and its parts
 
 ![Overview of a stack](http://g.origamistructures.com/w_img/StackOverviewDiagram.png)
 
@@ -30,7 +32,7 @@ The general goal is, given any random set of one type of interior records, trace
 
 ### The StackEntity object
 
-For more details about StackEntities, their Layer properties, and collection s of entities:
+For more details about StackEntities, their Layer properties, and collections of StackSets (collections of stack entities):
 
 - [Interacting with Layer Objects](/article/interacting-with-layer-objects "Interacting with Layer Objects")
 - [Interacting with StackEntities](/article/interacting-with-stackentities "Interacting with StackEntities")
@@ -39,19 +41,17 @@ For more details about StackEntities, their Layer properties, and collection s o
 
 The basic StackTable implementation requirements
 
-- The new table class must extend App\Model\Table\StackTables
+- The new table class must extend `App\Model\Table\StackTables`
 - A method to construct stacks from sets of primary record key values
-- A set of methods to discover primary records from the seeds you expect to start from
+- A set of methods to discover primary records from the seeds you expect to handle
 - A property naming the Table classes for the various layers
 - A property naming the supported seed points
 - A property defining the schema for the StackEntity object that this table class will produce
 
 ### Details of the properties
 
-- Set the three protected properties:
-  - $layerTables  
+- `$layerTables`  
    StackTables don't use the normal association system directly and this is the system that makes associated tables appear on properties. To maintain this convenient access to related table objects, we name the tables we'll need.
-     - a list of the tables that you need to appear as properties of this table
 
 ```php
 // will be available as $this->Members etc
@@ -65,11 +65,10 @@ $layerTables = [
 	];
 ```
 
-  -  $stackSchema   
+  -  `$stackSchema`   
   Normally the table schema becomes the entity schema and entity properties correspond to table columns. StackEntity properties correspond to found sets of table data so you need to define the schema to identify the layers of related data.   
    All normal Entity features are available (eg. virtual fields)
-    - Setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object. You should use this setting for all related data sets.
-    - There is more information about [stack entities](/article/interacting-with-stackentities) and (Layer objects)[/article/interacting-with-layer-objects]
+    - Setting a property to type 'layer' will make the entity automatically convert the array data to a Layer object. You should use this setting for all layers. Other non-layer properties you define can be any of valid type.
 
 ```php
 $stackSchema = 	[	
@@ -81,9 +80,9 @@ $stackSchema = 	[
 	['name' => 'groups_members', 'specs' => ['type' => 'layer']],
 ];
 ```
-  - $seedPoints   
+  - `$seedPoints`   
   Seed points identify the kind of record your initial query found. This is the data that will need the larger stack context to be fully described.
-    - Naming the seeds in both singular and plural form means you don't have to remember which way to use when you call.
+    - Naming the seeds in both singular and plural form means you don't have to remember which inflection to use when you call.
 
 ```php
 $seedPoints = [
@@ -108,7 +107,7 @@ protected function loadFromArtist($ids) { }
    - this method will accept an array of primary record IDs
    - make this method public
    - name - stacksFrom{PrimaryTableAlias}   
-      if the primary record is Artworks, `stacksFromArtworks($ids)   
-      if the primary record is Members, `stacksFromMembers($ids)
+      if the primary record is Artworks, `stacksFromArtworks($ids)`   
+      if the primary record is Members, `stacksFromMembers($ids)`
 
 Topics, Studio manager, Stack, Layer, Design pattern
