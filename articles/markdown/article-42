@@ -107,3 +107,52 @@ Medium strength underground fights occur when sentries and defenders have been d
 ### Allies
 
 ### NPCs
+
+## Underground facilities
+
+To avoid detection, the aliens excavate underground tunnels and rooms. These spaces are created by teams of worms that use acid, levering/grinding appendages,  and teleportation to break apart the soil and rock, then remove it.
+
+There are three tunnels sizes they construct
+
+- 10"   
+   Large enough for the aliens to move around comfortably
+- 50"  
+   Large enough for animals to move through
+- 78"  
+   Large enough for humans to move through
+- Rooms can be created in all tunnel sizes. The tunneling worms create these spaces also
+
+Each tunnel size has a worm specific to it. There are always 9 worms that work in parallel, exactly filling the tunnel bore. So, each worm in cross-section is 1/9th of the tunnel cross-section. And worms are always 4x longer than their diameter.
+
+### Worm dimensions
+
+- Small
+  - Diameter  1-5/8"
+  - Length     6-5/8"
+- Medium
+  - Diameter  8-3/8"
+  - Length     33-3/8"
+- Large
+  - Diameter  13"
+  - Length      52"
+
+All worms can bore an average of 6" per hour, 12' per day. The soil they remove is teleported to some random location above ground, determined by mysterious quantum factors at the time the tunnel is created.
+
+A dice role will set the location.
+
+Once a group of worms begins work and the location of the debris is established, the pile of soil will be continuous, forming a linear mound that matches the tunnel and any rooms created.
+
+If the worms stop processing dirt and move to a new location to resume, a new destination role is required.
+
+### Creating worms
+
+Devices must be created that can make the worms. There is one size of device for each size of worm. One device per day can be made by a laborer and once created, the device can make 1" of worm per hour.
+
+The rate of worm creation:
+
+- Small
+   - 3.6 worms per day
+   - 0.72 worms per day
+   - 0.461538462 worms per day
+
+Since the worms work in teams of 9, there is a ramp-up period before the tunnel excavation rate of 12' per day can be reached. For purposes of calculation, even a partial worm is assumed to do some work.
