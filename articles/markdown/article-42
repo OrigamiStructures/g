@@ -146,9 +146,9 @@ If the worms stop processing dirt and move to a new location to resume, a new de
 
 ### Creating worms
 
-Devices must be created that can make the worms. There is one size of device for each size of worm. One device per day can be made by a laborer and once created, the device can make 1" of worm per hour.
+Devices must be created that can make the worms. Each device is square, face on, and 3" thick. Its face is large enough to comfortably contain the cross section the worm it creates.  There is one size of device for each size of worm. One device per day can be made by a laborer and once created, the device can make 1" of worm per hour.
 
-The rate of worm creation:
+Using the size of the worms and the rate of worm creation, we can calculate how many worms are generated each day:
 
 - Small
    - 3.6 worms per day
@@ -156,3 +156,51 @@ The rate of worm creation:
    - 0.461538462 worms per day
 
 Since the worms work in teams of 9, there is a ramp-up period before the tunnel excavation rate of 12' per day can be reached. For purposes of calculation, even a partial worm is assumed to do some work.
+
+### The initial build
+
+- The first full cohort of small worms are ready on day 4 and the first 12' of tunnel on is produced on day 5. 
+- The first medium cohort on day 7 and medium tunnel on day 8. 
+- The first large cohort on day 5 and tunnel on day 6.
+
+All initial units are on line and have produced one day's tunnels on day 15. 
+
+In all, 8 cohorts of small (72 worms), 6 cohorts of medium (54 worms), and 6 cohorts of large worms (54 worms) are produced. 
+
+For each size of worm, once the first cohort comes on line, one additional cohort per day will be produced and can be put to work immediately. So, each new cohort produces 12' less tunnel than its predecessor by the end of the initial 15 days. After this, tunnel production is the same for all cohorts.
+
+Totals at the end of day 15 are as follows
+
+- Small
+  - 1 : 132'
+  - 2 : 120'
+  - 3 : 108"
+  - 4 : 96'
+  - 5 : 84' 
+  - 6 : 72'
+  - 7 : 60'
+  - 8 : 48'
+- Medium
+  - 1 : 96'
+  - 2 : 84'
+  - 3 : 72"
+  - 4 : 60'
+  - 5 : 48' 
+  - 6 : 36'
+- Large
+  - 1 : 72'
+  - 2 : 60'
+  - 3 : 48"
+  - 4 : 36'
+  - 5 : 24' 
+  - 6 : 12'
+
+To accomplish these rates of production one of each size of worm constructor must be made each day with the first completed on the 3rd day and beginning worm production immediately at that time.
+
+One additional constructor must be made each day thereafter until a required number is reached:
+
+- 9 small
+- 9 medium
+- 15 large
+
+These devices must then be stored, transported or dismantled. And 3 workers will be occupied with creating them for 9 days, and 1 for an additional 6 days.
