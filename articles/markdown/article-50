@@ -22,8 +22,29 @@
 
 Investigation rolls include the Perception information and add more
 
-- <= 10
+- <= 10   
+  The head is so damaged you can't really identify anything that was in it but you see some metal parts, broken glass and some white stuff.
 
+- >= 11 >= 15  
+   You can see small parts inside the head, something like a syringe needle running into the cone at the front and some white fibrous material in with all the other internal parts. Those parts look like small metal components
+
+- > 16
+   You can see mechanisms inside and glass vials that have broken. There is liquid and blood on the vials and you wonder if one held something to inject and one held extracted blood because the mechanism looks like it attaches to a syringe needle that goes out the front of the cone. There is also a white, fibrous knot inside with strings reaching into the mechanism and down into the body. There are other fibers that are moving.
+
+### Touching it 
+
+- With a stick will start the nodule grabbing the stick
+- Picking up the bird will trigger a Dex saving roll
+   - <=10 the nodule attaches and pulls away on your hand
+   - <= 14 the nodule attaches and pulls away but you shake it off
+   - 15 or greater saves
+
+### Attached
+
+Constitution saving throw
+
+- <= 14 you grab the head and have a compulsion to stab the pony which you proceed to attempt, re-roll each turn
+- > 14 you feel a compulsion to grab the head and stab the pony but with a wave of revulsion you knock the nodule off your hand and anyone within 5' mus make a dex save to avoid it.
 
 ### Effects of touching a downed Stirge
 
