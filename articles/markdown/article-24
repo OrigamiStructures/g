@@ -63,6 +63,7 @@ public funciton self() {
 ```
 
 --
+
 **UPDATE**: I'm thinking about having the user that owns the Artist record issuing that record to the manager. The manager's acceptance would deposit their ID in it. This would change this self( ) function.
 
 The schema for Artist would be something like:
@@ -73,7 +74,9 @@ The schema for Artist would be something like:
 - manager_id
 
 No Artist::member_owner_id
+
 --
+
 Also, at the time when the **artist** to **member** connection is made, The `member::is_artist` boolean property must be set to TRUE. 
 
 This property and the `artist::self()` method are needed because we can't guarantee that in every situation we will have both entities to do the status checks. But it means our code must not fail to set these values so the entities can be self aware.
