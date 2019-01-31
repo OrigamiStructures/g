@@ -62,7 +62,7 @@ public funciton self() {
 }
 ```
 
---
+<hr>
 
 **UPDATE**: I'm thinking about having the user that owns the Artist record issuing that record to the manager. The manager's acceptance would deposit their ID in it. This would change this self( ) function.
 
@@ -73,9 +73,9 @@ The schema for Artist would be something like:
 - member_id
 - manager_id
 
-No Artist::member_owner_id
+No Artist::member\_owner\_id
 
---
+<hr>
 
 Also, at the time when the **artist** to **member** connection is made, The `member::is_artist` boolean property must be set to TRUE. 
 
