@@ -28,6 +28,12 @@ Though system subscribers may create any number of **member** records, the **mem
 
 In this simple case, the `member::is_artist` property would be set to false.
 
+<hr>
+
+**UPDATE:** This field is just so we can tell from the simple entity context, if we have an artist. Is this a valid problem? Could the stack be aware of this instead and eliminate the mostly unused column?
+
+<hr>
+
 <aside>Policy needed: Do we want to allow system managers access to this personal user data?</aside>
 
 Because these two records must always exist together and with exactly this link pattern, in the subsequent diagrams they will be shown like this:
