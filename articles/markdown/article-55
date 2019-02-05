@@ -38,6 +38,12 @@ Should this special permission apply to all Manager accessible records or force 
 
 We could possibly make this a 'one editor at a time'. Assigning temporary create/edit permission would then be a transfer process rather than an 'addition' process. This will relieve us of having to watch for editor collisions and might make edit-history tracking easier.
 
+### 2 strategies for edit permission
+
+The artist record owned by a user could get a timestamp set indicating the end of their editing rights. Then they could be allowed to create/edit for that Artist on all new and permitted works.
+
+But if we want to enable focused edit permission, independent of the normal manager permissions, we'd have to have a whole new permission system or special field indicators in the existing permission records.
+
 ## Editing
 
 Proposed rules for a Manager's editing of an Artist's work.
