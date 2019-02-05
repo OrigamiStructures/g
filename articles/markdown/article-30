@@ -2,6 +2,8 @@
 
 ![The UserStack entity and its content](http://g.origamistructures.com/w_img/UserStackClassDiagram.png) 
 
+![UserStack Entity Object](/img/images/image/e430fa25-f6e2-4b2e-947f-2eebd6980bf1/Screen%20Shot%202019-02-04%20at%2010.03.57%20PM.png "The UserStack Entity Object")
+
 ## Insuring a universally accessible singleton of the UserStack
 
 Since this is an entity, we can control it in the way of a typical singleton.
