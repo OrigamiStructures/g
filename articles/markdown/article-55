@@ -36,6 +36,8 @@ Then the permission system is always for disposition only, unless there is a spe
 
 Should this special permission apply to all Manager accessible records or force a newly defined scope?
 
+We could possibly make this a 'one editor at a time'. Assigning temporary create/edit permission would then be a transfer process rather than an 'addition' process. This will relieve us of having to watch for editor collisions and might make edit-history tracking easier.
+
 ## Editing
 
 Proposed rules for a Manager's editing of an Artist's work.
