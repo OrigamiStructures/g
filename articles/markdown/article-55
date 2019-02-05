@@ -26,6 +26,16 @@ In the current configuration, each method has a creator's user_id, so if that ca
 
 Will there be a situation where a Manager creates an Artist and their works and extends permission to a User that is that Artist? An in this unusual situation, what should the Artist's creation/editing rights be?
 
+It would be convenient to say only the owner of the Artist record can create and edit artworks; permission is only to dispose. But this could leave a situation where a gallery owner can't get an artist to update the data to support a sale.
+
+It is easy to say that this is the artist's and manager's problem. Trash your data and or career if you want. But we people to use the system, and accounting for human failures can increase use.
+
+So, perhaps the managers have a way to request time-limited create/edit permission from the Artist. And Artists have a way to issue this permission proactively. 
+
+Then the permission system is always for disposition only, unless there is a special flag, then new rules apply for a limited time.
+
+Should this special permission apply to all Manager accessible records or force a newly defined scope?
+
 ## Editing
 
 Proposed rules for a Manager's editing of an Artist's work.
