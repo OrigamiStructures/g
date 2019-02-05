@@ -2,6 +2,14 @@
 
 Management and general sharing of Address Book data is not allowed. Import/export features will be provided for Artists and Managers so they can share this data if they wish, but the system views this as private data belonging to the registered user that created it.
 
+The address data that is stored in Dispositions is also controlled even in cases where a Manager or Artist has access to a disposition created by the other.
+
+- If the Artist creates a disposition for a piece that the Manager has access to, the manager can see the Disposition, its type, date, and other status indicators but cannot see any details of who the work was disposed to.
+   - Will this cause difficulty for a manager's awareness of 'prestige' placements for the artist? 
+   - This might be solved if the artist can publish CV or other summaries that the manager can receive
+- If the Manager creates a disposition for an Artist that is a registered user, that Artist can see the name, state, country of the disposition member (and city?).
+   - Would this be enough for the Artist to maintain a complete CV or collector history?
+
 It's not yet defined what *Management* means. 
 
 - The right to dispose pieces?
