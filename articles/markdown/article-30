@@ -1,7 +1,5 @@
 # The UserStack Entity Object
 
-![The UserStack entity and its content](http://g.origamistructures.com/w_img/UserStackClassDiagram.png) 
-
 ![UserStack Entity Object](/img/images/image/e430fa25-f6e2-4b2e-947f-2eebd6980bf1/Screen%20Shot%202019-02-04%20at%2010.03.57%20PM.png "The UserStack Entity Object")
 
 ## Insuring a universally accessible singleton of the UserStack
@@ -23,5 +21,15 @@ Is it necessary?
 There is currently no way to manually provide a User id to the stack generator. But the User table is still generally accessible. So what good would protecting this be.
 
 Maybe the problem is not one of security, but of access. We don't want to get into the SystemState problem!
+
+## Artist Management and Permission
+
+The Artist and Permission layers have to work to enable **artist management**.
+
+A user may be an artist, and in this case, they will have full permission to manage their own artwork without any specific permission. The fact that the user is the creator/owner of the artist record is proof that no permissions are needed. 
+
+In the case where the user is not the creator/owner of the artist record, they have no permission to any of the artist's work without a permission records to define the scope of access.
+
+This means an Artist must issue artist and permission records to their managers. If a user creates the artist record, it will only give access to artworks created by that user for that artist.
 
 Topics: Studio manager, Stack, Data structure, 
