@@ -16,6 +16,16 @@ It's not yet defined what *Management* means.
 - The right to create Artworks or layers of them depending on permissions?
 - The right to edit Artworks or layers of them depending on permissions?
 
+Clearly, some distinction needs to be made to distinguish Artworks belonging to registered User/Artists that the Manager is permitted to manage and works belonging to Artists that the Manager has created and maintains as a personal record.
+
+In the first case, some kind limits are likely to exist, in the later case, no limits can exist.
+
+An `usersProperty( )` method on the Artist entity might work. I wonder if Artwork/Edition/Format/Piece entities could also deliver this boolean. 
+
+In the current configuration, each method has a creator's user_id, so if that can be maintained, it would support this strategy.
+
+Will there be a situation where a Manager creates an Artist and their works and extends permission to a User that is that Artist? An in this unusual situation, what should the Artist's creation/editing rights be?
+
 ## Editing
 
 Proposed rules for a Manager's editing of an Artist's work.
