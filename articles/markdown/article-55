@@ -1,4 +1,18 @@
 # Manager Permission
 
+Management and general sharing of Address Book data is not allowed. Import/export features will be provided for Artists and Managers so they can share this data if they wish, but the system views this as private data belonging to the registered user that created it.
+
+It's not yet defined what *Management* means. 
+
+- The right to dispose pieces?
+- The right to create Artworks or layers of them depending on permissions?
+- The right to edit Artworks or layers of them depending on permissions?
+
+## Editing
+
+Proposed rules for a Manager's editing of an Artist's work.
+
+- If the permission links to an Artist, the manager can
+   - Edit all levels of all artwork
 
 Topics: Stack, Layer, Studio Manager, Artist, Permission
