@@ -20,7 +20,7 @@ Clearly, some distinction needs to be made to distinguish Artworks belonging to 
 
 In the first case, some kind limits are likely to exist, in the later case, no limits can exist.
 
-An `usersProperty( )` method on the Artist entity might work. I wonder if Artwork/Edition/Format/Piece entities could also deliver this boolean. 
+A `managerOwned( )` method on the Artist entity might work. I wonder if Artwork/Edition/Format/Piece entities could also deliver this boolean. 
 
 In the current configuration, each method has a creator's user_id, so if that can be maintained, it would support this strategy.
 
