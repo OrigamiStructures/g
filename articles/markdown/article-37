@@ -19,6 +19,12 @@ For example, an Artist stack would provide
 
 In this way, each stack is fully described for any View use, and serves as a convenient stepping stone to any of it's related data collections
 
+### A possible third service
+
+It might be useful to allow the linked sets to describe themselves in summary form. This would allow displays of a Stack to list the identities of the next level object without any data beyond the original stack.
+
+As described below, Stacks are constructed of flat data sets rather than nested sets. This capability would require special expanded entities assembled for this purpose.
+
 ## Choosing a structural pattern
 
 A  'contained' query  brings all the required associated data together in a tree structure. For very deep data sets and sets with multiple internal branches the resulting nested structures are difficult to manage in views that use many elements.
