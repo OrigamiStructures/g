@@ -2,7 +2,26 @@
 
 ## Overview
 
-Many of the object represented by table data require records from more than one table for full expression. A  'contained' query  brings all the required associated data together in a tree structure. For very deep data sets and sets with multiple internal branches the resulting nested structures are difficult to manage in views that use many elements.
+Many of the object represented by table data require records from more than one table for full expression. 
+
+There are two general requirements for a Stack.
+
+1. Contain full metadata to describe the object in any presentation scenario
+1. Provide the links that will allow the Stacks of all relevant next-level objects to be constructed
+
+For example, an Artist stack would provide
+
+- The name/address/contact information for the artist
+- Links to all the Managers of this Artist if this `Artist->managerOwned( )`
+- The link to the Manager of this specific Artist record
+- The link to the creator/owner of this specific Artist record
+- Links to the Artwork the Manager of this Artist is allowed.
+
+In this way, each stack is fully described for any View use, and serves as a convenient stepping stone to any of it's related data collections
+
+## Choosing a structural pattern
+
+A  'contained' query  brings all the required associated data together in a tree structure. For very deep data sets and sets with multiple internal branches the resulting nested structures are difficult to manage in views that use many elements.
 
 The nested data fragments into new variables as it travels down through the output loops. Upstream context data becomes lost as the loops and elements nest. Stacks are designed to establish a guarantee of full context at every stage of the output process.
 
