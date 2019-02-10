@@ -25,6 +25,10 @@ It might be useful to make the linked sets include summary metadata. This would 
 
 As described below, Stacks are constructed of flat data sets rather than nested sets. This capability would require special expanded entities assembled for this purpose.
 
+#### A nuanced approach?
+
+While this strategy feels like it might deliver significant benefits, the UserStack might be an exception. User records link to everything and this would make the stack larger than needed for most cases. The linked lists would be both numerous and lengthy. It's hard to envision any useful user interface that could benefit from such a glut of information.
+
 ## Choosing a structural pattern
 
 A  'contained' query  brings all the required associated data together in a tree structure. For very deep data sets and sets with multiple internal branches the resulting nested structures are difficult to manage in views that use many elements.
