@@ -21,7 +21,7 @@ In this way, each stack is fully described for any View use, and serves as a con
 
 ### A possible third service
 
-It might be useful to make the linked sets include summary metadata. This would allow the stack to describe all next-level records in summary form.
+It might be useful to make the linked sets include summary metadata. This would allow the stack to describe all next-level records in summary form as well as enable the easy assembly of next-level stack objects.
 
 As described below, Stacks are constructed of flat data sets rather than nested sets. This capability would require special expanded entities assembled for this purpose.
 
