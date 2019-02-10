@@ -7,7 +7,7 @@ Many of the object represented by table data require records from more than one 
 There are two general requirements for a Stack.
 
 1. Contain full metadata to describe the object in any presentation scenario
-1. Provide the links that will allow the Stacks of all relevant next-level objects to be constructed
+1. Provide the links that will allow the Stacks of all next-level objects to be constructed
 
 For example, an Artist stack would provide
 
@@ -21,7 +21,7 @@ In this way, each stack is fully described for any View use, and serves as a con
 
 ### A possible third service
 
-It might be useful to allow the linked sets to describe themselves in summary form. This would allow displays of a Stack to list the identities of the next level object without any data beyond the original stack.
+It might be useful to make the linked sets include summary metadata. This would allow the stack to describe all next-level records in summary form.
 
 As described below, Stacks are constructed of flat data sets rather than nested sets. This capability would require special expanded entities assembled for this purpose.
 
