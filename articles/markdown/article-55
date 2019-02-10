@@ -10,46 +10,20 @@ The address data that is stored in Dispositions is also controlled even in cases
 - If the Manager creates a disposition for an Artist that is a registered user, that Artist can see the name, state, country of the disposition member (and city?).
    - Would this be enough for the Artist to maintain a complete CV or collector history?
 
-It's not yet defined what *Management* means. 
+Management is enabled by providing a registered user with an Artist record the links them to a Member record that represents an artist. A second record must be created by the user owning the artist/member; a Permission record.
 
-- The right to dispose pieces?
-- The right to create Artworks or layers of them depending on permissions?
-- The right to edit Artworks or layers of them depending on permissions?
+The Permission record contains a link to some record(s) in the ArtworkStack. Gaining access to Pieces in this way grants Disposition rights to the managing user. Two flag fields in the Permission record can grant further management rights. The possibilities are:
 
-Clearly, some distinction needs to be made to distinguish Artworks belonging to registered User/Artists that the Manager is permitted to manage and works belonging to Artists that the Manager has created and maintains as a personal record.
+- The right to dispose pieces
+- The right to create Artworks or layers of them depending on permissions
+- The right to edit Artworks or layers of them depending on permissions
 
-In the first case, some kind limits are likely to exist, in the later case, no limits can exist.
+The `managerOwned( )` method on the Artist entity is used to decide whether the User can access all of an Artist's Artworks without restriction or whether they must build ArtworkStacks through the control of Permission records.
 
-A `managerOwned( )` method on the Artist entity might work. I wonder if Artwork/Edition/Format/Piece entities could also deliver this boolean. 
+I have wondered if the ability to detect ownership vs management rights at the level of some entity in the ArtworkStack will be necessary. The Stack should be able to deliver this information and should always be available. If not, it may be necessary to deposit some flag or method in the individual entities before they are released into the wild.
 
-In the current configuration, each method has a creator's user_id, so if that can be maintained, it would support this strategy.
+The registered user that created the Artwork records owns the data. If a manager creates records for an artist and that artist later becomes a registered user, they do not own the data. The original user retains ownership and must extend management rights to the artist. Or they can choose to transfer ownership of the records.
 
-Will there be a situation where a Manager creates an Artist and their works and extends permission to a User that is that Artist? An in this unusual situation, what should the Artist's creation/editing rights be?
-
-It would be convenient to say only the owner of the Artist record can create and edit artworks; permission is only to dispose. But this could leave a situation where a gallery owner can't get an artist to update the data to support a sale.
-
-It is easy to say that this is the artist's and manager's problem. Trash your data and or career if you want. But we want people to use the system, and accounting for human failures can increase use.
-
-So, perhaps the managers have a way to request time-limited create/edit permission from the Artist. And Artists have a way to issue this permission proactively. 
-
-Then the permission system is always for disposition only, unless there is a special flag, then new rules apply for a limited time.
-
-Should this special permission apply to all Manager accessible records or force a newly defined scope?
-
-We could possibly make this a 'one editor at a time'. Assigning temporary create/edit permission would then be a transfer process rather than an 'addition' process. This will relieve us of having to watch for editor collisions and might make edit-history tracking easier.
-
-### 2 strategies for edit permission
-
-The artist record owned by a user could get a timestamp set indicating the end of their editing rights. Then they could be allowed to create/edit for that Artist on all new and permitted works.
-
-But if we want to enable focused edit permission, independent of the normal manager permissions, we'd have to have a whole new permission system or special field indicators in the existing permission records.
-
-## Editing
-
-Proposed rules for a Manager's editing of an Artist's work.
-
-- If the permission links to an Artist, the manager can
-   - Edit all levels of all artwork
 
 ## problems?
 
