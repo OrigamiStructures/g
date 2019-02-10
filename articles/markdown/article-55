@@ -28,7 +28,7 @@ Will there be a situation where a Manager creates an Artist and their works and 
 
 It would be convenient to say only the owner of the Artist record can create and edit artworks; permission is only to dispose. But this could leave a situation where a gallery owner can't get an artist to update the data to support a sale.
 
-It is easy to say that this is the artist's and manager's problem. Trash your data and or career if you want. But we people to use the system, and accounting for human failures can increase use.
+It is easy to say that this is the artist's and manager's problem. Trash your data and or career if you want. But we want people to use the system, and accounting for human failures can increase use.
 
 So, perhaps the managers have a way to request time-limited create/edit permission from the Artist. And Artists have a way to issue this permission proactively. 
 
