@@ -9,14 +9,16 @@ This property is ignored during Layer::load( ) calls (because it can be deduced)
 
 - $_layer
 
-These are values that determine result filtering. They only work when a the $_layer property is set or deduced. One or three of these properties must be set. Either $_property or $_method can be set to just an array of that value rather than receiving an array of entities. When setting one of these values, the $_test_value an $match can also be set to filter the result. $_match can be == or != and will set the filter comparison for property match test_value. True will return the entity, false will not.
+These are values that determine result filtering. They only work when a the $_layer property is set or deduced. Three of these properties must be set. Either $_property or $_method are set to determine the source of the value to test. $_test_value provides the value to test against. $_match will determine what kind of comparison to perform. $_match can be == or !=. True will return the entity, false will not.
+
+In a case where both $_property and $_method are set, $_property will be used.
+
+If $property or $_method is set without both $_test_value and $_match, filtering will be ignored.
 
 - $_property
 - $_method
-- $_test_value
+- $\_test\_value
 - $_match
 
-$_key
-$_value
 
 Topics: Studio Manager, Layer, Stack
