@@ -1,3 +1,22 @@
 # Stacks, Layers, Single Members, and Primary
 
+All uses will respond to these properties if they are set. However, the pagination is done for the data received at the level that called `load( )`. For example, if you call StackSet::load( ) all the StackEntity and Layer processes will run and the final accumulation of all those results will be paginated. If Layer::load( ) is called, the result from that one layer will be paginated.
+
+- $_page
+- $_limit
+
+This property is ignored during Layer::load( ) calls (because it can be deduced), required for StackEntity::load( ), and optional for StackSet::load( ). When present in StackSet::load( ) it will determine whether the entities from some layer are filtered and returned for accumulation. When missing at this level, the StackEntities will be returned and no filtering will be done. 
+
+- $_layer
+
+These are values that determine result filtering. They only work when a the $_layer property is set or deduced. One or three of these properties must be set. Either $_property or $_method can be set to just an array of that value rather than receiving an array of entities. When setting one of these values, the $_test_value an $match can also be set to filter the result. $_match can be == or != and will set the filter comparison for property match test_value. True will return the entity, false will not.
+
+- $_property
+- $_method
+- $_test_value
+- $_match
+
+$_key
+$_value
+
 Topics: Studio Manager, Layer, Stack
