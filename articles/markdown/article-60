@@ -1,0 +1,30 @@
+# Pieces: Funtional and Presentational 
+
+## Stacks, rendering, and API delivery
+
+At the current point in the code I've written ArtworkStacks, all of the RolodexCard hierarchy (except Users), and the ArtistManifests.
+
+I designed and wrote these from a presentation perspective; trying to solve the problem of delivering one predictable data object that was sufficient in any page rendering scenario we might have.
+
+These objects would then be convenient API delivery packages. We could use the API packages to reproduce system behavior in mobile apps and third parties would have objects that were comprehensive for a data structure. 
+With one or more, they would have enough data to create new behaviors in new environments.
+
+## Creeping functionality
+
+While writing ArtistManifests, functional concerns started to move to the forefront.
+
+The Issuer of the manifest is granting data access rights to some other user. The basic components composed into the manifest identify display units—Members and Artworks primarily—and that allowed page rendering. But there are fields and records that control details of data access for the manager and  others that control exposure of one manager to another.
+
+Still, this is primarily data for presentation. We're just supporting a new layer of logic before display and laying the foundation for interactions between system users.
+
+## Primarily functional objects
+
+Pieces have a small presentation footprint. They are represented a counts when rendering artwork information pages. And in the case of a unique work, it feels to the user as though the piece is the whole story.
+
+An it is likely that a suite of images will accumulate in some cases to document the actual piece being represented.
+
+But the piece record has only two main data points that describe it directly. And of those, only one is used for each piece. Numbered editions use the `number` field and open editions use the `quantity` field.
+
+Topics: Disposition, Studio Manager
+
+ 
