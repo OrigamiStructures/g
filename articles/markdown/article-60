@@ -50,10 +50,12 @@ Recognizing that a population may be one individual, and that a state described 
 
 We could reformulate this as a single role with variations:
 
-> Link a piece population to a on concrete dispositional state
-> Variations
-> For un-numbered pieces, manage changing populations across the set of currently active states
-> For numbered pieces, maintain the full history of all past states
+**Link a piece population to a on concrete dispositional state**
+
+Variations
+
+- For un-numbered pieces, manage changing populations across the set of currently active states
+- For numbered pieces, maintain the full history of all past states
 
 Topics: Disposition, Studio Manager
 
