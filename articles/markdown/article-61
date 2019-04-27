@@ -8,6 +8,8 @@ And, considering the fact that the 'piece' may be a record tracking the number o
 
 ## The Great Divide
 
+[Also see Pieces: Funtional and Presentational ](/article/pieces-funtional-and-presentational "Pieces: Funtional and Presentational ")
+
 Dispositions must behave in two distinct ways depending on whether they are linked to numbered or un-numbered pieces (roughly equivalent to Limited and Open Editions).
 
 This sets up a fundamental problem. Through the join table we have a ManyToMany linkage and so the possibility of having a disposition that must exhibit both numbered and un-numbered behavior.
