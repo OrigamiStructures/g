@@ -1,0 +1,10 @@
+# Dispositions
+
+A Disposition describes the condition of some population of pieces as being at some state in the real world.
+
+The current schema in dispositions provides far more data points than are required for this limited task.
+
+And, considering the fact that the 'piece' may be a record tracking the number of virtual pieces in the population, the use of a join table from Disposition to Piece represents a dynamic, fuzzy description rather than a concrete mapping.
+
+
+Topics: Disposition, Studio Manager
