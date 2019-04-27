@@ -25,9 +25,28 @@ An it is likely that a suite of images will accumulate in some cases to document
 
 But the piece record has only two main data points that describe it directly. And of those, only one is used for each piece. Numbered editions use the `number` field and open editions use the `quantity` field.
 
+### Un-numbered pieces
+
 The `quantity` field points directly to the dominant functional role of Piece objects. This value represents some group of pieces in a common disposition state. It is the result of processes carried out by Artist Managers and is fluid over time, able to both increase and decrease withing a range set in the Edition/Format.
 
 A "piece" described by its quantity value does not represent anything fixed in the real world. It represents the number of items in a common state.
+
+### Numbered pieces
+
+Superficially, it seems that numbered pieces—described by `number` rather than `quantity`—do represent real world objects. However, the labeling of any given real-world piece with a number label is an arbitrary act that could change for any number of reasons.
+
+Because of this reality, the Piece actually stands as the identifier of a particular history of events.
+
+If we have images and dispositions linked to piece_id = 55 with number = 3, then those images and that history of activity describe piece 3. Simply performing an edit—number = 12—and relabeling the real world piece to 12, changes these facts. Now the images are of #12 and the events happened to #12.
+
+### Piece function
+
+So there are two functional roles of a piece object.
+
+1. Track the populations that exist in specific states.
+2. Attach documentation and histories to specific labeled individuals.
+
+Recognizing that a population may be one individual, and that a state described by a disposition is the base component of a history, we see these two functions as closely related.
 
 Topics: Disposition, Studio Manager
 
