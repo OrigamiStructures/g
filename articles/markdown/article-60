@@ -19,34 +19,38 @@ Still, this is primarily data for presentation. We're just supporting a new laye
 
 ## Primarily functional objects
 
-Pieces have a small presentation footprint. They are represented a counts when rendering artwork information pages. And in the case of a unique work, it feels to the user as though the piece is the whole story.
+Pieces have a small presentation footprint. In the case of a unique work, it feels to the user as though the piece is the whole story. Despite this illusion, only numbered pieces have any presentation data that traces back to a fixed, real world object. And that datum is just a simple identifying label, a number or short string.
 
-An it is likely that a suite of images will accumulate in some cases to document the actual piece being represented.
+It is likely that a suite of images will accumulate in some cases to document the actual piece being represented. But as you'll see, this does not have to stay anchored through the logical chain `Image->link->Piece->label->real-world-object`.
 
-But the piece record has only two main data points that describe it directly. And of those, only one is used for each piece. Numbered editions use the `number` field and open editions use the `quantity` field.
+The piece record has only two main data points that describe it directly, `number` and `quantity`. The use of one excludes the use of the other. Numbered editions use the `number` field and open editions use the `quantity` field.
 
 ### Un-numbered pieces
 
-The `quantity` field points directly to the dominant functional role of Piece objects. This value represents some group of pieces in a common disposition state. It is the result of processes carried out by Artist Managers and is fluid over time, able to both increase and decrease withing a range set in the Edition/Format.
+The `quantity` field points directly to the dominant functional role of Piece objects. This value represents some group of pieces in a common disposition state. It is the result of processes carried out by Artist Managers and is fluid over time, able to both increase and decrease within a range set in the Edition/Format.
 
-A "piece" described by its quantity value does not represent anything fixed in the real world. It represents the number of items in a common state.
+A "piece" described by its quantity value does not represent anything fixed in the real world. It represents the number of items that have arrived in a common state. It is a snapshot of current conditions and can be expected to change in the future.
 
 ### Numbered pieces
 
-Superficially, it seems that numbered pieces—described by `number` rather than `quantity`—do represent real world objects. However, the labeling of any given real-world piece with a number label is an arbitrary act that could change for any number of reasons.
+Superficially, it seems that numbered pieces—described by a unique label rather than `quantity`—do represent real world objects. However, the labeling of any given real-world piece is an arbitrary act. The label could be change for a variety of reasons.
 
-Because of this reality, the Piece actually stands as the identifier of a particular history of events.
+Because of this reality, the Piece actually stands as the identifier of a history; all the disposition events recorded in relation to the current label.
 
-If we have images and dispositions linked to piece_id = 55 with number = 3, then those images and that history of activity describe piece 3. Simply performing an edit—number = 12—and relabeling the real world piece to 12, changes these facts. Now the images are of #12 and the events happened to #12.
+If we have images and dispositions linked to piece_id = 55 with number = 3, then those images and that history of activity describe piece 3, some real world object. Simply performing an edit—number = 12—and relabeling the real world piece to 12, changes these facts. Now the images are of #12 and the events happened to #12.
 
 ### Piece function
 
-So there are two functional roles of a piece object.
+So there are at least two functional roles of a piece object.
 
-1. Track the populations that exist in specific states.
+1. Track the populations that exist in specific Disposition states.
 2. Attach documentation and histories to specific labeled individuals.
 
 Recognizing that a population may be one individual, and that a state described by a disposition is the base component of a history, we see these two functions as closely related.
+
+We could reformulate this as a single role with variations:
+
+> 
 
 Topics: Disposition, Studio Manager
 
