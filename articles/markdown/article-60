@@ -25,6 +25,10 @@ An it is likely that a suite of images will accumulate in some cases to document
 
 But the piece record has only two main data points that describe it directly. And of those, only one is used for each piece. Numbered editions use the `number` field and open editions use the `quantity` field.
 
+The `quantity` field points directly to the dominant functional role of Piece objects. This value represents some group of pieces in a common disposition state. It is the result of processes carried out by Artist Managers and is fluid over time, able to both increase and decrease withing a range set in the Edition/Format.
+
+A "piece" described by its quantity value does not represent anything fixed in the real world. It represents the number of items in a common state.
+
 Topics: Disposition, Studio Manager
 
  
