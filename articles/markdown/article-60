@@ -13,7 +13,7 @@ With one or more, they would have enough data to create new behaviors in new env
 
 While writing ArtistManifests, functional concerns started to move to the forefront.
 
-The Issuer of the manifest is granting data access rights to some other user. The basic components composed into the manifest identify display units—Members and Artworks primarily—and that allowed page rendering. But there are fields and records that control details of data access for the manager and  others that control exposure of one manager to another.
+The Issuer of the manifest is transforming a simple Member record into an Artist, opening the record to a vast array of system activity. They are simultaneously granting data access rights to some other user. The basic components composed into the manifest identify display units—Members and Artworks primarily—and that allowed page rendering. But there are fields and records that control details of data access for the manager and  others that control exposure of one manager to another.
 
 Still, this is primarily data for presentation. We're just supporting a new layer of logic before display and laying the foundation for interactions between system users.
 
