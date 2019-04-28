@@ -21,20 +21,21 @@ Dispositions linking numbered need to
 1. Maintain the full history of events for the effected pieces.
 2. Record 'Who' and 'Where' data
 3. Record event Timestamp data
-4. Support event duration and sequence patterning 
-5. Optionally enforce event sequences
+4. Support event duration
+5. Support sequence patterning (templated creation)
+5. Support a rule system to enforce event sequences
 6. Provide user notification of required action based on Timestamp data
 
 ### Un-numbered Behavior
-7. Maintain the set of states that describes the entire effected piece population
-8. Accept new dispositions and merge them into the existing set to insure one Disposition at each state.
-- When merging, adjust the population data on the piece records to insure one piece record for each state.
-- Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
+1. Maintain the set of states that describes the entire effected piece population
+2. Accept new dispositions and merge them into the existing set to insure one Disposition at each state.
+3. When merging, adjust the population data on the piece records to insure one piece record for each state.
+4. Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
 
 ### Common Requirements
 
-- Provide fast access to the "current" disposition for page rendering
-- Easy access to factors used in determining the availability of a population for a new disposiiton
+1. Provide fast access to the "current" disposition for page rendering
+2. Easy access to factors used in determining the availability of a population for a new disposition
    - Probably the dispositions::type value + knowledge about pending dispositions
 
 ## Possible Strategies
@@ -51,6 +52,27 @@ Probably some point datum that can mark the current record will work. I have a `
 
 ### Benefits of a Lifespan Object
 
-There are 12 jobs the objects have to help with.
+There are 12 jobs the objects have to help with. This simple structure of a Lifespan object could help with:
+
+- Numbered
+   - Maintain the full history of events for the effected pieces.
+   - Support sequence patterning (templated creation)
+      - This would be the creation of `pending` dispositions
+   - Support a rule system to enforce event sequences
+      - The maintenance and analysis of `pending` states  accomplishes this
+   - Provide user notification of required action based on Timestamp data
+      - The examination of `pending` states  aids this
+- Un-numbered
+   - Maintain the set of states that describes the entire effected piece population
+      - The set of `current` dispositions would be the set of states
+   - Accept new dispositions and merge them into the existing set to insure one Disposition at each state.
+      - Process posted disposition data and use the request to modify the set of `current` states and their population counts. The modified record set is save and the add request is consumed but not directly saved.
+   - When merging, adjust the population data on the piece records to insure one piece record for each state.
+      - As above, the request is consumed to produce edits but not saved directly. In this case it is a set of effected piece records that are edited
+- Common Requirements
+   - Provide fast access to the "current" disposition for page rendering
+   - Easy access to factors used in determining the availability of a population for a new disposition
+      - `current::type` and the existence of pending events are easily detected
+
 
 Topics: Disposition, Studio Manager
