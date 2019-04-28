@@ -60,8 +60,6 @@ There are 12 jobs the objects have to help with. This simple structure of a Life
       - This would be the creation of `pending` dispositions
    - Support a rule system to enforce event sequences
       - The maintenance and analysis of `pending` states  accomplishes this
-   - Provide user notification of required action based on Timestamp data
-      - The examination of `pending` states  aids this
 - Un-numbered
    - Maintain the set of states that describes the entire effected piece population
       - The set of `current` dispositions would be the set of states
@@ -79,6 +77,8 @@ There are 12 jobs the objects have to help with. This simple structure of a Life
 - Numbered
    - Record 'Who' and 'Where' data
    - Record event Timestamp data
+   - Provide user notification of required action based on Timestamp data
+      - The examination of `pending` states  aids this
    - Support event duration
 - Un-numbered
    - Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
