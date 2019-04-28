@@ -74,5 +74,21 @@ There are 12 jobs the objects have to help with. This simple structure of a Life
    - Easy access to factors used in determining the availability of a population for a new disposition
       - `current::type` and the existence of pending events are easily detected
 
+### Remaining tasks
+
+- Numbered
+   - Record 'Who' and 'Where' data
+   - Record event Timestamp data
+   - Support event duration
+- Un-numbered
+   - Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
+
+## Presentation
+
+Can a shared `current` disposition easily (and meaningfully) simplify rendering of piece lists?
+
+Can some share disposition state that is common and considered 'archived' easily and meaningfully simplify rendering of piece lists?
+
+If the list-simplifications work, when would we use them vs full listings?
 
 Topics: Disposition, Studio Manager
