@@ -42,4 +42,8 @@ There are start and end date fields in the disposition but relying on those is t
 
 Probably some point datum that can mark the current record will work. I have a `complete` field, but depending on that would still mean locating the earliest record that is not complete. Still a sketchy strategy. And computationally heavy. A `current` pointer will allow revealing the current record with a simple find.
 
+![A lifespan object being proposed as an organizing container for dispositions](/img/images/image/96a205e5-499b-461f-9ae9-66c26a615a5e/proposed-Lifespan-object-v1.png "proposed-Lifespan-object-v1")
+
+
+
 Topics: Disposition, Studio Manager
