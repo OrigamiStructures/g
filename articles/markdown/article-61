@@ -32,4 +32,14 @@ Dispositions linking numbered need to
 - When merging, adjust the population data on the piece records to insure one piece record for each state.
 - Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
 
+## Possible Strategies
+
+### What is the current state?
+
+One problem is identification of the current disposition when there is a set of them extending into the past (and possibly the future).
+
+There are start and end date fields in the disposition but relying on those is to assume that actual events will run in lock-step with recorded data. Bad plan.
+
+Probably some point datum that can mark the current record will work. I have a `complete` field, but depending on that would still mean locating the earliest record that is not complete. Still a sketchy strategy. And computationally heavy. A `current` pointer will allow revealing the current record with a simple find.
+
 Topics: Disposition, Studio Manager
