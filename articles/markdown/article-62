@@ -53,9 +53,7 @@ For artists who define on Format in their main pool, Formats would become fully 
 
 Currently:
 
-- Edition::id -> Format::edition_id
-- Edition::id->Piece::edition_id (unassigned Piece)
-- Format::id->Piece::format_id(Piece::edition_id) (assigned Pieces)
+![A class diagram showing the original design and linkage of Artwork abstraction layers](/img/images/image/b615dcc5-3ef0-480b-a9a1-c4bce78775cf/current-art_abstraction-linkage.png "The original design and linkage of Artwork abstraction layers")
 
 - Lists of possible media
 - Possible dimension sets
