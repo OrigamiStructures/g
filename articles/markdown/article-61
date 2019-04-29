@@ -76,12 +76,16 @@ There are 12 jobs the objects have to help with. This simple structure of a Life
 
 - Numbered
    - Record 'Who' and 'Where' data
+      - Already supported by available columns
    - Record event Timestamp data
+      - Already supported by available columns
    - Provide user notification of required action based on Timestamp data
-      - The examination of `pending` states  aids this
+      - The examination the `current` and `pending` states  aids this
    - Support event duration
 - Un-numbered
    - Shunt initial Count/Who/Where data to a history linked to a meaningful layer of the Artwork but independent of the disposition set.
+
+It's this last task for un-numbered pieces that can't be supported by this new object and some manipulation of existing columns and links. The key difference is that we need the history a disposition set provides but histories for this class of piece are divorced from their piece link. A new linking field needs to be created in disposition so the historical records can be shifted off to a layer of the artwork.
 
 ## Presentation
 
