@@ -107,7 +107,7 @@ The Edition/Format object is still poorly defined. It represents some non-piece 
 
 ![showing the three disposition silos, history/current/pending and the owning entity, piece](/img/images/image/c996a740-fe79-42e4-a26b-70a61a8b7676/numbered-lifespan.png "Structure of an Numbered History stack")
 
-### UnNumbered History Stack
+### UnNumbered History Stack 
 
 ![showing the three disposition silos, history/current/pending and the two types of owning entities, edition-format->history and piece->current/pending](/img/images/image/04bb2437-c3b4-4de2-b678-4c201402cb8d/unnumbered-lifespan.png "Structure of an Unnumbered History stack")
 
