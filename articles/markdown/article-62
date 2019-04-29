@@ -1,6 +1,8 @@
 # The Puzzling Nature of Formats
 
-Formats are currently treated a the third of 4 levels of abstraction for a "artwork".
+Formats are currently treated as the third of 4 levels of abstraction for a "artwork".
+
+## Three of 4 levels of abstraction
 
 The system considers Artwork to be a containing abstraction for one bit of the artist's intellectual property. 
 
