@@ -87,7 +87,7 @@ There are 12 jobs the objects have to help with. This simple structure of a Life
 
 It's this last task for un-numbered pieces that can't be supported by this new object and some manipulation of existing columns and links. The key difference is that we need the history a disposition set provides but histories for this class of piece are divorced from their piece link. A new linking field needs to be created in disposition so the historical records can be shifted off to a layer of the artwork.
 
-## History Stack Structure
+## Lifespan Stack Structure
 
 With these considerations in mind and starting from the simple class proposed above, we end up with two versions of the history stack.
 
@@ -110,6 +110,10 @@ The Edition/Format object is still poorly defined. It represents some non-piece 
 ### UnNumbered History Stack 
 
 ![showing the three disposition silos, history/current/pending and the two types of owning entities, edition-format->history and piece->current/pending](/img/images/image/04bb2437-c3b4-4de2-b678-4c201402cb8d/unnumbered-lifespan.png "Structure of an Unnumbered History stack")
+
+### Lifespan Stacks have limits
+
+The Lifespan is a narrow view of Dispositions from the context of a single Piece record. Because of their ManyToMany link to Pieces, any Disposition in a Lifespan may be playing a role in the Lifespans of other pieces. This overlap is unacknowledged by the Lifespan object. This focus means there will be other Disposition/Piece objects designed for other purposes.
 
 ## Presentation
 
