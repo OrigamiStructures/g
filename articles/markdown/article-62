@@ -31,7 +31,7 @@ Consider another possible use of Format. You are a watercolorist and have any nu
 
 In the current implementation Formats have several weaknesses.
 
-- The exist as a unique, linked record between Edition and Pieces and do not naturally become available in other Artwork creation contexts. So they're not modular.
+- They exist as a unique, linked record between an Edition and its Pieces and do not naturally become available in other Artwork creation contexts. So they're not reusable. Edition creation event forces the user to also define one or more Format.
 - While they are intended to carry physical format data, they provide no flexibility to describe the many kinds of works that might exist.
 - As the carriers of format (and media) data, they should provide a smooth path to documenting pieces, the production of wall cards, prospectuses and such. They fail in this role.
 - The need for multiple Formats on an Edition is limited, but the insertion of Formats in the abstraction chain is universal so the majority of Artworks have unnecessary complexity
