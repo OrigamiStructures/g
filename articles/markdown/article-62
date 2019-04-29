@@ -61,6 +61,10 @@ By breaking the belongsTo link Format->Edition, Formats can become reusable. The
 
 An alternate strategy removes the Piece->Format linking altogether and links Format to a specific Disposition of the Piece. That would allow a photograph to be disposed to a show framed, then after return, disposed to a gallery placement or sale unframed.
 
+This has the advantage of making the Piece records completely stable after creation. It does however put important meta-data describing the piece one step away and would put additional pressure on the stack objects responsible for providing data to rendering code. And would generally increase the logic required to compile a fill description of the pieces as delivered.
+
+If alternate states for a single piece need to be tracked across dispositions, it might be possible to work out a secondary 'format' link while using the Piece->Format link to identify the piece production details.
+
 ![A class diagram showing an alternative linkage for Format data that allows format variation for each disposition of the piece](/img/images/image/f7fb2b80-b081-467e-b33d-ec93000bfdac/format-pool-dispo-link.png "An alternate Format link from the meta-data pool to the disposition-piece join record")
 
 - Lists of possible media
