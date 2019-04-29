@@ -1,0 +1,39 @@
+# The Puzzling Nature of Formats
+
+Formats are currently treated a the third of 4 levels of abstraction for a "artwork".
+
+The system considers Artwork to be a containing abstraction for one bit of the artist's intellectual property. 
+
+This makes little sense if you think about a painting as an artwork; or a sculpture. But when you expend to consider the possibility of licensing or producing prints of a painting or casting reproductions of a sculpture, you can immediately understand the term Artwork as used in the system. It is the marketable idea. A painting is one realization of that idea; an Edition. The prints are another realization, another Edition of the same Artwork.
+
+So, Edition is the second level of abstraction.
+
+At the bottom of this chain of abstractions we arrive at the Piece. This represents some real-world product. It may be a painting (an edition of 1) or a photograph in an edition of 50.
+
+Pieces are the objects that are called Artwork in a system that doesn't acknowledge editions and the relationship of multiple product-versions to a common creative seed.
+
+## Formats: The Problem Child
+
+The abstraction between Edition and Piece is Format. 
+
+Artwork is the common ancestor, Edition describe how many pieces are produced in a run, Format describes the physical characteristics of the pieces, and Piece tracks the individual saleable/showable objects.
+
+On first examination, the Format seems unnecessary except as some descriptive information. A new Format could be considered to be a new Edition.
+
+There is one specific editioning approach that photographers sometime employ. They may commit to an edition of 50 for some photograph but offer that work in any of several sizes. Whatever combination of sizes they sell, they will close the edition at 50.
+
+Consider another possible use of Format. You are a watercolorist and have any number of paintings available. You sell these as-is, matted, or matted and framed and you would like to track these different outcomes as you track sales of the works. Formats provide the solution.
+
+Case made.
+
+### Problems with Formats
+
+In the current implementation Formats have several weaknesses.
+
+- The exist as a unique, linked record between Edition and Pieces and do not naturally become available in other Artwork creation contexts. So they're not modular.
+- While they are intended to carry physical format data, they provide no flexibility to describe the many kinds of works that might exist.
+- As the carriers of format (and media) data, they should provide a smooth path to documenting pieces, the production of wall cards, prospectuses and such. They fail in this role.
+- The need for multiple Formats on an Edition is limited, but the insertion of Formats in the abstraction chain is universal so the majority of Artworks have unnecessary complexity
+- Pieces are generated automatically when the Edition quantity is set. After this automatic process, a detailed assignment to a Format is required as a hand process.
+ 
+
