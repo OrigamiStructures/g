@@ -57,6 +57,8 @@ Currently:
 
 ![Class diagram showing the linkages for a proposed use of Formats as a meta-data pool](/img/images/image/fc7d12e5-4d90-4db0-9a75-4b056df2a761/format-meta-data-pool.png "A proposal for extracting Formats from Artwork abstraction layer to a meta-data pool")
 
+![A class diagram showing an alternative linkage for Format data that allows format variation for each disposition of the piece](/img/images/image/f7fb2b80-b081-467e-b33d-ec93000bfdac/format-pool-dispo-link.png "An alternate Format link from the meta-data pool to the disposition-piece join record")
+
 - Lists of possible media
 - Possible dimension sets
 - Process or construction description
