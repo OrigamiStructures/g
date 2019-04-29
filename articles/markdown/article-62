@@ -55,6 +55,8 @@ Currently:
 
 ![A class diagram showing the original design and linkage of Artwork abstraction layers](/img/images/image/b615dcc5-3ef0-480b-a9a1-c4bce78775cf/current-art_abstraction-linkage.png "The original design and linkage of Artwork abstraction layers")
 
+![Class diagram showing the linkages for a proposed use of Formats as a meta-data pool](/img/images/image/fc7d12e5-4d90-4db0-9a75-4b056df2a761/format-meta-data-pool.png "A proposal for extracting Formats from Artwork abstraction layer to a meta-data pool")
+
 - Lists of possible media
 - Possible dimension sets
 - Process or construction description
