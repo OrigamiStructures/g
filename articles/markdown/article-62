@@ -37,4 +37,22 @@ In the current implementation Formats have several weaknesses.
 - The need for multiple Formats on an Edition is limited, but the insertion of Formats in the abstraction chain is universal so the majority of Artworks have unnecessary complexity
 - Pieces are generated automatically when the Edition quantity is set. After this automatic process, a detailed assignment to a Format is required as a hand process.
  
+## A possible meta-data approach
 
+It might be possible to convert Format into a meta-data pool. Some structure can store the user (or system) defined descriptions of object structure, material, and size.
+
+When an Edition is defined, Formats are selected as a being available options for Pieces of that Edition.
+
+When Pieces are disposed, the selection of a Format is enforced.
+
+For Editions in a single format, Format selection for the Piece would be automatic and transparent.
+
+For artists who define on Format in their main pool, Formats would become fully transparent.
+
+## Schema changes for the meta-data approach
+
+Currently:
+
+- Edition::id -> Format::edition_id
+- Edition::id->Piece::edition_id (unassigned Piece)
+- Format::id->Piece::format_id(Piece::edition_id) (assigned Pieces)
