@@ -56,3 +56,8 @@ Currently:
 - Edition::id -> Format::edition_id
 - Edition::id->Piece::edition_id (unassigned Piece)
 - Format::id->Piece::format_id(Piece::edition_id) (assigned Pieces)
+
+- Lists of possible media
+- Possible dimension sets
+- Process or construction description
+
