@@ -2,7 +2,7 @@
 
 A Disposition describes the condition of some population of pieces as being at some state in the real world.
 
-The current schema in dispositions provides far more data points than are required for this limited task.
+The current dispositions schema provides far more data than are required for this limited task.
 
 And, considering the fact that the 'piece' may be a record tracking the number of virtual pieces in the population, the use of a join table from Disposition to Piece represents a dynamic, fuzzy description rather than a concrete mapping.
 
@@ -12,17 +12,17 @@ And, considering the fact that the 'piece' may be a record tracking the number o
 
 Dispositions must behave in two distinct ways depending on whether they are linked to numbered or un-numbered pieces (roughly equivalent to Limited and Open Editions).
 
-This sets up a fundamental problem. Through the join table we have a ManyToMany linkage and so the possibility of having a disposition that must exhibit both numbered and un-numbered behavior.
+This sets up a fundamental problem. Through the join table we have a ManyToMany linkage and so the possibility of having a Disposition that must exhibit both numbered and un-numbered behavior in a case where it links to both classes of Piece.
 
 ### Numbered Behavior
 
-Dispositions linking numbered need to 
+Dispositions linking numbered Pieces need to 
 
-1. Maintain the full history of events for the effected pieces.
+1. Describe the full history of events for the effected pieces.
 2. Record 'Who' and 'Where' data
 3. Record event Timestamp data
 4. Support event duration
-5. Support sequence patterning (templated creation)
+5. Support sequence patterning (templated Disposition set creation)
 5. Support a rule system to enforce event sequences
 6. Provide user notification of required action based on Timestamp data
 
@@ -119,7 +119,7 @@ The Lifespan is a narrow view of Dispositions from the context of a single Piece
 
 Can a shared `current` disposition easily (and meaningfully) simplify rendering of piece lists?
 
-Can some share disposition state that is common and considered 'archived' easily and meaningfully simplify rendering of piece lists?
+Can some shared disposition state that is common and considered 'archived' easily and meaningfully simplify rendering of piece lists?
 
 If the list-simplifications work, when would we use them vs full listings?
 
