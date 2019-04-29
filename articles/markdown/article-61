@@ -91,6 +91,18 @@ It's this last task for un-numbered pieces that can't be supported by this new o
 
 With these considerations in mind and starting from the simple class proposed above, we end up with two versions of the history stack.
 
+The Edition/Format object is still poorly defined. It represents some non-piece connection to a relevant 'artwork'.
+
+**Lifespan Business Rules**
+
+- A Lifespan must always have 1 Piece
+- A Lifespan must always have 1 `current` Disposition
+- A Lifespan may have any number of `pending` Dispositions
+- A Lifespan may have any number of `history` Dispositions
+- All `history` Dispositions were at some point `current`
+- If an unnumbered edition has any  `history` Disposition, it links to the Edition/Format that contained the pieces that originally spawned it in its `current` state
+- Unnumbered `histories` have no link to pieces
+
 ### Numbered History Stack
 
 ![showing the three disposition silos, history/current/pending and the owning entity, piece](/img/images/image/c996a740-fe79-42e4-a26b-70a61a8b7676/numbered-lifespan.png "Structure of an Numbered History stack")
