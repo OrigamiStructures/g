@@ -67,6 +67,9 @@ If alternate states for a single piece need to be tracked across dispositions, i
 
 ![A class diagram showing an alternative linkage for Format data that allows format variation for each disposition of the piece](/img/images/image/f7fb2b80-b081-467e-b33d-ec93000bfdac/format-pool-dispo-link.png "An alternate Format link from the meta-data pool to the disposition-piece join record")
 
+## Content of a Format
+
+I see some kind of assembled data structure for formats to provide user with modular and repeatable options.
 - Lists of possible media
 - Possible dimension sets
 - Process or construction description
