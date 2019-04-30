@@ -79,9 +79,12 @@ This adds the piece->edition links to the pattern. These links are currently use
 
 This shows the flattening and simplification that would come with the proposed change to Piece->Format meta-data linking.
 
-![A simplified class diagram showing the depth and branching of the proposed artwork tree structure](/img/images/image/a3e9d0ea-29c8-429f-9717-bdb402fa9043/proposed-tree.png "The simplifed Artwork abstraction tree with the Format layer removed")## Content of a Format
+![A simplified class diagram showing the depth and branching of the proposed artwork tree structure](/img/images/image/a3e9d0ea-29c8-429f-9717-bdb402fa9043/proposed-tree.png "The simplifed Artwork abstraction tree with the Format layer removed")
+
+## Content of a Format
 
 I see some kind of assembled data structure for formats to provide user with modular and repeatable options.
+
 - Lists of possible media
 - Possible dimension sets
 - Process or construction description
