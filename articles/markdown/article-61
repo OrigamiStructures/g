@@ -91,7 +91,7 @@ It's this last task for un-numbered pieces that can't be supported by this new o
 
 With these considerations in mind and starting from the simple class proposed above, we end up with two versions of the history stack.
 
-The Edition/Format object is still poorly defined. It represents some non-piece connection to a relevant 'artwork'.
+The Edition/Format object is still poorly defined. It represents some non-piece connection to a relevant 'artwork'. See a possible solution in [The Puzzling Nature of Formats](http://dev.os.com/article/the-puzzling-nature-of-formats#the-puzzling-nature-of-formats) which would make this linked object the Edition entity.
 
 **Lifespan Business Rules**
 
