@@ -67,7 +67,19 @@ If alternate states for a single piece need to be tracked across dispositions, i
 
 ![A class diagram showing an alternative linkage for Format data that allows format variation for each disposition of the piece](/img/images/image/f7fb2b80-b081-467e-b33d-ec93000bfdac/format-pool-dispo-link.png "An alternate Format link from the meta-data pool to the disposition-piece join record")
 
-## Content of a Format
+### The effect on tree complexity
+
+This is a simple view of the current tree structure for a sample artwork
+
+![A simplified class diagram showing the depth and branching of the current artwork tree structure](/img/images/image/2ebdf020-c2e7-4108-be4a-69eca59f3cd2/current-tree-simple.png "A simple view of the current artwork abstraction tree")
+
+This adds the piece->edition links to the pattern. These links are currently used in logical processes so they are important in the structure.
+
+![A simplified class diagram showing the depth and branching of the current artwork tree structure including piece to edition links](/img/images/image/8905f5dd-be36-44a3-ba0d-72ece08a157b/current-tree-full.png "Artwork abstraction tree showing the full linking pattern for pieces")
+
+This shows the flattening and simplification that would come with the proposed change to Piece->Format meta-data linking.
+
+![A simplified class diagram showing the depth and branching of the proposed artwork tree structure](/img/images/image/a3e9d0ea-29c8-429f-9717-bdb402fa9043/proposed-tree.png "The simplifed Artwork abstraction tree with the Format layer removed")## Content of a Format
 
 I see some kind of assembled data structure for formats to provide user with modular and repeatable options.
 - Lists of possible media
