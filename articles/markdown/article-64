@@ -2,6 +2,14 @@
 
 Series describes an Edition. 
 
+## Create
+
 If a new series entrant is requested on a non-existent Artwork, the work should be created and the series Edition added to it
+
+## Edit
+
+For a Series already in use, an edit will effect all existing, linked editions. Warnings of the effects must be prominent and it must be easy to send the edit data to an new series. 
+
+Title collisions must be avoided
 
 Topics: Studio Manager, 
