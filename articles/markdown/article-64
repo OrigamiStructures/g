@@ -1,0 +1,7 @@
+# Series
+
+Series describes an Edition. 
+
+If a new series entrant is requested on a non-existent Artwork, the work should be created and the series Edition added to it
+
+Topics: Studio Manager, 
