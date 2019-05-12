@@ -26,13 +26,13 @@ Rather than injecting `SystemState->artistId( )` into all the population process
 
 #### primaryLayer( )
 
-public string primaryLayer( )
+public string tootLayer( )
 
-Get the name of the primary layer in the stack
+Get the name of the root layer in the stack
 
-#### primaryId( )
+#### rootId( )
 
-public string primaryId( )
+public string rootId( )
 
 Get the id of the primary entity in the stack
 
