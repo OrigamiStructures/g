@@ -15,6 +15,15 @@ There are a couple of competing requirements
 - The number of template choices at any moment should be kept low    
    long choice lists are hard to use and tend to cause the user to make new options instead of search for existing ones. That spawns many similar options and makes matters worse.
 
+## The 'Preferences' Strategy
+
+AmpFG preferences are stored in a serialized array in a single data field. There is no explicit definition of what should be in the array. System code at various points looks for keys in the array and if found, make use of the data stored on them. If the keys are missing, defaults are used.
+
+In this way, the preference system can grow over time without any requirement of user by-in or schema change.
+
+This strategy might work for Format data too. It is even possible to store serialized objects and that might be useful. 
+
+
 ## 5/13 Chat transcript
 
 - Jason Tempestini:
