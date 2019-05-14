@@ -2,9 +2,22 @@
 
 There are a couple of competing requirements
 
+- Simplicity and transparency of the UX.   
+   A user that always does the same kind of work should never have to spend time on format data once they have set up their profile and preferences
+- Highly adaptable   
+   An artist should experience no limits to the kind of data they want to record as a format
+- Highly reusable   
+   Once an artist has established the kinds of data they want in a format, they shouldn't have to go through the labor of defining those points again, the first set should be a reusable template
+- Degrees of reusability   
+   The templates should support but not require any number of pre-entered data points
+- The number of template choices at any moment should be kept low    
+   long choice lists are hard to use and tend to cause the user to make new options instead of search for existing ones. That spawns many similar options and makes matters worse.
+- Commonly associated data points should be added to a format as a set rather than one at a time    
+   Height and Width rarely exist independently. Defining a format as using those data points should be a one-step process
+
 ## 5/13 Chat transcript
 
-Jason Tempestini:
+- Jason Tempestini:
 	Ok, are formats “potential” pieces?
 
 - Don Drake:
