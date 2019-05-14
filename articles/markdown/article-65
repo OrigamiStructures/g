@@ -23,6 +23,7 @@ In this way, the preference system can grow over time without any requirement of
 
 This strategy might work for Format data too. It is even possible to store serialized objects and that might be useful. 
 
+>*Caution on serialized objects* This makes an assumption about the system reading the data; PHP. That's not good long-term thinking.
 
 ## 5/13 Chat transcript
 
