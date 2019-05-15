@@ -34,126 +34,126 @@ This strategy might work for Format data too. It is even possible to store seria
 	how do you mean?
 
 - Jason Tempestini:
-	Well, there’s a question, “What’s a format” or what is recorded in a format.
-	My question is, where does a format fit in, as a record?
+	Well, there’s a question, “What’s a format” or what is recorded in a format.   
+	My question is, where does a format fit in, as a record?   
 	Does a format describe a piece?
 
 - Don Drake:
-	ok
-	A format is a static record that stands alone
+	ok   
+	A format is a static record that stands alone   
 	it describes something about the physical construction of the artwork (pieces of an edition)
-	when an edition is ‘made’ one are more formats are chosen from the available set.
-	and a link is established to point to that format
-	when pieces are made, each one gets linked to one of the formats that are available through the edition
+	when an edition is ‘made’ one are more formats are chosen from the available set.   
+	and a link is established to point to that format   
+	when pieces are made, each one gets linked to one of the formats that are available through the edition   
 	BUT
-	besides the name of the format, provided by the Format record, there is data that will be used to fill out wall cards, prospectuses and what-not
+	besides the name of the format, provided by the Format record, there is data that    will be used to fill out wall cards, prospectuses and what-not   
 	dimensions, materials, techniques
 
 - Jason Tempestini:
-	Right. I literally contains the “format” data
-	So, a format record is a potential piece record. Make a piece and select from the predefined formats
+	Right. I literally contains the “format” data   
+	So, a format record is a potential piece record. Make a piece and select from the predefined formats   
 	The idea here is to make the creation of pieces consistent, right?
 
 - Don Drake:
-	well….
-	yes
-	however
-	right now my thinking is the piece record is a narrow counter/marker for the existence of some physical thing
-	it points to a format. 
-	the format describes that nature of the piece
+	well….   
+	yes   
+	however   
+	right now my thinking is the piece record is a narrow counter/marker for the existence of some physical thing   
+	it points to a format.    
+	the format describes that nature of the piece   
 	meta data on the piece
 
 - Jason Tempestini:
-	Sure, I can see that.
-	However
-	I feel like the nature of art pieces is that this “format” can never be connected to more than one piece.
-	As if any information changes about the format it would change all of the pieces.
+	Sure, I can see that.   
+	However   
+	I feel like the nature of art pieces is that this “format” can never be connected to more than one piece.   
+	As if any information changes about the format it would change all of the pieces.   
 	And it means the creation of a new format record any time you want to create a “custom” piece.
 
 - Don Drake:
-	yes, that gets to the question I’m asking
-	consider a Format: Silver Gelatin Print
-	vs
-	Format: 8x10 Silver Gelatin Print
+	yes, that gets to the question I’m asking   
+	consider a Format: Silver Gelatin Print   
+	vs   
+	Format: 8x10 Silver Gelatin Print   
 
 - Jason Tempestini:
 	right
 
 - Don Drake:
-	the first is more reusable but the second is required to describe a piece
-	so, Format: name=Silver Gelatin Print, height = __, width =__
-	how the hell do we start storing this in a repeatable, modular way
-	when we also need 
-	Format: Scuplture, marble
-	no dimensions. or same dimensions plus others?
-	every thing becomes crazy!
-	The number of format records needs to be fairly short or it can overwhelm the user, but it needs to support tons of granular and repeatable variation so the artist can describe all their different stuff
-	a bit baffeling. 
-	your “never be connected to more than one piece” is the snapshot version
+	the first is more reusable but the second is required to describe a piece   
+	so, Format: name=Silver Gelatin Print, height = __, width =__   
+	how the hell do we start storing this in a repeatable, modular way   
+	when we also need    
+	Format: Scuplture, marble   
+	no dimensions. or same dimensions plus others?   
+	every thing becomes crazy!   
+	The number of format records needs to be fairly short or it can overwhelm the user, but it needs to support tons of granular and repeatable variation so the artist can describe all their different stuff   
+	a bit baffeling.    
+	your “never be connected to more than one piece” is the snapshot version   
 
 - Jason Tempestini:
-	Right, I hear that.
-	So, you’re really creating a choice list system, that customizable.
-	Here are the formats we’ve decided this artwork will be available in.
-	There are media formats, size formats, process formats, etc.
-	But, how to save those in records?
-	oK
-	Heresy below
+	Right, I hear that.   
+	So, you’re really creating a choice list system, that customizable.   
+	Here are the formats we’ve decided this artwork will be available in.   
+	There are media formats, size formats, process formats, etc.   
+	But, how to save those in records?   
+	oK   
+	Heresy below   
 	Ready?
 
 - Don Drake:
-	ok
+	ok   
 	that all sounds good
 
 - Jason Tempestini:
-	I think we should just dump this and make it a part of the piece record.
-	Maybe even as a description block.
+	I think we should just dump this and make it a part of the piece record.   
+	Maybe even as a description block.   
 	What is the advantage to the user of any other option?
 
 - Don Drake:
-	a description block is a valid option
-	added to the issue
+	a description block is a valid option   
+	added to the issue   
 	much simpler
 
 - Jason Tempestini:
-	Yeah. I just can’t find a reason that we would need more granularity than that?
-	I mean, a good full text search is going to be useful for us on many levels.
+	Yeah. I just can’t find a reason that we would need more granularity than that?   
+	I mean, a good full text search is going to be useful for us on many levels.   
 	And would provide the search ability of formats
 
 - Don Drake:
-	just runs the risk of lower consistency and large numbers of almost-the-same data
-	which can, in some instances, frustrate the user.
+	just runs the risk of lower consistency and large numbers of almost-the-same data   
+	which can, in some instances, frustrate the user.   
 	but your search points are good too
 
 - Jason Tempestini:
-	I hear you. That consistency is the main “pro” argument for formats.
-	My issue is trying to figure out how to present these to the user in an accessible way.
+	I hear you. That consistency is the main “pro” argument for formats.   
+	My issue is trying to figure out how to present these to the user in an accessible way.   
 
 - Don Drake:
-	right. if the system is too complicated it fails. and if it requires duplicate work, it also fails. 
-	classic pincer movement. hahahahah
-	The way I’m thinking about this is: What will solve the wall-card problem.
-	Title, Artist, Media
+	right. if the system is too complicated it fails. and if it requires duplicate work, it also fails.    
+	classic pincer movement. hahahahah   
+	The way I’m thinking about this is: What will solve the wall-card problem.   
+	Title, Artist, Media   
 	with media being a fuzzy description 
 
 - Jason Tempestini:
-	Right. Media is almost always an “open” text area.
+	Right. Media is almost always an “open” text area.   
 	I mean, I’m sure that the Louvre has some static categorization, but maybe not even there
 
 - Don Drake:
-	Its a nuisance for the artist to think in this way when the requirement comes. I’d like the data to arise naturally through the use of the system 
-	And a painter that always works in oil should have to do nothing more than add some size info when creating their 10th entry
+	Its a nuisance for the artist to think in this way when the requirement comes. I’d like the data to arise naturally through the use of the system    
+	And a painter that always works in oil should have to do nothing more than add some size info when creating their 10th entry   
 	they shouldn’t even have to SAY oil, or painting or on canvas
 
 - Jason Tempestini:
-	Right, but how does this “oil” artist identify themselves?
+	Right, but how does this “oil” artist identify themselves?   
 	Do they have a “major media” entry in their profile card?
 
 - Don Drake:
 	that’s plausible   
 
 - Jason Tempestini:
-	I love the line “data to arise naturally” though, and I think I see what you man.
+	I love the line “data to arise naturally” though, and I think I see what you man.   
 	mean.    
 	The system needs to gracefully learn from what the user has already done to offer guidance when they describe an thing again.
 
@@ -164,32 +164,32 @@ This strategy might work for Format data too. It is even possible to store seria
 ![3 example wall cards to show possible content](/img/images/image/8075ce24-f465-49f7-ab14-4b31f8e0ca8d/wallcards.png "Wall card samples")
 
 - Jason Tempestini:
-	Right
-	How would we categorize that?
-	They’re not a “type” of artist at all.
-	Our only hope is a learning system, that when they type Ac wants to fill in Acrylic for them, of Sc offering Scratchboard
+	Right   
+	How would we categorize that?   
+	They’re not a “type” of artist at all.   
+	Our only hope is a learning system, that when they type Ac wants to fill in Acrylic for them, of Sc offering Scratchboard   
 	I see something else there, too, which is an artwork title with an intentional line break.
 
 - Don Drake:
-	hahhaha. yeah. fuzzy
-	a profile including main options defined by artist (or selected from our suggested set)
-	and room for on-the-fly creation of new stuff?
-	The actual label presented as editable, pre-formatted text before final export/print?
+	hahhaha. yeah. fuzzy   
+	a profile including main options defined by artist (or selected from our suggested set)   
+	and room for on-the-fly creation of new stuff?   
+	The actual label presented as editable, pre-formatted text before final export/print?   
 
 - Jason Tempestini:
-	That last is a for sure.
-	I think we might actually go so far as to create a word doc and export that
-	And how would we present all the options in the artist card?
+	That last is a for sure.   
+	I think we might actually go so far as to create a word doc and export that   
+	And how would we present all the options in the artist card?   
 	Without dealing with Sammy Super Creative saying “what, catsup packets on used cardboard isn’t a media I can choose?”
 
 - Don Drake:
-	yeah. it can’t only be our suggested data
-	so, the system has to ‘see’ system data as public and user created data as private
-	but if we right record analysis routines, we can detect common user-created solutions and add them to the system choices
+	yeah. it can’t only be our suggested data   
+	so, the system has to ‘see’ system data as public and user created data as private   
+	but if we right record analysis routines, we can detect common user-created solutions and add them to the system choices   
 	privacy disclaimer. hahahahah!
 
 - Jason Tempestini:
-	No privacy disclaimer necessary, in my mind. We only analyze the user’s own data for their tips.
+	No privacy disclaimer necessary, in my mind. We only analyze the user’s own data for their tips.   
 	We don’t want to present what everyone chooses after they type “ge” but, rather, what YOU normally type.
 
 - Don Drake:
