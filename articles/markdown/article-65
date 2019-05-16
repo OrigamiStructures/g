@@ -25,6 +25,16 @@ This strategy might work for Format data too. It is even possible to store seria
 
 >*Caution on serialized objects* This makes an assumption about the system reading the data; PHP. That's not good long-term thinking.
 
+### Array or Json object
+
+AmpFG Preferences store data in a serialized object but I wonder if there is any advantage to storing a JSON object. 
+
+Technically it should not make any real difference. In fact Cake has added a JSON type to the usual mysql column types so there is no code to write for the save/retrieve processes.
+
+Whatever we save is going to become raw material for some object, so from that perspective there's nothing to suggest one over the other.
+
+The only difference is that JSON can describe more structural variety. If we need a simple array in the end, it can do that. If we want an object/array blend for some reason, it can do that.
+
 ## 5/13 Chat transcript
 
 - Jason Tempestini:
