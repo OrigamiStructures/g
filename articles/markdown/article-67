@@ -39,4 +39,12 @@ And the first one would prevent the original artist from making a new non-collab
 
 So, scratch the first one.
 
+## Two linked layers for Artworks structures?
+
+If we make a single artist the owner of the Artwork, but allow more than one  artist to link to (collaborate on) an edition, we end up with something like this:
+
+![A class diagram showing the first approximation of linking multiple artists to an edition to indicate collaboration](/img/images/image/d6ce9009-64c7-4584-bcf2-c3894f48259a/collaborationLinkingV1.png "Proposed collaboration linking for editions")
+
+
+
 Topics: Studio Manager, Artist, 
