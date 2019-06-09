@@ -1,0 +1,40 @@
+# Schema for Collaborative Projects
+
+## Where things stand
+
+The system is current 'one artist per artwork' and this will be the majority use case.
+
+To be more specific, as of June 2019, the system has barely been moved off of the registered-use-as-artist original schema and onto a member-with-manifest-is-artist schema.
+
+This new construction means all the old *table*.user_id links that indicated the artist for a work has been deprecated. 
+
+As of this moment, only `artworks` table carries a link to the artist/member. All other artwork hierarchy tables are only linked to the user that created the data.
+
+### Pending details of artist linking
+
+No determination has been made about further linking of artwork related records to the artist. There is a strong case to be made that the edition should be linked. But linking formats and pieces seems unnecessary.
+
+## Collaborations
+
+Before a final determination about artist/artwork linking can be made, the question of collaborations must be considered.
+
+### The conceivable collaboration scenarios
+
+Here are the situations I can imagine and the basic linking requirements they imply:
+
+- There is a single work or single edition that was a collaboration
+   - artwork/artist linking is sufficient
+- An artist has a work or edition they have created and create an additional edition as a collaboration
+   - edition/artist linking would be required
+- An artist has an edition and offers a special format that includes collaboration with another artist
+   - artist/format linking would be required.
+
+I think of a real world situation for that last one. Something along those lines could be a book or a book with a print. But that wouldn't really be a collaboration. Or a book and a hand tinted version which would be closer to a collaboration, but still not so much. 
+
+Either of those could probably be handled by Format description data or, two editions (even if the quantities were kept fluid).
+
+So, scratch that one.
+
+And the first one would prevent the original artist from making a new non-collaboration edition once the Artwork was set as a collaboration.
+
+So, scratch the first one.
