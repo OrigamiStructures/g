@@ -2,11 +2,11 @@
 
 ## Where things stand
 
-The system is current 'one artist per artwork' and this will be the majority use case.
+The system is currently 'one artist per artwork', and this will be the majority use case.
 
-To be more specific, as of June 2019, the system has barely been moved off of the registered-use-as-artist original schema and onto a member-with-manifest-is-artist schema.
+To be more specific, as of June 2019, the system has barely been moved off of the registered-user-as-artist original schema and onto a member-with-manifest-is-artist schema.
 
-This new construction means all the old *table*.user_id links that indicated the artist for a work has been deprecated. 
+This new construction means all the old *table*.user_id links that indicated the artist for a work have been deprecated. 
 
 As of this moment, only `artworks` table carries a link to the artist/member. All other artwork hierarchy tables are only linked to the user that created the data.
 
@@ -22,20 +22,20 @@ Before a final determination about artist/artwork linking can be made, the quest
 
 Here are the situations I can imagine and the basic linking requirements they imply:
 
-- There is a single work or single edition that was a collaboration
+- There is a single work/edition that was a collaboration
    - artwork/artist linking is sufficient
 - An artist has a work or edition they have created and create an additional edition as a collaboration
    - edition/artist linking would be required
 - An artist has an edition and offers a special format that includes collaboration with another artist
    - artist/format linking would be required.
 
-I think of a real world situation for that last one. Something along those lines could be a book or a book with a print. But that wouldn't really be a collaboration. Or a book and a hand tinted version which would be closer to a collaboration, but still not so much. 
+I can't think of a real world situation for that last one. Something along those lines could be a book vs a book with a print. But that wouldn't really be a collaboration. Or a book and a hand tinted version which would be closer to a collaboration, but still not so much. 
 
 Either of those could probably be handled by Format description data or, two editions (even if the quantities were kept fluid).
 
 So, scratch that one.
 
-And the first one would prevent the original artist from making a new non-collaboration edition once the Artwork was set as a collaboration.
+And the first one would prevent the original artist from making a new non-collaboration edition once the Artwork was set as a collaboration. Every edition of a collaborative artwork would be forced to be a collaboration.
 
 So, scratch the first one.
 
@@ -45,6 +45,49 @@ If we make a single artist the owner of the Artwork, but allow more than one  ar
 
 ![A class diagram showing the first approximation of linking multiple artists to an edition to indicate collaboration](/img/images/image/d6ce9009-64c7-4584-bcf2-c3894f48259a/collaborationLinkingV1.png "Proposed collaboration linking for editions")
 
+### Shared Editions?
 
+This linking pattern hints at the fact that a collaborative edition is Artwork belonging to more than one artist. And it is likely they would each see it as an edition of a different artwork.
+
+A real world example is my current collaboration with Kent. He has his Cell project and the book we're working on could be considered one edition of the ongoing Cell artwork. For may part though, the book represents one edition of the written artwork, Origin Story.
+
+While the proposed schema would make the edition visible to both of us, the edition is still linked to artwork as `edition belongsTo artwork` and `artwork hasOne edition`. In other words, edition has an `artwork_id` column.
+
+It would be better if both artists could see the collaborative edition as a part of their artwork.
+
+#### Links for shared editions
+
+There are two ways this could be done:
+
+- Make an `artworks_editions` join table so `editions hasMany artworks`
+- Add an `artwork_id` to the `artists_editions` join table so when there are collaborators, they can gain access to the edition through this special link.
+
+#### Problems with shared editions and possible solutions
+
+The main problem with shared editions (and their attached pieces/formats don't forget!) is one of ownership. But I suspect the manifest/permission system will be able to handle this.
+
+In essence, we'll have s standard artist-management scenario. Some registered user will have an artist that has created an artwork that has an edition. 
+
+That user will have management rights for a second artist and will be able to record that 2nd artist as a collaborator on the edition.
+
+This user will also be able to extend management rights to any manager of the 2nd artist so they can see (and possibly edit) the edition.
+
+There are a great many details to work out, but the permission system is all unexplored territory at this point anyway, so there is no code to step on.
+
+#### Modifications to ArtStacks
+
+If an artwork included a shared edition, what would the ArtStack look like? Ideally, the shared version would look and act as much like the standard version as possible.
+
+Superficially, it would be easy to assemble the stack. The edition marshaller for ArtStack would just need to do an additional search to get the shared edition records and place them in the Layer object with all the standard editions.
+
+It's the behavior that becomes an issue. 
+
+Since the two kinds of editions link to artwork in different ways, typical Layer::filter processes would not produce expected results unless we massaged the data in the edition entities. And that would ripple out to other unexpected results in forms, and editing unless we checked origin details at every stage.
+
+Things might be simplified if the artStack provided special filter methods to substitute for the baseline Layer::filter() process. This was always an assumed destination anyway. 
+
+And because filters can look at method results as easily as property values, the edition entities could get a new id() method that could make the filters work though the artwork_id came from a different place in the entity. In this scenario, collaborators would have the join table data added to the edition entity. The entity could detect this and act on it.
+
+Permission checks will probably be done on every edition anyway, so the shared editions would be spotted and handled properly in all edit and disposition processes.
 
 Topics: Studio Manager, Artist, 
