@@ -109,4 +109,10 @@ Here are the two suggested strategies:
 
 ![Two class diagrams showing the possible link schemes to make editions reusable for artists that collaborate on them.](/img/images/image/27de37b5-039a-4190-9173-29bd4ff53c8e/twoArtworkEditionLinks.png "Two possible strategies for linking artworks and editions for collaborative work")
 
+### Shared vs managed editions
+
+Whether or not an editions is collaborative, it may be made available to another manager through the Artist Manifest system. But managed works will always be as belonging to the same artist.
+
+Collaborative works however, will appear to change ownership (although they will ultimately be under the control of one registered user). These shared editions will also be managed editions.
+
 Topics: Studio Manager, Artist, 
