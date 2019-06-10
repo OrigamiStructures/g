@@ -90,4 +90,19 @@ And because filters can look at method results as easily as property values, the
 
 Permission checks will probably be done on every edition anyway, so the shared editions would be spotted and handled properly in all edit and disposition processes.
 
+#### Why not editions hasMany artworks
+
+I'm not sure why this wouldn't be a better idea. It would make all editions visible in the same way. Each artist would receive the edition in their artwork naturally. We can assume that permission checks would still control the behavior of the editions properly.
+
+This style does provide more flexibility in data link-behavior than the majority of the records required. It implies a need that mostly doesn't exist and I don't really like that. 
+
+But it is simpler overall.
+
+#### Choosing
+
+The choice comes down to:
+
+- A nice, simple, broad-brush that satisfies every need
+- A surgical system that targets each need with specially crafted tools
+
 Topics: Studio Manager, Artist, 
