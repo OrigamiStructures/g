@@ -105,4 +105,8 @@ The choice comes down to:
 - A nice, simple, broad-brush that satisfies every need
 - A surgical system that targets each need with specially crafted tools
 
+Here are the two suggested strategies:
+
+![Two class diagrams showing the possible link schemes to make editions reusable for artists that collaborate on them.](/img/images/image/27de37b5-039a-4190-9173-29bd4ff53c8e/twoArtworkEditionLinks.png "Two possible strategies for linking artworks and editions for collaborative work")
+
 Topics: Studio Manager, Artist, 
