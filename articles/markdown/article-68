@@ -25,12 +25,12 @@
 
     /**
      * A StackSet
-     /*
+     */
     protected $GroupCards;
 
     /**
      * Other properties if needed
-     /*
+     */
 
     /**
      * What interface calls would make this useful?
