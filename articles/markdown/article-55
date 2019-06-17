@@ -72,6 +72,14 @@ A good name for the Interface of objects who's contents are controlled by Permis
 Based on the requirements listed in [Thoughts on when Permission object take action](#thoughts-on-when-permission-object-take-action), we might expect Tables and Helpers. But with two classes of such different type, could a single interface work?
 
 ```php
+ interface SharableInterface {
+
+   abstract protected function checkPermission($arg);
+
+ }
+```
+
+```php
  SomeStackTable extends StackTable implements SharableInterface {
 
    /**
