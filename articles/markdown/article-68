@@ -12,7 +12,7 @@ The RolodexCard hierarchy is build and feels like it will be generally useful. B
   * The User object would contain the Summary version so that we would 
   * have brief but useful access to the address book at need. 
   * The actual AddressBook page (or related pages?) would get the Detail version.
-  /*
+  */
  class AddressBook {
 
     /**
