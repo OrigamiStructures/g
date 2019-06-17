@@ -52,7 +52,7 @@ So there will be special requirements for the accessors in entities who's conten
 
 The Helpers that operate on entities who's contents are controlled by Permission will need special abilities too. The should accept both the entitiy and permissions objects and control UX features.
 
-```
+```php
  class SomeManagerHelper extends Helper {
 
     public function renderTool($entity, $permission = TRUE) {
@@ -71,7 +71,7 @@ A good name for the Interface of objects who's contents are controlled by Permis
 
 Based on the requirements listed in [Thoughts on when Permission object take action](#thoughts-on-when-permission-object-take-action), we might expect Tables and Helpers. But with two classes of such different type, could a single interface work?
 
-```
+```php
  SomeStackTable implements SharableInterface {
 
    /**
