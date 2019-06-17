@@ -74,7 +74,7 @@ Based on the requirements listed in [Thoughts on when Permission object take act
 ```php
  interface SharableInterface {
 
-   abstract protected function checkPermission($arg);
+   protected function checkPermission($arg);
 
  }
 ```
