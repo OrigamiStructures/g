@@ -82,6 +82,9 @@ Based on the requirements listed in [Thoughts on when Permission object take act
       return $result;
    }
 
+   /**
+    * A method that may or may not be under permissions control
+    */
    public function marshalSomeData($id, $stack) {
       // prepare some query
       $query = $this->checkPermission([$query, $otherContextData);
