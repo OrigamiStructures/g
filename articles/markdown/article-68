@@ -1,0 +1,31 @@
+# AddressBook Object: A Proposal
+
+```php
+ class AddressBook {
+
+    *//
+     * A StackSet
+     /*
+    protected $PersonCards;
+
+    *//
+     * A StackSet
+     /*
+    protected $OrganizationCards;
+
+    *//
+     * A StackSet
+     /*
+    protected $GroupCards
+
+    /**
+     * Other properties if needed
+     /*
+
+    /**
+     * What interface calls would make this useful?
+     /*
+
+ }
+
+Topics: StudioManager, Addresses, Contacts, Rolodex, Address Book, Person, 
