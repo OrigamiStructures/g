@@ -1,22 +1,32 @@
 # AddressBook Object: A Proposal
 
 ```php
+
+ /**
+  * AddressBook Object
+  *
+  * There may be two versions of this, a Summary and a Detail version. 
+  * They could be the same class with a contructor option or two classes.
+  * The User object would contain the Summary version so that we would 
+  * have brief but useful access to the address book at need. 
+  * The actual AddressBook page (or related pages?) would get the Detail version.
+  /*
  class AddressBook {
 
-    *//
+    /**
      * A StackSet
-     /*
+     */
     protected $PersonCards;
 
-    *//
+    /**
      * A StackSet
-     /*
+    */
     protected $OrganizationCards;
 
-    *//
+    /**
      * A StackSet
      /*
-    protected $GroupCards
+    protected $GroupCards;
 
     /**
      * Other properties if needed
@@ -24,7 +34,11 @@
 
     /**
      * What interface calls would make this useful?
-     /*
+     *
+     * One reasonable approach is to make this class in the controller, then 
+     * send it to the view and write methods on it as a need is found. 
+     * Because I can't think of anything right off the top of my head.
+     */
 
  }
 ```
