@@ -72,7 +72,7 @@ A good name for the Interface of objects who's contents are controlled by Permis
 Based on the requirements listed in [Thoughts on when Permission object take action](#thoughts-on-when-permission-object-take-action), we might expect Tables and Helpers. But with two classes of such different type, could a single interface work?
 
 ```php
- SomeStackTable implements SharableInterface {
+ SomeStackTable extends StackTable implements SharableInterface {
 
    /**
     * This might be the implementation method
@@ -92,6 +92,31 @@ Based on the requirements listed in [Thoughts on when Permission object take act
    }
  }
 ```
+Our previous helper example class would then change to something like this:
 
+```php
+ class SomeManagerHelper extends Helper implements SharableInterface {
 
+   /**
+    * This might be the implementation method
+    */
+   protected function checkPermission($contextData) {
+      // This would do some boolean evaluation
+      return $result;
+   }
+
+   /**
+    * Tool availability may be under permissions control
+    */
+    public function renderTool($requiredContext) {
+      if ($this-checkPermission($requiredContext) {
+         echo 'tool for user';
+      } else {
+         echo 'simple data display';
+      }
+    }
+ }
+```
+
+I have no idea if something this generic could work as the interface's required method. But this should stimulate thinking about the issue. And it is clear that the Permission object should be generally available in the large StackEntities and Composite objects.
 Topics: Stack, Layer, Studio Manager, Artist, Permission
