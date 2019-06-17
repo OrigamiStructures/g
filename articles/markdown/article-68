@@ -1,5 +1,7 @@
 # AddressBook Object: A Proposal
 
+The RolodexCard hierarchy is build and feels like it will be generally useful. But there is no organized way to work with the many cards. Perhaps an AddressBook object could step in here.
+
 ```php
 
  /**
