@@ -29,4 +29,37 @@ The registered user that created the Artwork records owns the data. If a manager
 
 How will limited permissions effect the management of portfolios and 'assembled works' like that? We don't want to extend management to the individual works... But there does need to be some degree of carry-over record access.
 
+## Thoughts on when Permission object take action
+
+Permissions determine the visibility of foreign data for a manager, and control the actions that manager can take on the visible data.
+
+This means Permissions objects will be called on for advice in two circumstances:
+
+1. During the queries that gather data
+   - No data will be returned that isn't allowed so there will be no risk of inappropriate data exposure
+2. During page rendering
+   - Create/Edit/Delete tools will only appear when allowed
+
+### Accessor abilities
+
+So there will be special requirements for the accessors in entities who's contents are controlled by Permission. They will need to handle situations where normally present data is mission.
+
+### Helper abilities
+
+The Helpers that operate on entities who's contents are controlled by Permission will need special abilities too. The should accept both the entitiy and permissions objects and control UX features.
+
+```
+ class SomeManagerHelper extends Helper {
+
+    public function renderTool($entity, $permission = TRUE) {
+      if ($permission || $permision->allowTool($entity) {
+         echo 'tool for user';
+      } else {
+         echo 'simple data display';
+      }
+    }
+ }
+```
+
+
 Topics: Stack, Layer, Studio Manager, Artist, Permission
