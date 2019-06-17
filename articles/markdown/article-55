@@ -29,7 +29,7 @@ The registered user that created the Artwork records owns the data. If a manager
 
 How will limited permissions effect the management of portfolios and 'assembled works' like that? We don't want to extend management to the individual works... But there does need to be some degree of carry-over record access.
 
-## Thoughts on when Permission object take action
+## Thoughts on when Permission Objects take action
 
 Permissions determine the visibility of foreign data for a manager, and control the actions that manager can take on the visible data.
 
@@ -39,6 +39,10 @@ This means Permissions objects will be called on for advice in two circumstances
    - No data will be returned that isn't allowed so there will be no risk of inappropriate data exposure
 2. During page rendering
    - Create/Edit/Delete tools will only appear when allowed
+
+To accomplish the second goal, Permissions must be included in any object who's content was controlled by it.
+
+It looks like an Interface should be designed so for any object that is controlled by permissions too. Just to make everything act the same for us poor programmers.
 
 ### Accessor abilities
 
@@ -58,6 +62,31 @@ The Helpers that operate on entities who's contents are controlled by Permission
          echo 'simple data display';
       }
     }
+ }
+```
+
+## An Interface For Shared Objects
+
+A good name for the Interface of objects who's contents are controlled by Permission might be `SharableInterface`. Just a first thought. I don't actually have a clear idea yet of what might be in this or who would implement it.
+
+Based on the requirements listed in [Thoughts on when Permission object take action](#thoughts-on-when-permission-object-take-action), we might expect Tables and Helpers. But with two classes of such different type, could a single interface work?
+
+```
+ SomeStackTable implements SharableInterface {
+
+   /**
+    * This might be the implementation method
+    */
+   protected function checkPermission($contextData) {
+      // Perhaps this would add query arguments?
+      return $result;
+   }
+
+   public function marshalSomeData($id, $stack) {
+      // prepare some query
+      $query = $this->checkPermission([$query, $otherContextData);
+      // additional processes
+   }
  }
 ```
 
