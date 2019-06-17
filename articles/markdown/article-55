@@ -46,7 +46,7 @@ It looks like an Interface should be designed so for any object that is controll
 
 ### Accessor abilities
 
-So there will be special requirements for the accessors in entities who's contents are controlled by Permission. They will need to handle situations where normally present data is mission.
+So there will be special requirements for the accessors in entities who's contents are controlled by Permission. They will need to handle situations where normally present data is missing.
 
 ### Helper abilities
 
@@ -109,7 +109,7 @@ Our previous helper example class would then change to something like this:
     * Tool availability may be under permissions control
     */
     public function renderTool($requiredContext) {
-      if ($this-checkPermission($requiredContext) {
+      if ($this->checkPermission($requiredContext) {
          echo 'tool for user';
       } else {
          echo 'simple data display';
@@ -119,4 +119,7 @@ Our previous helper example class would then change to something like this:
 ```
 
 I have no idea if something this generic could work as the interface's required method. But this should stimulate thinking about the issue. And it is clear that the Permission object should be generally available in the large StackEntities and Composite objects.
+
+---
+
 Topics: Stack, Layer, Studio Manager, Artist, Permission
