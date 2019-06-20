@@ -4,6 +4,8 @@ Rolodex Cards start from the simplest composite assembly around a Member record 
 
 ![Diagram showing the layers that are added to the entity structure by each subsiquent Table class](/img/images/image/f861007e-a713-441a-acdd-902a23df82ea/RolodexHeirarchy.png "Rolodex Table Heirarchy")
 
+**Diagram needs to be updated. Artist and User won't inherit**
+
 As can be seen in the diagram, every variety of Rolodex Card has an Identity (alias of Member) and may be a member of one or more groups, hence its Memberships layer. Finally, every card has a layer describing the owner of the record, a registered system User.
 
 This last layer may seem redundant or unnecessary but it is important to remember that a registered user may grant management rights to artist data. And in this process, they may provide entries from their address book to aid in the process. So the cards available at any given time may be from a mix of sources and have different editing and use permissions. (This directly contradicts the behavior described in [Manager Permission](/article/manager-permission "Manager Permission"))
