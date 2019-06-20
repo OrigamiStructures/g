@@ -2,11 +2,11 @@
 
 ## Foundation Concepts
 
-Stacks were first designed to provide a full-context promise to the view/template system. Eliminating the many just-enough-data controller actions of the past and the result that the templates generally received a variety of variables each containing part of the required data. The stack system was conceived to deliver one object with detailed access features and full context for all imaged uses of that objects data.
+Stacks were first designed to provide a full-context promise to the view/template system. The old style just-enough-data controller actions meant the templates generally received a variety of variables each containing part of the required data. They also spawned lots of complex, special-use query methods. The stack system was conceived to deliver one object with detailed access features and full context for all imagined uses of that objects data. And these objects were build by a simple and extensible StackTable object.
 
 ## Early Benefits
 
-With nothing but small proof-of-concept displays, the first versions of Stack objects seem promising as a solution to rendering. They decouple data access and reduce the number of variables to be managed in the templates.
+With nothing but small proof-of-concept displays, the first versions of Stack objects seem promising as a solution to rendering. They decouple data structures from view logic and reduce the number of variables to be managed in the templates.
 
 They also promise to make helpers and elements more portable by allowing these tools to operate from standardized objects rather than raw data in named variables.
 
@@ -24,15 +24,23 @@ All that contextual data can provide the basis for deploying the business rules 
 
 Some objects, like the ManifestStack which establishes a Supervisor/Artist/Manager contract, will contain control data (in this case Permissions). Those Permissions control what data of can be seen and how it can be acted on.
 
-### And shifting context requirements
-
-The Manifest stack will play a role in at least two different circumstances, from the Supervisors or the Managers perspective. And the object must act differently in each circumstance.
+The Manifest stack will also play a role in at least two different circumstances, from the Supervisors or the Managers perspective. And the object must act differently in each circumstance.
 
 ## Not as simple as first thought
 
 So the role of Stack objects is more nuanced than first imagined. This raises questions about how they should be designed and deployed.
 
-The simple one-stack-table-produces-one-full-context-stack-entity pattern is going to cause problems as more nuanced versions of the entities are needed. Continuing on this path will produce entities crammed with data and functionality that is only needed in special circumstances.
+The simple one-stackTable-produces-one-full-context-stackEntity pattern is going to cause problems as more nuanced versions of the entities are needed. Continuing on this path will produce entities crammed with data and functionality that is only needed in special circumstances.
 
 And if we start making more tailored stacks we're going to see an explosion of table classes to make them and entity classes to encapsulate them.
+
+We must also consider the data caching system. Stacks are costly to construct and so they are currently cached. New constructors and new types means new cache sets. Closely related types means overlapping cache data and a looming management nightmare. Not to mention, such an explosion of management processes would dilute the value of caching.
+
+## Make core stacks?
+
+One idea is to make and cache Core stacks. These are like the original full data context objects first imagined. But these would not be the end use objects. Each would have a set of Emitter methods. Those tools would construct the special circumstance objects required by API calls, render processes, and business logic.
+
+
+Topics: Studio Manager, Stack, Layer, Data Structure, 
+
 
