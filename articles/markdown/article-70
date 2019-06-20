@@ -55,13 +55,9 @@ On a first glance over the base set of creational patterns, Builder is closest t
 My notes on the excerpt say:
 
 > This sounds like a possible solution for recomposing CoreStack objects. 
-
 > Pass the transformation instruction set. 
-
 > The flavors of (for example) Manifest would be of similar structure. So subclasses of the builder class could guide the nuanced assembly.
-
 > Other Core stacks would have other builder hierarchies.
-
 > But all Builder classes could have a single ‘on switch’.
 
 Topics: Studio Manager, Stack, Layer, Data Structure, 
