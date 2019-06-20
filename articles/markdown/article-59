@@ -52,6 +52,8 @@ Participant objects are an idea that would remove the Disposition layer from Rol
 
 #### Dispositions and Tasks
 
+Build this out here: [Notifications and a Task System](/article/notifications-and-a-task-system "Notifications and a Task System")
+
 As I was building the ManifestStack and placing the three PersonCards in the stack (Supervisor, Manager, Artist) it felt like the dispositions in those cards was unnecessary weight. Those cards were place in the object for presentation tasks. Would we want to show disposition data along with name/location/contact? Unlikely.
 
 This is a tough question. Disposition data allows Institution and Person cards to be characterized in various ways (as collectors for example). This characterization could be important in organizing displays, highlighting important records, or filtering data.
