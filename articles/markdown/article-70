@@ -1,0 +1,15 @@
+# Core StackEntities vs DerivedStacks
+
+## Foundation Concepts
+
+Stacks were first designed to provide a full-context promise to the view/template system. Eliminating the many just-enough-data controller actions of the past and the result that the templates generally received a variety of variables each containing part of the required data. The stack system was conceived to deliver one object with detailed access features and full context for all imaged uses of that objects data.
+
+## Early Benefits
+
+With nothing but small proof-of-concept displays, the first versions of Stack objects seem promising as a solution to rendering. They decouple data access and reduce the number of variables to be managed in the templates.
+
+They also promise to make helpers and elements more portable by allowing these tools to operate from standardized objects rather than raw data in named variables.
+
+And, it appears they promote efforts to clean up the controller/model query mess that we've fallen victim to in the past.
+
+## Evolving Realities
