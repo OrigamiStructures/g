@@ -13,3 +13,26 @@ They also promise to make helpers and elements more portable by allowing these t
 And, it appears they promote efforts to clean up the controller/model query mess that we've fallen victim to in the past.
 
 ## Evolving Realities
+
+It's becoming clear though that these StackEntities will need to operate in the business logic domains of the system, not just as an adjunct to the rendering system.
+
+### Context for decisions
+
+All that contextual data can provide the basis for deploying the business rules we write. The objects are clearly going to need to provide an interface to address these needs along with an accessor interface to support rendering.
+
+### Presentation logic too
+
+Some objects, like the ManifestStack which establishes a Supervisor/Artist/Manager contract, will contain control data (in this case Permissions). Those Permissions control what data of can be seen and how it can be acted on.
+
+### And shifting context requirements
+
+The Manifest stack will play a role in at least two different circumstances, from the Supervisors or the Managers perspective. And the object must act differently in each circumstance.
+
+## Not as simple as first thought
+
+So the role of Stack objects is more nuanced than first imagined. This raises questions about how they should be designed and deployed.
+
+The simple one-stack-table-produces-one-full-context-stack-entity pattern is going to cause problems as more nuanced versions of the entities are needed. Continuing on this path will produce entities crammed with data and functionality that is only needed in special circumstances.
+
+And if we start making more tailored stacks we're going to see an explosion of table classes to make them and entity classes to encapsulate them.
+
