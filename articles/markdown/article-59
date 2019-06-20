@@ -1,14 +1,14 @@
 # Rolodex Cards: A Major Stack Heirarchy
 
-Rolodex Cards start from the simplest composite assembly around a Member record and proceed up to the most detailed and feature rich system User.
+Rolodex cards represent the various kinds of person, organization, and grouping Member record in the system.
 
 ![Diagram showing the layers that are added to the entity structure by each subsiquent Table class](/img/images/image/f861007e-a713-441a-acdd-902a23df82ea/RolodexHeirarchy.png "Rolodex Table Heirarchy")
 
 **Diagram needs to be updated. Artist and User won't inherit**
 
-As can be seen in the diagram, every variety of Rolodex Card has an Identity (alias of Member) and may be a member of one or more groups, hence its Memberships layer. Finally, every card has a layer describing the owner of the record, a registered system User.
+As can be seen in the diagram, every variety of Rolodex Card has an Identity (alias of Member) and may be a member of one or more groups, hence its Memberships layer. Finally, every card has a layer describing the owner of the record, a registered system User. (This may be moved to be the Supervisor, a different way of describing the User)
 
-This last layer may seem redundant or unnecessary but it is important to remember that a registered user may grant management rights to artist data. And in this process, they may provide entries from their address book to aid in the process. So the cards available at any given time may be from a mix of sources and have different editing and use permissions. (This directly contradicts the behavior described in [Manager Permission](/article/manager-permission "Manager Permission"))
+This last layer may seem unnecessary, and there is ongoing thought about possible security risks. Some form of this data is needed because a registered user may grant management rights to artist data. And in this process, they may provide entries from their address book to aid in the process. So the cards available at any given time may be from a mix of sources and have different editing and use permissions. (This directly contradicts the behavior described in [Manager Permission](/article/manager-permission "Manager Permission"))
 
 This basic card only serves as a platform. No concrete card type is fully described by it.
 
@@ -30,18 +30,30 @@ Organizations can also participate in Artwork Disposition events. Organizations 
 
 Person cards have all the features of Organization Cards except they cannot have members. They also add an Image to the data to allow a more personalized user experience.
 
-## Functional Types
+## Other objects that include RolodexCard instances
 
-The future of the last two concrete types, Artist and User, are uncertain because at this point there is a shift from 'presentational' to 'functional' cards. 
+Originally Artist and User were imaged to be subtypes of PersonCard. But it seems better that they compose in the needed PersonCard but don't extend the class. They will probably have mostly *behavioral/functional* roles in the system. The Cards will be *presentational* support objects for the most part.
 
-### Artist Cards
+### Artists
 
 Artist cards represent the Members that produce Artworks. These may be registered system Users or Artists may be created and managed by a system user that is not the person named in the Member/Artist record.
 
 Artist cards also name the Users authorized to manage their works. And they contain links to detailed information about the rights of those managers to view, create, and edit records for the artist.
 
-### User Cards
+### Supervisors
 
 These represent registered system users. It is likely that only one full card at a time and that one represents the active user. 
 
-The distillers for this card look unnecessary given this likely use of the record. more to be revealed.
+### Manager
+
+### Participant
+
+Participant objects are an idea that would remove the Disposition layer from RolodexCards.
+
+#### Dispositions and Tasks
+
+As I was building the ManifestStack and placing the three PersonCards in the stack (Supervisor, Manager, Artist) it felt like the dispositions in those cards was unnecessary weight. Those cards were place in the object for presentation tasks. Would we want to show disposition data along with name/location/contact? Unlikely.
+
+This is a tough question. Disposition data allows Institution and Person cards to be characterized in various ways (as collectors for example). This characterization could be important in organizing displays, highlighting important records, or filtering data.
+
+Also, if we have any task-management features (alerting the user to pending shows, shipments, or other obligations) those tasks would stem from Dispositions. Having dispositions generally available on the cards would make the tasks follow the relevant players.
