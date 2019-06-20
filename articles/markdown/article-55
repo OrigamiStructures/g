@@ -1,6 +1,6 @@
 # Manager Permission
 
-Management and general sharing of Address Book data is not allowed. Import/export features will be provided for Artists and Managers so they can share this data if they wish, but the system views this as private data belonging to the registered user that created it.
+Management and general sharing of Address Book data is not allowed. Import/export features will be provided for Artists and Managers so they can share this data if they wish, but the system views this as private data belonging to the registered user that created it. (This contradicts the behavior described in [Rolodex Cards: A Major Stack Heirarchy](/article/rolodex-cards-a-major-stack-heirarchy "Rolodex Cards: A Major Stack Heirarchy"))
 
 The address data that is stored in Dispositions is also controlled even in cases where a Manager or Artist has access to a disposition created by the other.
 
