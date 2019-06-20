@@ -2,9 +2,9 @@
 
 ## Stacks, rendering, and API delivery
 
-At the current point in the code I've written ArtworkStacks, all of the RolodexCard hierarchy (except Users), and the ArtistManifests.
+At the current point in the code I've written ArtworkStacks,  the RolodexCard hierarchy), and the ArtistManifests.
 
-I designed and wrote these from a presentation perspective; trying to solve the problem of delivering one predictable data object that was sufficient in any page rendering scenario we might have.
+I designed and wrote these from a *presentation perspective*; trying to solve the problem of delivering one predictable data object that was sufficient in any page rendering scenario we might have.
 
 These objects would then be convenient API delivery packages. We could use the API packages to reproduce system behavior in mobile apps and third parties would have objects that were comprehensive for a data structure. 
 With one or more, they would have enough data to create new behaviors in new environments.
@@ -21,7 +21,9 @@ Still, this is primarily data for presentation. We're just supporting a new laye
 
 [Also see Dispositions](/article/dispositions "Dispositions")
 
-Pieces have a small presentation footprint. In the case of a unique work, it feels to the user as though the piece is the whole story. Despite this illusion, only numbered pieces have any presentation data that traces back to a fixed, real world object. And that datum is just a simple identifying label, a number or short string.
+Pieces have a small presentation footprint. Their main role is *functional*; they serve to group and characterize dispositions. They also mingle editions (in the case of portfolios and other aggregate works).  
+
+In the case of a unique work, it feels to the user as though the artwork *is* the piece and all the information on the scree is piece information. Despite this illusion, only numbered pieces have any presentation data that traces back to a fixed, real world object. And that datum is just a simple identifying label, a number or short string.
 
 It is likely that a suite of images will accumulate in some cases to document the actual piece being represented. But as you'll see, this does not have to stay anchored through the logical chain `Image->link->Piece->label->real-world-object`.
 
