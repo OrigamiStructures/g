@@ -40,6 +40,12 @@ We must also consider the data caching system. Stacks are costly to construct an
 
 One idea is to make and cache Core stacks. These are like the original full data context objects first imagined. But these would not be the end use objects. Each would have a set of Emitter methods. Those tools would construct the special circumstance objects required by API calls, render processes, and business logic.
 
+So It looks like I'm needing one of the **Creational Patterns**:
+
+> “There are two recurring themes in these patterns. First, they all encapsulate knowledge about which concrete classes the system uses. Second, they hide how instances of these classes are created and put together. All the system at large knows about the objects is their interfaces as defined by abstract classes. Consequently, the creational patterns give you a lot of flexibility in what gets created, who creates it, how it gets created, and when. They let you configure a system with “product” objects that vary widely in structure and functionality. Configuration can be static (that is, specified at compile-time) or dynamic (at run-time).”
+
+> *Excerpt From: John Vlissides. “Design Patterns: Elements of Reusable Object-Oriented Software.” iBooks. https://books.apple.com/us/book/design-patterns-elements-reusable-object-oriented-software/id401430102*
+
 
 Topics: Studio Manager, Stack, Layer, Data Structure, 
 
