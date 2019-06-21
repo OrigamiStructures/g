@@ -42,11 +42,11 @@ One idea is to make and cache Core stacks. These are like the original full data
 
 So It looks like I'm needing one of the **Creational Patterns**:
 
-> “There are two recurring themes in these patterns. First, they all encapsulate knowledge about which concrete classes the system uses. Second, they hide how instances of these classes are created and put together. All the system at large knows about the objects is their interfaces as defined by abstract classes. Consequently, the creational patterns give you a lot of flexibility in what gets created, who creates it, how it gets created, and when. They let you configure a system with “product” objects that vary widely in structure and functionality. Configuration can be static (that is, specified at compile-time) or dynamic (at run-time).”
+> “There are two recurring themes in these patterns. First, they all encapsulate knowledge about which concrete classes the system uses. Second, they hide how instances of these classes are created and put together. All the system at large knows about the objects is their interfaces as defined by abstract classes. Consequently, the creational patterns give you a lot of flexibility in what gets created, who creates it, how it gets created, and when. They let you configure a system with “product” objects that vary widely in structure and functionality. Configuration can be static (that is, specified at compile-time) or dynamic (at run-time).”*
 
-> *Excerpt From: John Vlissides. “Design Patterns: Elements of Reusable Object-Oriented Software.” iBooks. https://books.apple.com/us/book/design-patterns-elements-reusable-object-oriented-software/id401430102*
+> Excerpt From: John Vlissides. “Design Patterns: Elements of Reusable Object-Oriented Software.” iBooks. https://books.apple.com/us/book/design-patterns-elements-reusable-object-oriented-software/id401430102
 
-On a first glance over the base set of creational patterns, Builder is closest to what I was imagining.
+*On a first glance over the base set of creational patterns, Builder is closest to what I was imagining.
 
 > “If CreateMaze is passed an object that can create a new maze in its entirety using operations for adding rooms, doors, and walls to the maze it builds, then you can use inheritance to change parts of the maze or the way the maze is built. This is an example of the Builder (97) pattern.”
 
