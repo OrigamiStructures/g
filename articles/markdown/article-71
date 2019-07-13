@@ -4,7 +4,7 @@ Excerpt from chat discussion
 
 >*Don Drake:*
 >>	Fascinating open source problem
->>	https://apple.news/Av2yttGYERAGTVOrfUNKBwA
+>>	[Mastadon article](https://apple.news/Av2yttGYERAGTVOrfUNKBwA)
 >>	Glad I don’t have to deal with it
 >>	But it gives pause. An api does create the possibility of public dissemination of stored content. How could that go wrong?
 >>	It’s all to easy to imagine ways
@@ -65,3 +65,5 @@ I actually see this distinction as a tool for policy making. Use of the site to 
 Since we are beginning with an assumption of Artist users, we can further assume that public dissemination of their work is a user goal. This could give us a way to make distinctions between private user data, and a user's desire to keep the pictorial documentation of their works secret.
 
 If we made some kind of content-policing policies, we would want to be very explicit about where specific data falls withing the privacy/secrecy boundaries.
+
+Topics: Clear Studio, Policy, 
