@@ -66,4 +66,16 @@ Since we are beginning with an assumption of Artist users, we can further assume
 
 If we made some kind of content-policing policies, we would want to be very explicit about where specific data falls withing the privacy/secrecy boundaries.
 
+## Site Use vs API Implementation
+
+Even if the site can be classified as something other than a content management and dissemination system, that may not be true for an API implementor's product. In fact, driving some 'works publication' process is a good candidate for an API use. 
+
+So third party developers could make ClearStudio party to illegal (or objectionable) behavior. This would have to be addressed in the policies.
+
+## Other Possible Abuses of ClearStudio
+
+A user could set up an illicit content sharing system by storing images as documentation of 'artwork' and then creating a series of Managers that could see the content.
+
+Addressing such unlikely, but technically possible, abuses is one goal of the policies.
+
 Topics: Clear Studio, Policy, 
