@@ -35,5 +35,13 @@ Using these terms, here are possible pages, the kind of manifests they focus on,
 - ManagedArtists
    - Choosing one of the listed artists takes this supervisor to a page where they can view and adjust details of their managers
 
+### Supervise/Manager
+
+- ManagedArtists for the single ManagementStaff
+
+### Supervise/Artist
+
+- ManagementStaff for the single ManagedArtist
+
 
 Topics: Studio Manager, Artist, Manager,
