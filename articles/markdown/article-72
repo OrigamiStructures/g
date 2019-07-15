@@ -4,11 +4,14 @@ This is a different way of exploring the ideas Jason was going to look at. His a
 
 ## Roles and possible names
 
+### General Classes of Manifests
+
 - A Manifest record identifying Supervisor/Manager/Artist
    - **ArtistManifest**
 - A Manifest record identifying only Supervisor/Manager
    - **ManagerManifest**
 
+### Manifests when used as Manager identifiers
 - A Manifest which names the user as Supervisor but not as Manager
    - AssignedManagers
    - **ManagementStaff** (preferred?)
@@ -16,6 +19,7 @@ This is a different way of exploring the ideas Jason was going to look at. His a
    - ManagementResponsibilities (preferred?)
    - AssignedResponsibilities
 
+### Manfests when used as Artist identifiers
 - Manifests that identify self-owned Artists
    - **OwnedArtists** (preferred?)
    - Artists
