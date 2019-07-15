@@ -45,6 +45,12 @@ Using these terms, here are possible pages, the kind of manifests they focus on,
       - From existing person
       - From person defined on the fly
 
+### Supervisor/index
+
+It's important to remember that this sequence of pages focuses on Artist data owned by this Supervisor, on Managers this Supervisor has granted permission to (including selfManagedAgreements), and on the ManagementAgreements for those Managers.
+
+These pages do not expose agreements extended to this user by other Supervisors (where this user is the Manager in the agreement).
+
 ### Supervise/Manager/:id
 
 - **ManagedArtists** for the single **ManagementStaff** (a set of **ManagementAgreements**)
