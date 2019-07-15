@@ -77,7 +77,11 @@ Also callable as `Supervise/Artist/:id/:id`. This page is accessible from multip
 - Allow changes to the Permission set
 	- This requires access to the full set of Artworks for this artist. Since the Supervisor may have limited their own Permission set to simplify their own Management duties, this case must ignore Permissions when pulling the ArtStack
 
+## Alternate organizing strategy
 
+Here is another way to try and think about this problem. These notes try to describe the display elements needed in different situations. What about functional elements?
+
+![Written notes atempting to describe the necessary display modules for manifests when view from different primary focuses in different contexts](/img/images/image/6e72f88f-cb0a-4ab2-9a4e-b19a10c33381/FullSizeRender.jpeg "Manifest Terminology")
 
 
 Topics: Studio Manager, Artist, Manager,
