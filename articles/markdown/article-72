@@ -10,17 +10,30 @@ This is a different way of exploring the ideas Jason was going to look at. His a
    - ManagerManifest
 - A Manifest which names the user as Supervisor but not as Manager
    - AssignedManagers
-   - ManagementStaff
+   - ManagementStaff (preferred?)
 - A Manifest which names the user as Manager, but not as Supervisor
-   - ManagementResponsibilities
+   - ManagementResponsibilities (preferred?)
    - AssignedResponsibilities
 - Manifests that identify self-owned Artists
-   - OwnedArtists
+   - OwnedArtists (preferred?)
    - Artists
+- Manifests that identify self-owned-artists that have assigned ManagementStaff
+   - ManagedArtists
 
 I don't think there would need to be a manifest to define self-as-manager because the record would not define anything that couldn't be assumed about the user. Manifests to define self-owned-artists on the other hand are required to define the artist (?)
 
 This may not actually be true. I think the self-owned-artists need manifests so handling of artists becomes normalized no matter which variety arrives in code. I wonder if manager manifests need to be generated for the same reason.
+
+## Organizing the pages
+
+Using these terms, here are possible pages, the kind of manifests they focus on, and what tasks they facilitate.
+
+## Supervisor Page
+
+- ManagementStaff
+   - Choosing one of the listed managers take this supervisor to a page where they can view and adjust the details of the assignments made to that manager
+- ManagedArtists
+   - Choosing one of the listed artists takes this supervisor to a page where they can view and adjust details of their managers
 
 
 Topics: Studio Manager, Artist, Manager,
