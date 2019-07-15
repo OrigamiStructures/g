@@ -8,16 +8,19 @@ This is a different way of exploring the ideas Jason was going to look at. His a
    - **ArtistManifest**
 - A Manifest record identifying only Supervisor/Manager
    - **ManagerManifest**
+
 - A Manifest which names the user as Supervisor but not as Manager
    - AssignedManagers
    - **ManagementStaff** (preferred?)
 - A Manifest which names the user as Manager, but not as Supervisor
    - ManagementResponsibilities (preferred?)
    - AssignedResponsibilities
+
 - Manifests that identify self-owned Artists
    - **OwnedArtists** (preferred?)
    - Artists
 - Manifests that identify self-owned-artists that have assigned **ManagementStaff**
+
    - **ManagedArtists**
 - The stack or page that explains the permissions and details of one Manager regarding one Artist
    - **ManagementAgreement**
