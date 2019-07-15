@@ -31,9 +31,9 @@ Using these terms, here are possible pages, the kind of manifests they focus on,
 ## Supervisor Page
 
 - ManagementStaff
-   - Choosing one of the listed managers take this supervisor to a page where they can view and adjust the details of the assignments made to that manager
+   - Choosing one of the listed managers take this supervisor [to a page](#supervise-manager) where they can view and adjust the details of the assignments made to that manager
 - ManagedArtists
-   - Choosing one of the listed artists takes this supervisor to a page where they can view and adjust details of their managers
+   - Choosing one of the listed artists takes this supervisor  [to a page](#supervise-artist)  where they can view and adjust details of their managers
 
 ### Supervise/Manager
 
