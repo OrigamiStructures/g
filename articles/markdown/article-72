@@ -12,11 +12,15 @@ This is a different way of exploring the ideas Jason was going to look at. His a
    - **ManagerManifest**
 
 ### Manifests when used as Manager identifiers
+- A Manifest which names the user as both Supervisor and Manager
+   - DefaultResponsibilities
+   - DefaultManagement
 - A Manifest which names the user as Supervisor but not as Manager
    - AssignedManagers
    - **ManagementStaff** (preferred?)
 - A Manifest which names the user as Manager, but not as Supervisor
-   - ManagementResponsibilities (preferred?)
+   - **ManagementResponsibilities** (preferred?)
+   - AssignedManagement
    - AssignedResponsibilities
 
 ### Manfests when used as Artist identifiers
