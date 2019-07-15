@@ -1,0 +1,26 @@
+# Manifest Terminology
+
+This is a different way of exploring the ideas Jason was going to look at. His approach is to define specific example relationships that could be described by Manifests.
+
+## Roles and possible names
+
+- A Manifest record identifying Supervisor/Manager/Artist
+   - ArtistManifest
+- A Manifest record identifying only Supervisor/Manager
+   - ManagerManifest
+- A Manifest which names the user as Supervisor but not as Manager
+   - AssignedManagers
+   - ManagementStaff
+- A Manifest which names the user as Manager, but not as Supervisor
+   - ManagementResponsibilities
+   - AssignedResponsibilities
+- Manifests that identify self-owned Artists
+   - OwnedArtists
+   - Artists
+
+I don't think there would need to be a manifest to define self-as-manager because the record would not define anything that couldn't be assumed about the user. Manifests to define self-owned-artists on the other hand are required to define the artist (?)
+
+This may not actually be true. I think the self-owned-artists need manifests so handling of artists becomes normalized no matter which variety arrives in code. I wonder if manager manifests need to be generated for the same reason.
+
+
+Topics: Studio Manager, Artist, Manager,
