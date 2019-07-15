@@ -19,6 +19,8 @@ This is a different way of exploring the ideas Jason was going to look at. His a
    - Artists
 - Manifests that identify self-owned-artists that have assigned ManagementStaff
    - ManagedArtists
+- The stack or page that explains the permissions and details of one Manager regarding one Artist
+   - ManagementAgreement
 
 I don't think there would need to be a manifest to define self-as-manager because the record would not define anything that couldn't be assumed about the user. Manifests to define self-owned-artists on the other hand are required to define the artist (?)
 
@@ -36,19 +38,31 @@ Using these terms, here are possible pages, the kind of manifests they focus on,
       - From existing person
       - From person defined on the fly
       - Respond to pending requests-to-manage that have been received (or are these emailed links that never appear in the system?)
+      - A list of pending recruitment offeres for reminder/deletion?
 - ManagedArtists
    - Choosing one of the listed artists takes this supervisor  [to a page](#supervise-artist)  where they can view and adjust details of their managers
    - A tool to identify a new artist
       - From existing person
       - From person defined on the fly
 
-### Supervise/Manager
+### Supervise/Manager/:id
 
 - ManagedArtists for the single ManagementStaff
+    - Each artist can be revoked from this page and is linked to the details of this management agreement
 
-### Supervise/Artist
+#### Supervise/Manager/Artist/:id/:id
+
+- Details of a single ManagementAgreement
+
+### Supervise/Artist/:id
 
 - ManagementStaff for the single ManagedArtist
+
+#### Supervise/Artist/Manager/:id/:id
+
+- Details of a single ManagementAgreement
+
+
 
 
 Topics: Studio Manager, Artist, Manager,
