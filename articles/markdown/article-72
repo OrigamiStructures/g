@@ -19,12 +19,15 @@ Managers can exist in 3 different flavors
    - **DefaultManagement** (preferred?)
    - OwnedManagement
 - A Manifest which names the user as Supervisor but not as Manager
+   - DelegatedManagers
    - AssignedManagers
    - **ManagementStaff** (preferred?)
+
 - A Manifest which names the user as Manager, but not as Supervisor
    - ManagementResponsibilities
    - **AssignedManagement** (preferred?)
    - AssignedResponsibilities
+   - ReceivedManagement
 
 ### Manfests when used as Artist identifiers
 Artists can exist in 3 different flavors
@@ -34,9 +37,11 @@ Artists can exist in 3 different flavors
    - OwnedArtists
    - Artists
 - Manifests that identify **DefaultArtists** that have assigned **ManagementStaff**
+   - DelegatedArtists
    - **ManagedArtists**
 - Manifest that identifies foreign artists as **AssignedManagement**
    - **AssignedArtist**
+   - ReceivedAritst
 
 ### A Generic, focused ManifestStack
 It is possible to think of the Stack as a generic object, regardless of its content
