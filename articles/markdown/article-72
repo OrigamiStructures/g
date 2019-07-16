@@ -18,10 +18,11 @@ Managers can exist in 3 different flavors
    - DefaultResponsibilities
    - **DefaultManagement** (preferred?)
    - OwnedManagement
+   
 - A Manifest which names the user as Supervisor but not as Manager
-   - DelegatedManagers
-   - AssignedManagers
-   - **ManagementStaff** (preferred?)
+   - **DelegatedManagement** (preferred?)
+   - AssignedManagement
+   - ManagementStaff
 
 - A Manifest which names the user as Manager, but not as Supervisor
    - ManagementResponsibilities
@@ -36,12 +37,12 @@ Artists can exist in 3 different flavors
    - **DefaultArtists
    - **OwnedArtists** (preferred?)
    - Artists
-- Manifests that identify **OwnedArtists** that have assigned **ManagementStaff**
+- Manifests that identify **OwnedArtists** that have **DelegatedManagement**
    - **DelegatedArtists** (preferred?)
    - ManagedArtists
-- Manifest that identifies foreign artists as **ReceivedManagement**
+- Manifest that identifies the artist in **ReceivedManagement**
    - AssignedArtist
-   - **ReceivedAritst**
+   - **ReceivedArtist**
 
 ### A Generic, focused ManifestStack
 It is possible to think of the Stack as a generic object, regardless of its content
@@ -65,13 +66,13 @@ It's important to remember that this sequence of pages focuses on Artist data ow
 
 These pages do not expose agreements extended to this user by other Supervisors (where this user is the Manager in the agreement).
 
-- **ManagementStaff**
+- **DelegatedManagement**
    - Choosing one of the listed managers take this supervisor [to a page](#supervise-manager) where they can view and adjust the details of the assignments made to that manager
    - A tool to recruit/acknowledge an new manager
       - From existing person
       - From person defined on the fly
       - Respond to pending requests-to-manage that have been received (or are these emailed links that never appear in the system?)
-      - A list of pending recruitment offeres for reminder/deletion?
+      - A list of pending recruitment offers for reminder/deletion?
 - **DelegatedArtists**
    - Choosing one of the listed artists takes this supervisor  [to a page](#supervise-artist)  where they can view and adjust details of this artist's managers
    - A tool to identify a new artist
@@ -80,7 +81,7 @@ These pages do not expose agreements extended to this user by other Supervisors 
 
 ### Supervise/Manager/:id
 
-- **DelegatedArtists** for the single **ManagementStaff** (a set of **ManagementAgreements**)
+- **DelegatedArtists** for the single **DelegatedManagement** (a set of **ManagementAgreements**)
 	- Adjustments to the **ManagerManifest** can be made on this page (CRUD and Contact Permission changes)
     - Each **ManagementAgreement** can be revoked from this page
 	- Allow navigation to a single **ManagementAgreement** [see Supervise/Manager/:id/Artist:id](#supervise-manager-id-artist-id)
@@ -90,7 +91,7 @@ These pages do not expose agreements extended to this user by other Supervisors 
 
 ### Supervise/Artist/:id
 
-- **ManagementStaff** for the single ManagedArtist (a set of **ManagementAgreements**)
+- **DelegatedManagement** for the single ManagedArtist (a set of **ManagementAgreements**)
 	- Adjustments to the **ManagerManifest** can be made on this page (CRUD and Contact Permission changes)
     - Each **ManagementAgreement** can be revoked from this page
 	- Allow navigation to a single **ManagementAgreement** [see Supervise/Manager/:id/Artist:id](#supervise-manager-id-artist-id)
