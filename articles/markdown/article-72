@@ -14,22 +14,26 @@ This is a different way of exploring the ideas Jason was going to look at. His a
 ### Manifests when used as Manager identifiers
 - A Manifest which names the user as both Supervisor and Manager
    - DefaultResponsibilities
-   - DefaultManagement
+   - **DefaultManagement**
 - A Manifest which names the user as Supervisor but not as Manager
    - AssignedManagers
    - **ManagementStaff** (preferred?)
 - A Manifest which names the user as Manager, but not as Supervisor
-   - **ManagementResponsibilities** (preferred?)
-   - AssignedManagement
+   - ManagementResponsibilities
+   - **AssignedManagement** (preferred?)
    - AssignedResponsibilities
 
 ### Manfests when used as Artist identifiers
 - Manifests that identify self-owned Artists
-   - **OwnedArtists** (preferred?)
+   - **DefaultArtists** (preferred?)
+   - OwnedArtists
    - Artists
-- Manifests that identify self-owned-artists that have assigned **ManagementStaff**
-
+- Manifests that identify **DefaultArtists** that have assigned **ManagementStaff**
    - **ManagedArtists**
+- Manifest that identifies foreign artists as **AssignedManagement**
+   - **AssignedArtist**
+
+### A Generic, focused ManifestStack
 - The stack or page that explains the permissions and details of one Manager regarding one Artist
    - **ManagementAgreement**
 
